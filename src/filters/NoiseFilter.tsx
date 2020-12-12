@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import React from 'react';
 import { useFilter, useFilterProps } from '../hooks';
-import { PixiFilter } from '.';
+import PixiFilter from './PixiFilter';
 import { NoiseFilterProps } from '../props';
 
 const FXAAFilter: React.FC<NoiseFilterProps> = (props) => {

@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useEffect, useReducer } from 'react';
 import { useFilter, useFilterProps } from '../hooks';
 import { AlphaFilterProps } from '../props';
 import { EffectContext, RenderingContext } from '../contexts';
-import { PixiFilter } from '.';
+import PixiFilter from './PixiFilter';
 import { EffectAction, EffectActionType, EffectState, EffectType, EffectValue } from '../types';
 
 const updateColorMatrix = (filter: PIXI.filters.ColorMatrixFilter, state: EffectState) => {

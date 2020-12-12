@@ -1,5 +1,5 @@
 import { PropValue } from '../types';
-import { PixiSpriteProps } from '.';
+import { PixiSpriteProps } from './PixiSpriteProps';
 
 export type TilingSpritePropsType = {
   clampMargin?: number;

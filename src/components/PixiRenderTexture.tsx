@@ -2,8 +2,8 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { defaultParentContext, ParentContext, RenderingContext } from '../contexts';
 import { useId, useTextureUpdate } from '../hooks';
-import { PixiHtmlContainer } from '.';
 import { PixiRenderTextureProps } from '../props';
+import PixiHtmlContainer from './PixiHtmlContainer';
 
 const PixiRenderTexture: React.FC<PixiRenderTextureProps> = ({ name, width, height, children }) => {
   const parentRenderContext = useContext(RenderingContext);

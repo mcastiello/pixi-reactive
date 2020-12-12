@@ -1,4 +1,4 @@
-import { EventListener } from '.';
+import { EventListener } from './EventTypes';
 
 export type GenericEventType = {
   onClick?: EventListener;

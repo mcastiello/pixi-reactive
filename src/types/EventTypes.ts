@@ -1,4 +1,4 @@
-import { GenericEventType } from '.';
+import { GenericEventType } from './GenericEventTypes';
 
 export type EventListener = (...args: any[]) => void;
 

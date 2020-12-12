@@ -1,7 +1,7 @@
 {
-  "name": "pixi-reactive-example",
+  "name": "pixi-reactive-docs",
   "homepage": ".",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",
@@ -9,7 +9,8 @@
     "test": "node ../node_modules/react-scripts/bin/react-scripts.js test",
     "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
   },
-  "dependencies": {
+  "devDependencies": {
+    "@babel/plugin-syntax-object-rest-spread": "^7.8.3",
     "@testing-library/jest-dom": "link:../node_modules/@testing-library/jest-dom",
     "@testing-library/react": "link:../node_modules/@testing-library/react",
     "@testing-library/user-event": "link:../node_modules/@testing-library/user-event",
@@ -17,15 +18,21 @@
     "@types/node": "link:../node_modules/@types/node",
     "@types/react": "link:../node_modules/@types/react",
     "@types/react-dom": "link:../node_modules/@types/react-dom",
+    "@types/react-virtualized-auto-sizer": "link:../node_modules/@types/react-virtualized-auto-sizer",
+    "@types/styled-components": "^5.1.2"
+  },
+  "dependencies": {
+    "framework7": "^5.7.2",
+    "framework7-icons": "^3.0.1",
+    "framework7-react": "^5.7.2",
+    "pixi-reactive": "link:..",
     "pixi.js": "link:../node_modules/pixi.js",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
-    "typescript": "link:../node_modules/typescript",
-    "pixi-reactive": "link:.."
-  },
-  "devDependencies": {
-    "@babel/plugin-syntax-object-rest-spread": "^7.8.3"
+    "react-virtualized-auto-sizer": "link:../node_modules/react-virtualized-auto-sizer",
+    "styled-components": "^5.1.1",
+    "typescript": "link:../node_modules/typescript"
   },
   "eslintConfig": {
     "extends": "react-app"

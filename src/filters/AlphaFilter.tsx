@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import React from 'react';
 import { useFilter, useFilterProps } from '../hooks';
 import { AlphaFilterProps } from '../props';
-import { PixiFilter } from '.';
+import PixiFilter from './PixiFilter';
 
 const AlphaFilter: React.FC<AlphaFilterProps> = (props) => {
   const filter = useFilter(new PIXI.filters.AlphaFilter());

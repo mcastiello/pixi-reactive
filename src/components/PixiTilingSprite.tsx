@@ -4,7 +4,7 @@ import { ParentContext } from '../contexts';
 import { useSpriteProps, useTexture, useTilingSpriteProps } from '../hooks';
 import { PixiTilingSpriteProps } from '../props';
 import { BlendModes } from '../types';
-import { PixiDisplayObject } from './index';
+import PixiDisplayObject from './PixiDisplayObject';
 
 const PixiTilingSprite: React.FC<PixiTilingSpriteProps> = (props) => {
   const { width, height } = useContext(ParentContext);

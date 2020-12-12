@@ -4,7 +4,7 @@ import { RenderingContext } from '../contexts';
 import { useFrames, useSpriteProps, useTexture, useFrameAnimation } from '../hooks';
 import { PixiAnimatedSpriteProps } from '../props';
 import { BlendModes } from '../types';
-import { PixiDisplayObject } from './index';
+import PixiDisplayObject from './PixiDisplayObject';
 
 const PixiAnimatedSprite: React.FC<PixiAnimatedSpriteProps> = (props) => {
   const [sprite] = useState(new PIXI.AnimatedSprite([PIXI.Texture.EMPTY], false));

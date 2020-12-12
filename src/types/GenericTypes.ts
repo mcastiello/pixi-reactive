@@ -1,4 +1,4 @@
-import { Rectangle } from '.';
+import { Rectangle } from './GraphicTypes';
 
 export enum CursorType {
   Auto = 'auto',

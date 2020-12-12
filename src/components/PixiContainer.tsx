@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { PixiContainerProps } from '../props';
-import { PixiDisplayObject } from './index';
+import PixiDisplayObject from './PixiDisplayObject';
 
 const PixiContainer: React.FC<PixiContainerProps> = (props) => {
   const [container] = useState(new PIXI.Container());

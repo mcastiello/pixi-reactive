@@ -4,7 +4,7 @@ import { ParentContext, RenderingContext } from '../contexts';
 import { useId, useSpriteProps, useTextureUpdate } from '../hooks';
 import { isAnimatedSprite, isSprite, PixiTextProps } from '../props';
 import { BlendModes, defaultTextStyle } from '../types';
-import { PixiDisplayObject } from './index';
+import PixiDisplayObject from './PixiDisplayObject';
 
 const PixiText: React.FC<PixiTextProps> = (props) => {
   const { name, anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;

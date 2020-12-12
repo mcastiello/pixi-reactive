@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="92086b4e-7b3b-44db-9e44-4781ee7bfb62" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/docs/src/Docs.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/src/views/Content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/src/views/SideBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/static/colors.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/static/colors.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/static/colors.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/static/colors.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/static/fast-stars.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/static/fast-stars.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/static/galaxy.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/static/galaxy.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/static/slow-stars.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/static/slow-stars.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/static/spaceship.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/static/spaceship.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/static/spritesheet.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/static/spritesheet.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/public/static/spritesheet.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/public/static/spritesheet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/react-app-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/react-app-env.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/setupTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/setupTests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/textures.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/src/textures.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PixiAnimatedSprite.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PixiAnimatedSprite.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PixiContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PixiContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PixiRenderTexture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PixiRenderTexture.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PixiSprite.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PixiSprite.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PixiText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PixiText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PixiTilingSprite.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PixiTilingSprite.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/filters/AlphaFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/filters/AlphaFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/filters/BlurFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/filters/BlurFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/filters/ColorMatrixFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/filters/ColorMatrixFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/filters/FXAAFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/filters/FXAAFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/filters/NoiseFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/filters/NoiseFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/props/PixiTextProps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/props/PixiTextProps.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/props/PixiTilingSpriteProps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/props/PixiTilingSpriteProps.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/EventTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/EventTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/GenericEventTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/GenericEventTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/GenericTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/GenericTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="showPreview" value="true" />
+  </component>
+  <component name="ProjectId" id="1lYDfXhFgW1hjYUsQ2WILy2mjtV" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/example/src" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/docs/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/example/src" />
+      <recent name="$PROJECT_DIR$/example/public" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="92086b4e-7b3b-44db-9e44-4781ee7bfb62" name="Default Changelist" comment="" />
+      <created>1607765234769</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607765234769</updated>
+      <workItem from="1607765240128" duration="6475000" />
+      <workItem from="1607773855918" duration="1589000" />
+      <workItem from="1607784543553" duration="1432000" />
+      <workItem from="1607790976360" duration="3711000" />
+      <workItem from="1607800604038" duration="2424000" />
+      <workItem from="1607803059489" duration="316000" />
+      <workItem from="1607803398973" duration="190000" />
+      <workItem from="1607803606892" duration="778000" />
+      <workItem from="1607804407247" duration="9999000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

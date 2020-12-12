@@ -1,0 +1,11 @@
+export { default as PixiCanvas } from './PixiCanvas';
+export { default as PixiDisplayObject } from './PixiDisplayObject';
+export { default as PixiHtmlContainer } from './PixiHtmlContainer';
+export { default as PixiContainer } from './PixiContainer';
+export { default as PixiTexture } from './PixiTexture';
+export { default as PixiSprite } from './PixiSprite';
+export { default as PixiTilingSprite } from './PixiTilingSprite';
+export { default as PixiAnimatedSprite } from './PixiAnimatedSprite';
+export { default as PixiText } from './PixiText';
+export { default as PixiMask } from './PixiMask';
+export { default as PixiCanvasTexture } from './PixiRenderTexture';

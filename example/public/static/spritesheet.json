@@ -1,0 +1,92 @@
+{"frames": {
+
+"bar.png":
+{
+	"frame": {"x":456,"y":45,"w":26,"h":20},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":20},
+	"sourceSize": {"w":26,"h":20}
+},
+"button.png":
+{
+	"frame": {"x":143,"y":171,"w":200,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":100},
+	"sourceSize": {"w":200,"h":100}
+},
+"enemy-missile.png":
+{
+	"frame": {"x":456,"y":1,"w":42,"h":24},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":24},
+	"sourceSize": {"w":42,"h":24}
+},
+"enemy-ship.png":
+{
+	"frame": {"x":345,"y":171,"w":140,"h":115},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":115},
+	"sourceSize": {"w":140,"h":115}
+},
+"fire.png":
+{
+	"frame": {"x":403,"y":1,"w":109,"h":51},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":149,"y":0,"w":109,"h":51},
+	"sourceSize": {"w":258,"h":51}
+},
+"large-missile.png":
+{
+	"frame": {"x":449,"y":112,"w":46,"h":30},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":30},
+	"sourceSize": {"w":46,"h":30}
+},
+"particle.png":
+{
+	"frame": {"x":403,"y":112,"w":44,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":44},
+	"sourceSize": {"w":44,"h":44}
+},
+"progress.png":
+{
+	"frame": {"x":1,"y":149,"w":400,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":400,"h":20},
+	"sourceSize": {"w":400,"h":20}
+},
+"spaceship.png":
+{
+	"frame": {"x":1,"y":171,"w":140,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":118},
+	"sourceSize": {"w":140,"h":118}
+},
+"title.png":
+{
+	"frame": {"x":1,"y":1,"w":400,"h":146},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":400,"h":146},
+	"sourceSize": {"w":400,"h":146}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGBA8888",
+	"size": {"w":486,"h":290},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:03cfd325efedab891c0c0cf35e5fec19:3cc9733ad42d18d62a46ad335499d75e:729adc6043343cfda41c447ce8f464d6$"
+}
+}

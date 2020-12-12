@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   PixiCanvas,
   PixiHtmlContainer,
@@ -11,6 +11,7 @@ import {
   AnimationContext,
   ParentContext,
   CursorType,
+  Overflow,
   ColorMatrixFilter,
   BlackAndWhiteEffect,
   BrightnessEffect
@@ -39,21 +40,23 @@ const Ship: React.FC = () => {
   }, [frameId, width]);
 
   return (
-    <PixiSprite
-      x={x}
-      y={height / 2}
-      anchorY={0.5}
-      interactive={true}
-      cursor={CursorType.Pointer}
-      texture={'spaceship'}
-      onClick={() => console.log(x)}
-    >
-      <ColorMatrixFilter>
-        <BlackAndWhiteEffect enabled={false} />
-        <BrightnessEffect amount={0.2} />
-      </ColorMatrixFilter>
-      <TestObject />
-    </PixiSprite>
+    <PixiHtmlContainer overflow={Overflow.None}>
+      <PixiSprite
+        x={x}
+        y={height / 2}
+        anchorY={0.5}
+        interactive={true}
+        cursor={CursorType.Pointer}
+        texture={'spaceship'}
+        onClick={() => console.log(x)}
+      >
+        <ColorMatrixFilter>
+          <BlackAndWhiteEffect enabled={false} />
+          <BrightnessEffect amount={0.2} />
+        </ColorMatrixFilter>
+        <TestObject />
+      </PixiSprite>
+    </PixiHtmlContainer>
   );
 };
 
@@ -107,7 +110,7 @@ const App = () => {
   }, []);
 
   return (
-    <PixiCanvas textures={Textures}>
+    <PixiCanvas textures={Textures} overflow={Overflow.None}>
       <Background src={'/static/galaxy.png'} speed={0.1} />
       <Background src={'/static/slow-stars.png'} speed={0.5} />
       <ScrollingText text={'scroll'} speed={1} />

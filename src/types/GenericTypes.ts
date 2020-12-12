@@ -39,6 +39,13 @@ export enum CursorType {
   ZoomOut = 'zoom-out'
 }
 
+export enum Overflow {
+  None,
+  Horizontal,
+  Vertical,
+  All
+}
+
 export enum GenericProps {
   Alpha = 'alpha',
   Angle = 'angle', // Rotation in degrees

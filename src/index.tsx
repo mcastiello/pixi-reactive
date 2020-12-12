@@ -46,5 +46,6 @@ export {
   TextGradient,
   TextAlign,
   CursorType,
-  Events
+  Events,
+  Overflow
 } from './types';

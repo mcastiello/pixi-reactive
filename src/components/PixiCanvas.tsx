@@ -4,24 +4,26 @@ import { PixiCanvasProps } from '../props';
 import AutoSizer, { Size } from 'react-virtualized-auto-sizer';
 import { useId, useAnimationContext, useRenderingContext, useSpeedContext, useTextureContext } from '../hooks';
 import { SpeedContext, AnimationContext, RenderingContext, ParentContext, TextureContext } from '../contexts';
-import { ParentContextType } from '../types';
+import { Overflow, ParentContextType } from '../types';
 
-const canvasDefaultStyle: CSSProperties = {
+const defaultStyle: CSSProperties = {
   position: 'relative',
   left: 0,
   right: 0,
-  margin: 0
-};
-
-const containerDefaultStyle: CSSProperties = {
-  position: 'relative',
-  width: '100%',
-  height: '100%',
   margin: 0,
   padding: 0
 };
 
-const PixiCanvas: React.FC<PixiCanvasProps> = ({ id, className, width, height, retina = false, textures = {}, children }) => {
+const PixiCanvas: React.FC<PixiCanvasProps> = ({
+  id,
+  className,
+  width,
+  height,
+  retina = false,
+  textures = {},
+  overflow = Overflow.All,
+  children
+}) => {
   const canvasId = useId(id);
 
   const speedContext = useSpeedContext();
@@ -29,6 +31,7 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({ id, className, width, height, r
   const renderingContext = useRenderingContext(canvasId, animationContext.frameId);
   const textureContext = useTextureContext(textures);
   const genericParentContext = useContext(ParentContext);
+  const [containerStyle, setContainerStyle] = useState<CSSProperties>(defaultStyle);
 
   const [parentContext, setParentContext] = useState<ParentContextType<PIXI.Container>>({
     ...genericParentContext,
@@ -46,39 +49,60 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({ id, className, width, height, r
     });
   }, [renderingContext.stage, renderingContext.width, renderingContext.height, genericParentContext]);
 
-  return (
-    <div style={containerDefaultStyle}>
-      <AutoSizer>
-        {(size: Size) => {
-          const multiplier = retina ? 2 : 1;
-          const parentWidth = size.width;
-          const parentHeight = size.height;
-          const containerWidth = width || parentWidth;
-          const containerHeight = height || parentHeight;
-          const canvasWidth = containerWidth * multiplier;
-          const canvasHeight = containerHeight * multiplier;
+  useEffect(() => {
+    const newStyle = { ...defaultStyle };
 
-          return (
-            <canvas
-              id={canvasId}
-              className={className}
-              width={canvasWidth}
-              height={canvasHeight}
-              style={{ ...canvasDefaultStyle, width: containerWidth, height: containerHeight }}
-            />
-          );
-        }}
-      </AutoSizer>
-      <TextureContext.Provider value={textureContext}>
-        <SpeedContext.Provider value={speedContext}>
-          <RenderingContext.Provider value={renderingContext}>
-            <AnimationContext.Provider value={animationContext}>
-              {renderingContext.stage && <ParentContext.Provider value={parentContext}>{children}</ParentContext.Provider>}
-            </AnimationContext.Provider>
-          </RenderingContext.Provider>
-        </SpeedContext.Provider>
-      </TextureContext.Provider>
-    </div>
+    switch (overflow) {
+      case Overflow.Horizontal:
+        newStyle.overflowY = 'hidden';
+        break;
+      case Overflow.Vertical:
+        newStyle.overflowX = 'hidden';
+        break;
+      case Overflow.None:
+        newStyle.overflow = 'hidden';
+    }
+
+    setContainerStyle(newStyle);
+  }, [width, height, overflow]);
+
+  return (
+    <TextureContext.Provider value={textureContext}>
+      <SpeedContext.Provider value={speedContext}>
+        <RenderingContext.Provider value={renderingContext}>
+          <AnimationContext.Provider value={animationContext}>
+            {renderingContext.stage && (
+              <ParentContext.Provider value={parentContext}>
+                <AutoSizer>
+                  {(size: Size) => {
+                    const multiplier = retina ? 2 : 1;
+                    const parentWidth = size.width;
+                    const parentHeight = size.height;
+                    const containerWidth = width || parentWidth;
+                    const containerHeight = height || parentHeight;
+                    const canvasWidth = containerWidth * multiplier;
+                    const canvasHeight = containerHeight * multiplier;
+
+                    return (
+                      <div className={'pixi-root'} style={{ ...containerStyle, width: containerWidth, height: containerHeight }}>
+                        <canvas
+                          id={canvasId}
+                          className={className}
+                          width={canvasWidth}
+                          height={canvasHeight}
+                          style={{ ...defaultStyle, width: containerWidth, height: containerHeight }}
+                        />
+                        {children}
+                      </div>
+                    );
+                  }}
+                </AutoSizer>
+              </ParentContext.Provider>
+            )}
+          </AnimationContext.Provider>
+        </RenderingContext.Provider>
+      </SpeedContext.Provider>
+    </TextureContext.Provider>
   );
 };
 

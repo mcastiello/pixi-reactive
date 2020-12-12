@@ -17,7 +17,7 @@ export type { EventListener, EventsType } from './EventTypes';
 export { AnimationActionType } from './AnimationContextTypes';
 export { RenderingContextAction } from './RenderingContextTypes';
 export { SpeedContextAction } from './SpeedContextTypes';
-export { CursorType, GenericProps } from './GenericTypes';
+export { CursorType, Overflow, GenericProps } from './GenericTypes';
 export { Events } from './EventTypes';
 export { BlendModes, BlendModesMap } from './BlendModesTypes';
 export {

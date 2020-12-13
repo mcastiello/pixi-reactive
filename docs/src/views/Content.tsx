@@ -1,21 +1,11 @@
-import { Icon, Link, View } from 'framework7-react';
-import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import { getBreadCrumbs, getComponentUrl, PageNavigation, Pages, routes } from '../pages';
+import { Icon, View } from 'framework7-react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { DispatchContext, getBreadCrumbs, getComponentUrl, Pages, PageState, routes } from '../pages';
+import { StyledLink, StyledContainer } from './StyledComponents';
 
-const StyledContainer = styled.div`
-  display: inline-block;
-  padding: 10px;
-  color: white;
-  vertical-align: top;
-`;
-
-const StyledLink = styled(Link)`
-  color: var(--link-color);
-`;
-
-const BreadCrumb: React.FC<PageNavigation> = ({ page, dispatch }) => {
+const BreadCrumb: React.FC<PageState> = ({ page }) => {
   const [crumbs, setCrumbs] = useState<Pages[]>([]);
+  const { dispatch } = useContext(DispatchContext);
 
   useEffect(() => {
     setCrumbs(getBreadCrumbs(page));
@@ -38,7 +28,7 @@ const BreadCrumb: React.FC<PageNavigation> = ({ page, dispatch }) => {
   );
 };
 
-const Content: React.FC<PageNavigation> = ({ page, dispatch }) => {
+const Content: React.FC<PageState> = ({ page }) => {
   const view = useRef<View>(null);
 
   useEffect(() => {
@@ -53,7 +43,7 @@ const Content: React.FC<PageNavigation> = ({ page, dispatch }) => {
 
   return (
     <StyledContainer>
-      <BreadCrumb page={page} dispatch={dispatch} />
+      <BreadCrumb page={page} />
       <View main url={getComponentUrl(page)} routes={routes} ref={view} animate={false} />
     </StyledContainer>
   );

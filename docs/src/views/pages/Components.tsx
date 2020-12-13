@@ -1,7 +1,9 @@
 import React from 'react';
+import { Pages } from '../../pages';
+import PageIndex from '../PageIndex';
 
 const Components: React.FC = () => {
-  return <div>Hello Components!</div>;
+  return <PageIndex page={Pages.Components} />;
 };
 
 export default Components;

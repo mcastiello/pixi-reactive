@@ -1,16 +1,11 @@
 import { AccordionContent, List, ListItem } from 'framework7-react';
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { getPageChildren, PageNavigation, Pages } from '../pages';
+import React, { useContext, useState } from 'react';
+import { StyledList } from './StyledComponents';
+import { DispatchContext, getPageChildren, Pages, PageState } from '../pages';
 
-const StyledList = styled(List)`
-  margin: 0;
-  min-width: 300px;
-  display: inline-block;
-`;
-
-const SideBar: React.FC<PageNavigation> = ({ page, dispatch }) => {
+const SideBar: React.FC<PageState> = ({ page }) => {
   const [sections] = useState<Pages[]>(() => getPageChildren(page));
+  const { dispatch } = useContext(DispatchContext);
 
   return (
     <StyledList accordionList>

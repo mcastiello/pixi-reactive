@@ -2,7 +2,7 @@ import Framework7 from 'framework7';
 import { Link, Navbar, NavLeft, NavRight, NavTitle, Page, Panel, View } from 'framework7-react';
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
-import { Pages, PageState } from './pages';
+import { Pages, PageState, DispatchContext } from './pages';
 import Content from './views/Content';
 import SideBar from './views/SideBar';
 
@@ -50,11 +50,11 @@ const Docs: React.FC = () => {
   }, [state, closeSideBar]);
 
   return (
-    <>
+    <DispatchContext.Provider value={{ dispatch }}>
       <Panel left backdrop cover opened={panelOpen} onPanelClosed={closeSideBar}>
         <View>
           <Page>
-            <SideBar page={Pages.Index} dispatch={dispatch} />
+            <SideBar page={Pages.Index} />
           </Page>
         </View>
       </Panel>
@@ -74,12 +74,12 @@ const Docs: React.FC = () => {
                 </Link>
               </NavRight>
             </Navbar>
-            {Framework7.device.desktop && <SideBar page={Pages.Index} dispatch={dispatch} />}
-            <Content {...state} dispatch={dispatch} />
+            {Framework7.device.desktop && <SideBar page={Pages.Index} />}
+            <Content {...state} />
           </Page>
         </Background>
       </View>
-    </>
+    </DispatchContext.Provider>
   );
 };
 

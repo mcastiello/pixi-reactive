@@ -1,3 +1,5 @@
+import React from 'react';
+
 export enum Pages {
   Index = 'Index',
   Components = 'Components',
@@ -63,7 +65,13 @@ export type PageState = {
   page: Pages;
 };
 
-export type PageNavigation = PageState & { dispatch: (page: Pages) => void };
+export type DispatchContext = {
+  dispatch: (page: Pages) => void;
+};
+
+export type PageIndexProps = PageState & {
+  showTitle?: boolean
+};
 
 export type BreadcrumbMap = Map<Pages, Pages>;
 
@@ -156,12 +164,17 @@ export const getBreadCrumbs = (page: Pages): Pages[] => {
   return list;
 };
 
-export const getComponentUrl = (page: Pages) => `/${getBreadCrumbs(page as Pages).join('/').toLowerCase()}/`;
+export const getComponentUrl = (page: Pages) =>
+  `/${getBreadCrumbs(page as Pages)
+    .join('/')
+    .toLowerCase()}/`;
 
 export const routes = Object.keys(Pages).map((page) => {
   return {
     name: page,
     path: getComponentUrl(page as Pages),
     asyncComponent: () => import(`./views/pages/${page}`)
-  }
+  };
 });
+
+export const DispatchContext = React.createContext<DispatchContext>({ dispatch: () => null });

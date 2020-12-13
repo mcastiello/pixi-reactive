@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
 import Framework7 from 'framework7';
 import { F7App, Link, Navbar, NavLeft, NavRight, NavTitle, Page, Panel, View } from 'framework7-react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
+import { Pages, PageState } from './pages';
 import Content from './views/Content';
 import SideBar from './views/SideBar';
 
@@ -28,16 +29,32 @@ const Logo = styled.img`
 
 const Docs: React.FC = () => {
   const [panelOpen, setPanelOpenSate] = useState(false);
+  const reducer = useCallback((state: PageState, page: Pages): PageState => ({ ...state, page }), []);
+  const [state, dispatch] = useReducer(reducer, { page: Pages.Index });
 
   const openSideBar = useCallback(() => setPanelOpenSate(true), []);
   const closeSideBar = useCallback(() => setPanelOpenSate(false), []);
+
+  useEffect(() => {
+    switch (state.page) {
+      case Pages.Index:
+      case Pages.Components:
+      case Pages.Filters:
+      case Pages.Effects:
+      case Pages.Contexts:
+      case Pages.Types:
+        break;
+      default:
+        closeSideBar();
+    }
+  }, [state, closeSideBar]);
 
   return (
     <F7App>
       <Panel left backdrop cover opened={panelOpen} onPanelClosed={closeSideBar}>
         <View>
           <Page>
-            <SideBar />
+            <SideBar page={Pages.Index} dispatch={dispatch} />
           </Page>
         </View>
       </Panel>
@@ -52,11 +69,13 @@ const Docs: React.FC = () => {
               </NavLeft>
               <Title>Pixi Reactive</Title>
               <NavRight>
-                <Logo alt={'Pixi Reactive'} src={'/static/pixi-reactive.png'} />
+                <Link onClick={() => dispatch(Pages.Index)}>
+                  <Logo alt={'Pixi Reactive'} src={'/static/pixi-reactive.png'} />
+                </Link>
               </NavRight>
             </Navbar>
-            {Framework7.device.desktop && <SideBar />}
-            <Content />
+            {Framework7.device.desktop && <SideBar page={Pages.Index} dispatch={dispatch} />}
+            <Content {...state} dispatch={dispatch} />
           </Page>
         </Background>
       </View>

@@ -1,10 +1,10 @@
 import { ReactText } from 'react';
-import { GenericEventType, GenericType, PixiTextStyle } from '../types';
+import { GenericEventType, GenericType, TextStyle } from '../types';
 import { SpritePropsType } from './PixiSpriteProps';
 
 export type PixiTextProps = GenericType &
   GenericEventType &
   SpritePropsType & {
-    style?: PixiTextStyle;
+    style?: TextStyle;
     children?: ReactText;
   };

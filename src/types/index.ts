@@ -6,7 +6,7 @@ export type { ParentContextType } from './ParentContextTypes';
 export type { RenderingContextType, RenderAction, RenderingContextState } from './RenderingContextTypes';
 export type { SpeedContextType, SpeedState, SpeedAction } from './SpeedContextTypes';
 export type { LoadResourceType, TextureContextType } from './TextureContextType';
-export type { PixiTextStyle } from './TextStyleTypes';
+export type { TextStyle } from './TextStyleTypes';
 export type { EffectValue, EffectAction, EffectState, EffectContextType } from './EffectTypes';
 export type { Rectangle } from './GraphicTypes';
 

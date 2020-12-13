@@ -57,7 +57,7 @@ export enum FontWeight {
   W900 = '900'
 }
 
-export type PixiTextStyle = {
+export type TextStyle = {
   align?: TextAlign;
   breakWords?: boolean;
   dropShadow?: boolean;
@@ -89,7 +89,7 @@ export type PixiTextStyle = {
   leading?: number;
 };
 
-export const defaultTextStyle: PixiTextStyle = {
+export const defaultTextStyle: TextStyle = {
   align: TextAlign.Left,
   breakWords: false,
   dropShadow: false,

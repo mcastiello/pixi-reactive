@@ -10,7 +10,7 @@ export {
   PixiText,
   PixiTilingSprite
 } from './components';
-export { AnimationContext, RenderingContext, ParentContext, EffectContext, TextureContext, SpeedContext } from './contexts';
+export { AnimationContext, RenderingContext, ParentContext, TextureContext, SpeedContext } from './contexts';
 export { BlurFilter, AlphaFilter, ColorMatrixFilter, FXAAFilter, NoiseFilter } from './filters';
 export {
   BlackAndWhiteEffect,
@@ -34,18 +34,18 @@ export {
   VintageEffect
 } from './filters/effects';
 export {
-  Rectangle,
   BlendModes,
-  PixiTextStyle,
-  FontWeight,
-  FontVariant,
-  FontStyle,
-  TextWhiteLine,
-  TextLineJoin,
-  TextBaseline,
-  TextGradient,
-  TextAlign,
   CursorType,
   Events,
-  Overflow
+  FontStyle,
+  FontVariant,
+  FontWeight,
+  Rectangle,
+  Overflow,
+  TextAlign,
+  TextBaseline,
+  TextGradient,
+  TextLineJoin,
+  TextStyle,
+  TextWhiteLine
 } from './types';

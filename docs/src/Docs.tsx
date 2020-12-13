@@ -1,5 +1,5 @@
 import Framework7 from 'framework7';
-import { F7App, Link, Navbar, NavLeft, NavRight, NavTitle, Page, Panel, View } from 'framework7-react';
+import { Link, Navbar, NavLeft, NavRight, NavTitle, Page, Panel, View } from 'framework7-react';
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { Pages, PageState } from './pages';
@@ -50,7 +50,7 @@ const Docs: React.FC = () => {
   }, [state, closeSideBar]);
 
   return (
-    <F7App>
+    <>
       <Panel left backdrop cover opened={panelOpen} onPanelClosed={closeSideBar}>
         <View>
           <Page>
@@ -58,7 +58,7 @@ const Docs: React.FC = () => {
           </Page>
         </View>
       </Panel>
-      <View main>
+      <View>
         <Background>
           <Page bgColor={'transparent'}>
             <Navbar bgColor={'white'}>
@@ -79,7 +79,7 @@ const Docs: React.FC = () => {
           </Page>
         </Background>
       </View>
-    </F7App>
+    </>
   );
 };
 

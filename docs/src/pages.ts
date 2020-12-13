@@ -155,3 +155,13 @@ export const getBreadCrumbs = (page: Pages): Pages[] => {
 
   return list;
 };
+
+export const getComponentUrl = (page: Pages) => `/${getBreadCrumbs(page as Pages).join('/').toLowerCase()}/`;
+
+export const routes = Object.keys(Pages).map((page) => {
+  return {
+    name: page,
+    path: getComponentUrl(page as Pages),
+    asyncComponent: () => import(`./views/pages/${page}`)
+  }
+});

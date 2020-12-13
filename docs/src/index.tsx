@@ -6,9 +6,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Framework7 from 'framework7/framework7.esm.bundle';
-import Framework7React from 'framework7-react';
+import Framework7React, { F7App } from 'framework7-react';
 import Docs from './Docs';
+import { routes } from './pages';
 
 Framework7.use(Framework7React);
 
-ReactDOM.render(<Docs />, document.getElementById('root'));
+ReactDOM.render(
+  <F7App
+    params={{
+      routes
+    }}
+  >
+    <Docs />
+  </F7App>,
+  document.getElementById('root')
+);

@@ -17,7 +17,7 @@ const SideBar: React.FC<PageNavigation> = ({ page, dispatch }) => {
       {sections.map((section) => {
         const pages = getPageChildren(section);
         return (
-          <ListItem key={section} accordionItem title={section} onAccordionOpen={() => dispatch(section)}>
+          <ListItem key={section} accordionItem title={section} onClick={() => dispatch(section)}>
             <AccordionContent themeDark>
               <List>
                 {pages.map((page) => (

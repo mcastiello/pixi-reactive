@@ -51,6 +51,7 @@ export enum Pages {
   FontStyle = 'FontStyle',
   FontVariant = 'FontVariant',
   FontWeight = 'FontWeight',
+  LoadResourceType = 'LoadResourceType',
   Rectangle = 'Rectangle',
   Overflow = 'Overflow',
   TextAlign = 'TextAlign',
@@ -70,7 +71,7 @@ export type DispatchContext = {
 };
 
 export type PageIndexProps = PageState & {
-  showTitle?: boolean
+  showTitle?: boolean;
 };
 
 export type BreadcrumbMap = Map<Pages, Pages>;
@@ -125,8 +126,9 @@ export const breadcrumbMap: BreadcrumbMap = new Map([
   [Pages.FontStyle, Pages.Types],
   [Pages.FontVariant, Pages.Types],
   [Pages.FontWeight, Pages.Types],
-  [Pages.Rectangle, Pages.Types],
+  [Pages.LoadResourceType, Pages.Types],
   [Pages.Overflow, Pages.Types],
+  [Pages.Rectangle, Pages.Types],
   [Pages.TextAlign, Pages.Types],
   [Pages.TextBaseline, Pages.Types],
   [Pages.TextGradient, Pages.Types],

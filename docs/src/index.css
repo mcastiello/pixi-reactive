@@ -14,4 +14,5 @@ code {
 :root {
   --background-color: #041a1a;
   --link-color: #277d36;
+  --table-odd-row-color: #2b2b2b;
 }

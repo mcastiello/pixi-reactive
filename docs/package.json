@@ -21,6 +21,7 @@
     "@types/styled-components": "^5.1.2"
   },
   "dependencies": {
+    "@types/react-syntax-highlighter": "^13.5.0",
     "framework7": "^5.7.2",
     "framework7-icons": "^3.0.1",
     "framework7-react": "^5.7.2",
@@ -29,6 +30,7 @@
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
+    "react-syntax-highlighter": "^15.4.3",
     "styled-components": "^5.1.1",
     "typescript": "link:../node_modules/typescript"
   },

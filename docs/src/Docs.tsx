@@ -1,31 +1,10 @@
 import Framework7 from 'framework7';
-import { Link, Navbar, NavLeft, NavRight, NavTitle, Page, Panel, View } from 'framework7-react';
+import { Link, Navbar, NavLeft, NavRight, Page, Panel, View } from 'framework7-react';
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
-import styled from 'styled-components';
 import { Pages, PageState, DispatchContext } from './pages';
+import { Background, StyledPage, Logo, Title } from './views/StyledComponents';
 import Content from './views/Content';
 import SideBar from './views/SideBar';
-
-const Background = styled.div`
-  width: 100%;
-  height: 100%;
-  background: var(--background-color);
-  position: absolute;
-`;
-
-const Title = styled(NavTitle)`
-  font-family: 'courier new', sans-serif;
-  top: 2px;
-  font-size: 26px;
-`;
-
-const Logo = styled.img`
-  margin-top: -6px;
-  right: 5px;
-  position: relative;
-  width: 50px;
-  height: 35px;
-`;
 
 const Docs: React.FC = () => {
   const [panelOpen, setPanelOpenSate] = useState(false);
@@ -60,7 +39,7 @@ const Docs: React.FC = () => {
       </Panel>
       <View>
         <Background>
-          <Page bgColor={'transparent'}>
+          <StyledPage bgColor={'transparent'}>
             <Navbar bgColor={'white'}>
               <NavLeft>
                 {!Framework7.device.desktop && (
@@ -75,8 +54,8 @@ const Docs: React.FC = () => {
               </NavRight>
             </Navbar>
             {Framework7.device.desktop && <SideBar page={Pages.Index} />}
-            <Content {...state} />
-          </Page>
+            <Content {...state} style={{ maxWidth: `calc(100% - ${Framework7.device.desktop ? '320px' : '0'})` }} />
+          </StyledPage>
         </Background>
       </View>
     </DispatchContext.Provider>

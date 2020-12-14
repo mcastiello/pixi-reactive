@@ -1,7 +1,7 @@
 import { Icon, View } from 'framework7-react';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, useContext, useEffect, useRef, useState } from 'react';
 import { DispatchContext, getBreadCrumbs, getComponentUrl, Pages, PageState, routes } from '../pages';
-import { StyledLink, StyledContainer } from './StyledComponents';
+import { StyledLink, StyledContainer, StyledContent } from './StyledComponents';
 
 const BreadCrumb: React.FC<PageState> = ({ page }) => {
   const [crumbs, setCrumbs] = useState<Pages[]>([]);
@@ -28,7 +28,7 @@ const BreadCrumb: React.FC<PageState> = ({ page }) => {
   );
 };
 
-const Content: React.FC<PageState> = ({ page }) => {
+const Content: React.FC<PageState & { style: CSSProperties }> = ({ page, style }) => {
   const view = useRef<View>(null);
 
   useEffect(() => {
@@ -42,9 +42,9 @@ const Content: React.FC<PageState> = ({ page }) => {
   }, [view, page]);
 
   return (
-    <StyledContainer>
+    <StyledContainer style={style}>
       <BreadCrumb page={page} />
-      <View main url={getComponentUrl(page)} routes={routes} ref={view} animate={false} />
+      <StyledContent main url={getComponentUrl(page)} routes={routes} ref={view} animate={false} />
     </StyledContainer>
   );
 };

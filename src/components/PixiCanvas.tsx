@@ -21,7 +21,9 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   height,
   retina = false,
   textures = {},
+  speed = 1,
   overflow = Overflow.All,
+  onUpdate,
   children
 }) => {
   const canvasId = useId(id);
@@ -32,6 +34,8 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   const textureContext = useTextureContext(textures);
   const genericParentContext = useContext(ParentContext);
   const [containerStyle, setContainerStyle] = useState<CSSProperties>(defaultStyle);
+
+  const { setSpeed } = speedContext;
 
   const [parentContext, setParentContext] = useState<ParentContextType<PIXI.Container>>({
     ...genericParentContext,
@@ -65,6 +69,16 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
 
     setContainerStyle(newStyle);
   }, [width, height, overflow]);
+
+  useEffect(() => {
+    if (typeof onUpdate === 'function') {
+      onUpdate();
+    }
+  }, [animationContext.frameId, onUpdate]);
+
+  useEffect(() => {
+    setSpeed(speed);
+  }, [speed, setSpeed]);
 
   return (
     <TextureContext.Provider value={textureContext}>

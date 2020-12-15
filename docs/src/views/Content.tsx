@@ -18,7 +18,7 @@ const BreadCrumb: React.FC<PageState> = ({ page }) => {
           return <span key={crumb}>{crumb}</span>;
         } else {
           return (
-            <StyledLink key={crumb} text={crumb} onClick={() => dispatch(crumb)}>
+            <StyledLink href={`#${getComponentUrl(crumb)}`} key={crumb} text={crumb} onClick={() => dispatch(crumb)}>
               <Icon slot={'after'} f7={'chevron_right'} color={'white'} size={12} />
             </StyledLink>
           );

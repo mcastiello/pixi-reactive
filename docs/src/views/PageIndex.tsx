@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { DispatchContext, getPageChildren, PageIndexProps } from '../pages';
+import { DispatchContext, getComponentUrl, getPageChildren, PageIndexProps } from '../pages';
 import { StyledIndexLink, StyledTitle } from './StyledComponents';
 
 const PageIndex: React.FC<PageIndexProps> = ({ page, showTitle = true }) => {
@@ -10,7 +10,7 @@ const PageIndex: React.FC<PageIndexProps> = ({ page, showTitle = true }) => {
     <>
       {showTitle && <StyledTitle>{`All ${page}`}</StyledTitle>}
       {pages.map((page) => (
-        <StyledIndexLink key={page} text={page} onClick={() => dispatch(page)} />
+        <StyledIndexLink href={`#${getComponentUrl(page)}`} key={page} text={page} onClick={() => dispatch(page)} />
       ))}
     </>
   );

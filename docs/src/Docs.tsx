@@ -49,7 +49,7 @@ const Docs: React.FC = () => {
               <Title>Pixi Reactive</Title>
               <NavRight>
                 <Link onClick={() => dispatch(Pages.Index)}>
-                  <Logo alt={'Pixi Reactive'} src={'/static/pixi-reactive.png'} />
+                  <Logo alt={'Pixi Reactive'} src={'/static/assets/pixi-reactive.png'} />
                 </Link>
               </NavRight>
             </Navbar>

@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { PixiCanvas, PixiTilingSprite, PixiSprite } from 'pixi-reactive';
 
 /**
- * List of textures. It supports image assets of JSON files created with TexturePacker
+ * List of textures. It supports image assets or JSON files created with TexturePacker
  */
 const textures = {
   galaxy: '/static/assets/galaxy.png',

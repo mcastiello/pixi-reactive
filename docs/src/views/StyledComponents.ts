@@ -1,4 +1,4 @@
-import { Link, List, NavTitle, Page, View } from 'framework7-react';
+import { Block, Link, List, NavTitle, Page, View } from 'framework7-react';
 import styled from 'styled-components';
 
 export const Background = styled.div`
@@ -57,6 +57,11 @@ export const StyledSectionTitle = styled.div`
   color: white;
 `;
 
+export const StyledIntroduction = styled(Block)`
+  font-size: 18px;
+  text-align: justify;
+`;
+
 export const StyledPage = styled(Page)`
   .page-content {
     display: flex;
@@ -66,10 +71,6 @@ export const StyledPage = styled(Page)`
 export const StyledContent = styled(View)`
   height: unset;
   max-width: 100%;
-`;
-
-export const StyledDescription = styled.div`
-  text-align: justify;
 `;
 
 export const StyledTableContainer = styled.div`

@@ -9,4 +9,5 @@ export type PixiCanvasProps = PixiHtmlContainerProps & {
   speed?: number;
   textures?: LoadResourceType;
   onUpdate?: () => void;
+  onAfterRender?: () => void;
 };

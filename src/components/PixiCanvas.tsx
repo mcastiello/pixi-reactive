@@ -24,6 +24,7 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   speed = 1,
   overflow = Overflow.All,
   onUpdate,
+  onAfterRender,
   children
 }) => {
   const canvasId = useId(id);
@@ -75,6 +76,12 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
       onUpdate();
     }
   }, [animationContext.frameId, onUpdate]);
+
+  useEffect(() => {
+    if (typeof onAfterRender === 'function') {
+      onAfterRender();
+    }
+  }, [renderingContext.renderId, onAfterRender]);
 
   useEffect(() => {
     setSpeed(speed);

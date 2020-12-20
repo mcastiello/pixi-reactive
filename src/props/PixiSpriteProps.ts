@@ -9,6 +9,8 @@ export type UpdatableTextureType = {
 };
 
 export type SpritePropsType = {
+  alignX?: number;
+  alignY?: number;
   anchorX?: number;
   anchorY?: number;
   blendMode?: BlendModes;
@@ -17,6 +19,8 @@ export type SpritePropsType = {
 };
 
 export enum SpriteProps {
+  AlignX = 'alignX',
+  AlignY = 'alignY',
   AnchorX = 'anchorX',
   AnchorY = 'anchorY',
   BlendMode = 'blendMode',

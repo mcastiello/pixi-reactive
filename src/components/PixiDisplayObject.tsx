@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
-import React, { PropsWithChildren } from 'react';
-import { ParentContext } from '../contexts';
+import React, { PropsWithChildren, useContext, useEffect } from 'react';
+import { AnimationContext, ParentContext, RenderingContext } from '../contexts';
 import { useDisplayObjectEvents, useId, useParentContext, useGenericProps, useElement } from '../hooks';
 import { PixiDisplayObjectProps } from '../props';
 import { CursorType, GenericEventType } from '../types';
@@ -8,7 +8,9 @@ import { CursorType, GenericEventType } from '../types';
 const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T extends PIXI.Container>(
   props: PropsWithChildren<PixiDisplayObjectProps<T>>
 ) => {
-  const { item, children } = props;
+  const { item, children, onUpdate, onAfterRender } = props;
+  const { frameId } = useContext(AnimationContext);
+  const { renderId } = useContext(RenderingContext);
   const element = useElement(item);
   const parentContext = useParentContext(element);
   const {
@@ -31,7 +33,9 @@ const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T e
     skewY = 0,
     width,
     height,
-    sortableChildren = PIXI.settings.SORTABLE_CHILDREN
+    sortableChildren = PIXI.settings.SORTABLE_CHILDREN,
+    hitArea,
+    filterArea
   } = props;
   const id = useId(name);
 
@@ -57,8 +61,22 @@ const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T e
     width,
     x,
     y,
-    zIndex
+    zIndex,
+    hitArea,
+    filterArea
   });
+
+  useEffect(() => {
+    if (typeof onUpdate === 'function') {
+      onUpdate();
+    }
+  }, [frameId, onUpdate]);
+
+  useEffect(() => {
+    if (typeof onAfterRender === 'function') {
+      onAfterRender();
+    }
+  }, [renderId, onAfterRender]);
 
   return <ParentContext.Provider value={parentContext}>{children}</ParentContext.Provider>;
 };

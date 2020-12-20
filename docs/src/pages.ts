@@ -151,8 +151,14 @@ export const getPageChildren = (page: Pages): Pages[] => {
   return list;
 };
 
+const crumbsCacheMap = new Map<Pages, Pages[]>();
+
 export const getBreadCrumbs = (page: Pages): Pages[] => {
   const list: Pages[] = [page];
+
+  if (crumbsCacheMap.has(page)) {
+    return crumbsCacheMap.get(page)!;
+  }
 
   while (true) {
     const parent = getParentPage(list[0]);
@@ -162,6 +168,8 @@ export const getBreadCrumbs = (page: Pages): Pages[] => {
       break;
     }
   }
+
+  crumbsCacheMap.set(page, list);
 
   return list;
 };

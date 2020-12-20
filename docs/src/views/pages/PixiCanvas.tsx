@@ -19,7 +19,10 @@ const props: PropsDefinition = [
   ['height', false, 'number', 'null', 'Height of the canvas'],
   ['retina', false, 'boolean', 'false', 'Whether to use a @2x canvas'],
   ['speed', false, 'number', '1', 'Speed at which the rendered animations will run'],
-  ['textures', false, 'LoadResourceType', '[]', 'List of textures that will be loaded by the Pixi Loader'],
+  ['textures', false, 'LoadResourceType', '[]', 'List of textures that will be loaded by the Pixi Loader']
+];
+
+export const renderEvents: PropsDefinition = [
   ['onUpdate', false, 'function', 'null', 'Callback executed at every animation frame'],
   ['onAfterRender', false, 'function', 'null', 'Callback executed after a frame has been rendered on the canvas']
 ];
@@ -84,6 +87,8 @@ const PixiCanvasDoc: React.FC = () => {
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />
+      <StyledSectionTitle>Event Callbacks</StyledSectionTitle>
+      <PropsTable props={renderEvents} />
     </>
   );
 };

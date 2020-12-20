@@ -1,11 +1,30 @@
 import { Block, Icon } from 'framework7-react';
 import React, { useContext } from 'react';
+import styled from 'styled-components';
 import { DispatchContext, getPageChildren, Pages } from '../pages';
 import { StyledTable, StyledLink, StyledTableContainer } from './StyledComponents';
 
 type PropDefinition = [string, boolean, string, string, string];
 export type PropsDefinition = PropDefinition[];
 const types = getPageChildren(Pages.Types);
+
+const StyledCode = styled.code`
+  background: rgba(100, 100, 100, 0.5);
+  padding: 0 5px;
+  border-radius: 2px;
+`;
+
+export const parseCode = (text: string) => {
+  const parts = text.split(/`/);
+
+  return parts.map((content, index) => {
+    if (index % 2 === 0) {
+      return <span key={index}>{content}</span>;
+    } else {
+      return <StyledCode key={index}>{content}</StyledCode>;
+    }
+  });
+};
 
 const PropsTable: React.FC<{ props: PropsDefinition }> = ({ props = [] }) => {
   const { dispatch } = useContext(DispatchContext);
@@ -41,7 +60,7 @@ const PropsTable: React.FC<{ props: PropsDefinition }> = ({ props = [] }) => {
                   <td>
                     <code>{prop[3]}</code>
                   </td>
-                  <td>{prop[4]}</td>
+                  <td>{parseCode(prop[4])}</td>
                 </tr>
               );
             })}

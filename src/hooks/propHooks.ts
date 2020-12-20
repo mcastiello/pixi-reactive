@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { RenderingContext } from '../contexts';
+import { ParentContext, RenderingContext } from '../contexts';
 import {
   AllFilterProps,
   FilterProps,
@@ -137,14 +137,30 @@ const updateGenericProps = <T extends PIXI.Container>(item: T, updatedProperties
   });
 };
 
-const updateSpriteProps = <T extends PIXI.Sprite>(item: T, updatedProperties?: SpritePropsMap) => {
+const updateSpriteProps = <T extends PIXI.Sprite>(item: T, updatedProperties?: SpritePropsMap, parentWidth = 0, parentHeight = 0) => {
   updatedProperties?.forEach((value, key) => {
     switch (key) {
       case SpriteProps.AnchorX:
-        item.anchor.x = value as number;
+        if (value) {
+          item.anchor.x = value as number;
+        }
         break;
       case SpriteProps.AnchorY:
-        item.anchor.y = value as number;
+        if (value) {
+          item.anchor.y = value as number;
+        }
+        break;
+      case SpriteProps.AlignX:
+        if (value) {
+          item.x = parentWidth * (value as number);
+          item.anchor.x = value as number;
+        }
+        break;
+      case SpriteProps.AlignY:
+        if (value) {
+          item.y = parentHeight * (value as number);
+          item.anchor.y = value as number;
+        }
         break;
       case SpriteProps.BlendMode:
         item.blendMode = BlendModesMap.get(value as BlendModes) || 0;
@@ -251,6 +267,7 @@ export const useGenericProps = <T extends PIXI.Container>(item: T, props: Generi
 
 export const useSpriteProps = <T extends PIXI.Sprite>(sprite: T, props: SpritePropsType) => {
   const { update } = useContext(RenderingContext);
+  const { width: parentWidth, height: parentHeight } = useContext(ParentContext);
   const [state] = useState(propsToMap(props));
   const [updatedProperties, setUpdatedProperties] = useState(state);
 
@@ -263,9 +280,9 @@ export const useSpriteProps = <T extends PIXI.Sprite>(sprite: T, props: SpritePr
   }, [props, state]);
 
   useEffect(() => {
-    updateSpriteProps(sprite, updatedProperties as SpritePropsMap);
+    updateSpriteProps(sprite, updatedProperties as SpritePropsMap, parentWidth, parentHeight);
     update();
-  }, [updatedProperties, update, sprite]);
+  }, [updatedProperties, update, sprite, parentWidth, parentHeight]);
 };
 
 export const useTilingSpriteProps = <T extends PIXI.TilingSprite>(sprite: T, props: TilingSpritePropsType) => {

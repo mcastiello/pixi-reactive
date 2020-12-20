@@ -9,7 +9,7 @@ import PixiDisplayObject from './PixiDisplayObject';
 const PixiAnimatedSprite: React.FC<PixiAnimatedSpriteProps> = (props) => {
   const [sprite] = useState(new PIXI.AnimatedSprite([PIXI.Texture.EMPTY], false));
   const { update } = useContext(RenderingContext);
-  const { anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
+  const { alignX = 0, alignY = 0, anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
   const { playing = false, resetOnStop = true, currentFrame = 0, fps = 60, onAnimationComplete } = props;
   const [frameId, setFrameId] = useState(currentFrame);
   const [initialFrame, setInitialFrame] = useState(0);
@@ -20,6 +20,8 @@ const PixiAnimatedSprite: React.FC<PixiAnimatedSpriteProps> = (props) => {
   const frame = useFrameAnimation(initialFrame, frameCount, fps, playing);
 
   useSpriteProps(sprite, {
+    alignX,
+    alignY,
     anchorX,
     anchorY,
     blendMode,

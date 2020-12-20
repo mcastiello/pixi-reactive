@@ -11,12 +11,14 @@ const PixiTilingSprite: React.FC<PixiTilingSpriteProps> = (props) => {
   const [tileWidth, setTileWidth] = useState(props.width || width);
   const [tileHeight, setTileHeight] = useState(props.height || height);
   const [sprite] = useState(new PIXI.TilingSprite(PIXI.Texture.EMPTY, tileWidth, tileHeight));
-  const { anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
+  const { alignX = 0, alignY = 0, anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
   const { clampMargin = 0.5, tileX = 0, tileY = 0, tileScaleX = 1, tileScaleY = 1, uvRespectAnchor = false } = props;
 
   useTexture(sprite, props.texture);
 
   useSpriteProps(sprite, {
+    alignX,
+    alignY,
     anchorX,
     anchorY,
     blendMode,

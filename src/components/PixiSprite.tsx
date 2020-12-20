@@ -7,11 +7,13 @@ import PixiDisplayObject from './PixiDisplayObject';
 
 const PixiSprite: React.FC<PixiSpriteProps> = (props) => {
   const [sprite] = useState(new PIXI.Sprite());
-  const { anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
+  const { alignX = 0, alignY = 0, anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
 
   useTexture(sprite, props.texture);
 
   useSpriteProps(sprite, {
+    alignX,
+    alignY,
     anchorX,
     anchorY,
     blendMode,

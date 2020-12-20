@@ -1,6 +1,11 @@
 import { EventListener } from './EventTypes';
 
-export type GenericEventType = {
+export type RenderingEventType = {
+  onUpdate?: () => void;
+  onAfterRender?: () => void;
+}
+
+export type GenericEventType = RenderingEventType & {
   onClick?: EventListener;
   onMouseDown?: EventListener;
   onMouseMove?: EventListener;

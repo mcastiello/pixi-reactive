@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { RenderingContext } from '../contexts';
 import { useFrames, useSpriteProps, useTexture, useFrameAnimation } from '../hooks';
+import { useAlignedPosition } from '../hooks/propHooks';
 import { PixiAnimatedSpriteProps } from '../props';
 import { BlendModes } from '../types';
 import PixiDisplayObject from './PixiDisplayObject';
@@ -9,7 +10,7 @@ import PixiDisplayObject from './PixiDisplayObject';
 const PixiAnimatedSprite: React.FC<PixiAnimatedSpriteProps> = (props) => {
   const [sprite] = useState(new PIXI.AnimatedSprite([PIXI.Texture.EMPTY], false));
   const { update } = useContext(RenderingContext);
-  const { alignX = 0, alignY = 0, anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
+  const { anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
   const { playing = false, resetOnStop = true, currentFrame = 0, fps = 60, onAnimationComplete } = props;
   const [frameId, setFrameId] = useState(currentFrame);
   const [initialFrame, setInitialFrame] = useState(0);
@@ -20,8 +21,6 @@ const PixiAnimatedSprite: React.FC<PixiAnimatedSpriteProps> = (props) => {
   const frame = useFrameAnimation(initialFrame, frameCount, fps, playing);
 
   useSpriteProps(sprite, {
-    alignX,
-    alignY,
     anchorX,
     anchorY,
     blendMode,
@@ -60,7 +59,9 @@ const PixiAnimatedSprite: React.FC<PixiAnimatedSpriteProps> = (props) => {
     }
   }, [frame, frameCount, playing, onAnimationComplete]);
 
-  return <PixiDisplayObject item={sprite} {...props} />;
+  useAlignedPosition(sprite, props);
+
+  return <PixiDisplayObject item={sprite} {...props} x={undefined} y={undefined} />;
 };
 
 export default PixiAnimatedSprite;

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { ParentContext, RenderingContext } from '../contexts';
 import { useId, useSpriteProps, useTextureUpdate } from '../hooks';
+import { useAlignedPosition } from '../hooks/propHooks';
 import { isAnimatedSprite, isSprite, PixiTextProps } from '../props';
 import { BlendModes, defaultTextStyle } from '../types';
 import PixiDisplayObject from './PixiDisplayObject';
@@ -52,8 +53,10 @@ const PixiText: React.FC<PixiTextProps> = (props) => {
 
   useTextureUpdate(texture);
 
+  useAlignedPosition(sprite, props);
+
   return isTextureMode ? null : (
-    <PixiDisplayObject item={sprite} {...props}>
+    <PixiDisplayObject item={sprite} {...props} x={undefined} y={undefined}>
       {null /* Avoiding passing down the tree the child text */}
     </PixiDisplayObject>
   );

@@ -1,5 +1,6 @@
 import { Block, Link, List, NavTitle, Page, View } from 'framework7-react';
 import styled from 'styled-components';
+import ComponentLink from './ComponentLink';
 
 export const Background = styled.div`
   width: 100%;
@@ -43,6 +44,9 @@ export const StyledLink = styled(Link)`
 export const StyledIndexLink = styled(StyledLink)`
   font-family: 'Courier New', sans-serif;
   font-size: 20px;
+`;
+
+export const IndexComponentLink = styled(ComponentLink)`
   display: block;
 `;
 

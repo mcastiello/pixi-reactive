@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { ParentContext } from '../contexts';
 import { useSpriteProps, useTexture, useTilingSpriteProps } from '../hooks';
+import { useAlignedPosition } from '../hooks/propHooks';
 import { PixiTilingSpriteProps } from '../props';
 import { BlendModes } from '../types';
 import PixiDisplayObject from './PixiDisplayObject';
@@ -11,14 +12,12 @@ const PixiTilingSprite: React.FC<PixiTilingSpriteProps> = (props) => {
   const [tileWidth, setTileWidth] = useState(props.width || width);
   const [tileHeight, setTileHeight] = useState(props.height || height);
   const [sprite] = useState(new PIXI.TilingSprite(PIXI.Texture.EMPTY, tileWidth, tileHeight));
-  const { alignX = 0, alignY = 0, anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
+  const { anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
   const { clampMargin = 0.5, tileX = 0, tileY = 0, tileScaleX = 1, tileScaleY = 1, uvRespectAnchor = false } = props;
 
   useTexture(sprite, props.texture);
 
   useSpriteProps(sprite, {
-    alignX,
-    alignY,
     anchorX,
     anchorY,
     blendMode,
@@ -43,7 +42,9 @@ const PixiTilingSprite: React.FC<PixiTilingSpriteProps> = (props) => {
     uvRespectAnchor
   });
 
-  return <PixiDisplayObject item={sprite} {...props} width={tileWidth} height={tileHeight} />;
+  useAlignedPosition(sprite, props);
+
+  return <PixiDisplayObject item={sprite} {...props} width={tileWidth} height={tileHeight} x={undefined} y={undefined} />;
 };
 
 export default PixiTilingSprite;

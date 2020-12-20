@@ -19,8 +19,6 @@ export type SpritePropsType = {
 };
 
 export enum SpriteProps {
-  AlignX = 'alignX',
-  AlignY = 'alignY',
   AnchorX = 'anchorX',
   AnchorY = 'anchorY',
   BlendMode = 'blendMode',

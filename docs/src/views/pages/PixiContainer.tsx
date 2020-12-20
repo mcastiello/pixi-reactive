@@ -69,7 +69,7 @@ const textures = {
   ship: '/static/assets/spaceship.png'
 };
 
-const PxiContainerExample: React.FC = () => {
+const PixiContainerExample: React.FC = () => {
   return (
     <PixiCanvas textures={textures}>
       <PixiTilingSprite texture={'galaxy'} />
@@ -83,7 +83,7 @@ const PxiContainerExample: React.FC = () => {
   );
 };
 
-const PxiContainerDoc: React.FC = () => {
+const PixiContainerDoc: React.FC = () => {
   return (
     <>
       <StyledTitle>PixiContainer</StyledTitle>
@@ -92,7 +92,7 @@ const PxiContainerDoc: React.FC = () => {
         scale) are applied to all its children and allow to create logical groups that can be handled together.
       </StyledIntroduction>
       <Block style={{ height: 300 }}>
-        <PxiContainerExample />
+        <PixiContainerExample />
       </Block>
       <Block>
         <CodeViewer src={'/static/examples/PixiContainerExample.tsx'} />
@@ -105,4 +105,4 @@ const PxiContainerDoc: React.FC = () => {
   );
 };
 
-export default PxiContainerDoc;
+export default PixiContainerDoc;

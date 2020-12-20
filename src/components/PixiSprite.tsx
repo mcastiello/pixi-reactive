@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { useSpriteProps, useTexture } from '../hooks';
+import { useAlignedPosition } from '../hooks/propHooks';
 import { PixiSpriteProps } from '../props';
 import { BlendModes } from '../types';
 import PixiDisplayObject from './PixiDisplayObject';
 
 const PixiSprite: React.FC<PixiSpriteProps> = (props) => {
   const [sprite] = useState(new PIXI.Sprite());
-  const { alignX = 0, alignY = 0, anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
+  const { anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
 
   useTexture(sprite, props.texture);
 
   useSpriteProps(sprite, {
-    alignX,
-    alignY,
     anchorX,
     anchorY,
     blendMode,
@@ -21,7 +20,9 @@ const PixiSprite: React.FC<PixiSpriteProps> = (props) => {
     tint
   });
 
-  return <PixiDisplayObject item={sprite} {...props} />;
+  useAlignedPosition(sprite, props);
+
+  return <PixiDisplayObject item={sprite} {...props} x={undefined} y={undefined} />;
 };
 
 export default PixiSprite;

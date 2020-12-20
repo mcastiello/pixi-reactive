@@ -8,7 +8,7 @@ type PropDefinition = [string, boolean, string, string, string];
 export type PropsDefinition = PropDefinition[];
 const types = getPageChildren(Pages.Types);
 
-const StyledCode = styled.code`
+export const StyledCode = styled.code`
   background: rgba(100, 100, 100, 0.5);
   padding: 0 5px;
   border-radius: 2px;

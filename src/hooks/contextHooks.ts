@@ -230,12 +230,17 @@ export const useParentContext = <T extends PIXI.Container>(parent: T): ParentCon
 
 const cleanName = (name: string) => name.replace(/(?:(\.\w+?$)|(_image$))/, '');
 
+const textureLoaded = new Map<string, boolean>();
+
+let loadedResources: TextureContextType = {};
+
 export const useTextureContext = (resources: LoadResourceType) => {
   const [loader] = useState(new PIXI.Loader());
   const reducer = useCallback((state: TextureContextType, action: TextureContextType): TextureContextType => {
-    return { ...state, ...action };
+    loadedResources = { ...loadedResources, ...state, ...action }
+    return loadedResources;
   }, []);
-  const [context, dispatch] = useReducer(reducer, {});
+  const [context, dispatch] = useReducer(reducer, loadedResources);
 
   const callback = useCallback(
     (loader: PIXI.Loader, resource: PIXI.LoaderResource) => {
@@ -267,10 +272,17 @@ export const useTextureContext = (resources: LoadResourceType) => {
   }, [loader, callback]);
 
   useEffect(() => {
+    let count = 0;
     Object.keys(resources).forEach((key) => {
-      loader.add(key, resources[key]);
+      if (!textureLoaded.get(key)) {
+        loader.add(key, resources[key]);
+        textureLoaded.set(key, true);
+        count++;
+      }
     });
-    loader.load();
+    if (count) {
+      loader.load();
+    }
   }, [resources, loader]);
 
   return context;

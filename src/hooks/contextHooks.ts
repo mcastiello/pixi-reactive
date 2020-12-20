@@ -237,7 +237,7 @@ let loadedResources: TextureContextType = {};
 export const useTextureContext = (resources: LoadResourceType) => {
   const [loader] = useState(new PIXI.Loader());
   const reducer = useCallback((state: TextureContextType, action: TextureContextType): TextureContextType => {
-    loadedResources = { ...loadedResources, ...state, ...action }
+    loadedResources = { ...loadedResources, ...state, ...action };
     return loadedResources;
   }, []);
   const [context, dispatch] = useReducer(reducer, loadedResources);
@@ -245,16 +245,21 @@ export const useTextureContext = (resources: LoadResourceType) => {
   const callback = useCallback(
     (loader: PIXI.Loader, resource: PIXI.LoaderResource) => {
       const resources: TextureContextType = {};
+      const cleanedName = cleanName(resource.name);
 
-      if (resource.texture) {
-        resources[cleanName(resource.name)] = resource.texture;
+      if (resource.texture && !loadedResources[cleanedName]) {
+        resources[cleanedName] = resource.texture;
       } else if (resource.textures) {
+        const frames: string[] = [];
         Object.keys(resource.textures).forEach((name) => {
           const texture = resource.textures ? resource.textures[name] : undefined;
           if (texture) {
-            resources[cleanName(name)] = texture;
+            const resourceName = cleanName(name);
+            resources[resourceName] = texture;
+            frames.push(resourceName);
           }
         });
+        resources[cleanedName] = frames;
       }
 
       dispatch(resources);

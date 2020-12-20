@@ -83,11 +83,13 @@ export const useFilter = <T extends PIXI.Filter>(item: T) => {
 export const useTexture = <T extends PIXI.Sprite>(sprite: T, textureName?: string) => {
   const context = useContext(TextureContext);
   const { update } = useContext(RenderingContext);
-  const [texture, setTexture] = useState<PIXI.Texture | undefined>(textureName ? context[textureName] : undefined);
+  const [texture, setTexture] = useState<PIXI.Texture | undefined>(
+    typeof textureName === 'string' && context[textureName] instanceof PIXI.Texture ? (context[textureName] as PIXI.Texture) : undefined
+  );
 
   useEffect(() => {
-    if (textureName) {
-      const loadedTexture = context[textureName];
+    if (typeof textureName === 'string' && context[textureName] instanceof PIXI.Texture) {
+      const loadedTexture = context[textureName] as PIXI.Texture;
 
       if (loadedTexture && loadedTexture !== texture) {
         setTexture(loadedTexture);
@@ -105,17 +107,24 @@ export const useTexture = <T extends PIXI.Sprite>(sprite: T, textureName?: strin
   }, [texture, sprite, update]);
 };
 
-export const useFrames = <T extends PIXI.AnimatedSprite>(sprite: T, frames: string[] = []): number => {
+export const useFrames = <T extends PIXI.AnimatedSprite>(sprite: T, frames: string[] | string = []): number => {
   const context = useContext(TextureContext);
   const { update } = useContext(RenderingContext);
   const [textures, setTextures] = useState<PIXI.Texture[]>([]);
 
   useEffect(() => {
     const textureList: PIXI.Texture[] = [];
-    frames.forEach((frameName) => {
+    let frameList: string[] = [];
+
+    if (Array.isArray(frames)) {
+      frameList = frames;
+    } else if (Array.isArray(context[frames])) {
+      frameList = context[frames] as string[];
+    }
+    frameList.forEach((frameName) => {
       const loadedTexture = context[frameName];
 
-      if (loadedTexture) {
+      if (loadedTexture instanceof PIXI.Texture) {
         textureList.push(loadedTexture);
       }
     });

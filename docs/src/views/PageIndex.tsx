@@ -9,7 +9,7 @@ const PageIndex: React.FC<PageIndexProps> = ({ page, showTitle = true }) => {
     <>
       {showTitle && <StyledTitle>{`All ${page}`}</StyledTitle>}
       {pages.map((page) => (
-        <IndexComponentLink page={page} />
+        <IndexComponentLink key={page} page={page} />
       ))}
     </>
   );

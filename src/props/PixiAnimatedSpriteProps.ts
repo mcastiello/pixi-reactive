@@ -7,7 +7,7 @@ export const isAnimatedSprite = (item: PIXI.Container): item is PIXI.AnimatedSpr
 };
 
 export type AnimatedSpriteProps = {
-  frames?: string[];
+  frames?: string[] | string;
   playing?: boolean;
   resetOnStop?: boolean;
   currentFrame?: number;

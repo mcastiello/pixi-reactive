@@ -51,11 +51,10 @@ const PixiAnimatedSprite: React.FC<PixiAnimatedSpriteProps> = (props) => {
 
   useEffect(() => {
     if (playing && !isNaN(frame)) {
-      if (frame === frameCount && onAnimationComplete && frameCount > 0) {
+      if (frame === frameCount - 1 && onAnimationComplete && frameCount > 0) {
         onAnimationComplete();
-      } else {
-        setFrameId(frame);
       }
+      setFrameId(frame);
     }
   }, [frame, frameCount, playing, onAnimationComplete]);
 

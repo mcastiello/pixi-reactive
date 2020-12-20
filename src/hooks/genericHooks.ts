@@ -107,29 +107,32 @@ export const useTexture = <T extends PIXI.Sprite>(sprite: T, textureName?: strin
   }, [texture, sprite, update]);
 };
 
-export const useFrames = <T extends PIXI.AnimatedSprite>(sprite: T, frames: string[] | string = []): number => {
+export const useFrames = <T extends PIXI.AnimatedSprite>(sprite: T, frames?: string[] | string): number => {
   const context = useContext(TextureContext);
   const { update } = useContext(RenderingContext);
   const [textures, setTextures] = useState<PIXI.Texture[]>([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const textureList: PIXI.Texture[] = [];
-    let frameList: string[] = [];
+    if (frames) {
+      const textureList: PIXI.Texture[] = [];
+      let frameList: string[] = [];
 
-    if (Array.isArray(frames)) {
-      frameList = frames;
-    } else if (Array.isArray(context[frames])) {
-      frameList = context[frames] as string[];
-    }
-    frameList.forEach((frameName) => {
-      const loadedTexture = context[frameName];
-
-      if (loadedTexture instanceof PIXI.Texture) {
-        textureList.push(loadedTexture);
+      if (Array.isArray(frames)) {
+        frameList = frames;
+      } else if (Array.isArray(context[frames])) {
+        frameList = context[frames] as string[];
       }
-    });
+      frameList.forEach((frameName) => {
+        const loadedTexture = context[frameName];
 
-    setTextures(textureList);
+        if (loadedTexture instanceof PIXI.Texture) {
+          textureList.push(loadedTexture);
+        }
+      });
+
+      setTextures(textureList);
+    }
   }, [context, frames]);
 
   useEffect(() => {
@@ -142,7 +145,11 @@ export const useFrames = <T extends PIXI.AnimatedSprite>(sprite: T, frames: stri
     }
   }, [textures, sprite, update]);
 
-  return textures.length;
+  useEffect(() => {
+    setCount(sprite.textures.length);
+  }, [sprite.textures]);
+
+  return count;
 };
 
 export const useTextureUpdate = (texture?: PIXI.Texture) => {
@@ -157,7 +164,7 @@ export const useTextureUpdate = (texture?: PIXI.Texture) => {
         if (emptyIndex >= 0) {
           parent.textures = [texture];
         } else {
-          parent.textures.push(texture);
+          parent.textures = [...parent.textures, texture];
         }
       }
       parent.texture = texture;
@@ -174,14 +181,14 @@ export const useFrameAnimation = (initialFrame: number, frameCount: number, fps:
     (state: AnimationState, action: AnimationAction): AnimationState => {
       let time, frame;
       const initialTime = initialFrame * (1000 / fps);
-      const duration = (1000 / fps) * (frameCount + 1);
+      const duration = (1000 / fps) * frameCount;
       if (isNaN(state.time) || isNaN(state.frame)) {
         action.type = AnimationActionType.Reset;
       }
       switch (action.type) {
         case AnimationActionType.Progress:
           time = (state.time + (action.value || 0)) % duration;
-          frame = Math.floor((time / 1000) * fps) % (frameCount + 1);
+          frame = Math.floor((time / 1000) * fps) % frameCount;
           return { time, frame };
         case AnimationActionType.Reset:
           if (state.time !== initialTime) {

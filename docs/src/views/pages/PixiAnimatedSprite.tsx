@@ -1,5 +1,5 @@
 import { Block } from 'framework7-react';
-import { PixiAnimatedSprite, PixiCanvas } from 'pixi-reactive';
+import { PixiAnimatedSprite, PixiCanvas, PixiTexture } from 'pixi-reactive';
 import React from 'react';
 import { Pages } from '../../pages';
 import CodeViewer from '../CodeViewer';
@@ -34,6 +34,19 @@ const PixiAnimatedSpriteExample: React.FC = () => {
   );
 };
 
+const PixiAnimatedSpriteColorsExample: React.FC = () => {
+  return (
+    <PixiCanvas>
+      <PixiAnimatedSprite alignX={0.5} alignY={0.5} playing={true} fps={4}>
+        <PixiTexture src={'/static/assets/blue.png'} />
+        <PixiTexture src={'/static/assets/green.png'} />
+        <PixiTexture src={'/static/assets/red.png'} />
+        <PixiTexture src={'/static/assets/yellow.png'} />
+      </PixiAnimatedSprite>
+    </PixiCanvas>
+  );
+};
+
 const PixiAnimatedSpriteDoc: React.FC = () => {
   return (
     <>
@@ -48,6 +61,12 @@ const PixiAnimatedSpriteDoc: React.FC = () => {
       </Block>
       <Block>
         <CodeViewer src={'/static/examples/PixiAnimatedSpriteExample.tsx'} />
+      </Block>
+      <Block style={{ height: 200 }}>
+        <PixiAnimatedSpriteColorsExample />
+      </Block>
+      <Block>
+        <CodeViewer src={'/static/examples/PixiAnimatedSpriteColorsExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

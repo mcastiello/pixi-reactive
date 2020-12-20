@@ -173,13 +173,13 @@ const updateTilingSpriteProps = <T extends PIXI.TilingSprite>(item: T, updatedPr
         item.tileScale.x = value as number;
         break;
       case TilingSpriteProps.TileScaleY:
-        item.tileScale.x = value as number;
+        item.tileScale.y = value as number;
         break;
       case TilingSpriteProps.TileX:
         item.tilePosition.x = value as number;
         break;
       case TilingSpriteProps.TileY:
-        item.tilePosition.x = value as number;
+        item.tilePosition.y = value as number;
         break;
       case TilingSpriteProps.UvRespectAnchor:
         item.uvRespectAnchor = value as boolean;

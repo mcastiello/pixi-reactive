@@ -7,6 +7,7 @@ export type { PixiTilingSpriteProps, TilingSpritePropsMap, TilingSpritePropsType
 export type { AnimatedSpriteProps, PixiAnimatedSpriteProps } from './PixiAnimatedSpriteProps';
 export type { PixiRenderTextureProps } from './PixiRenderTextureProps';
 export type { PixiTextProps } from './PixiTextProps';
+export type { PixiMaskProps } from './PixiMaskProps';
 export type {
   AllFilterProps,
   AbstractFilterProps,

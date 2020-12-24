@@ -1,12 +1,11 @@
 import { Block, Icon } from 'framework7-react';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { DispatchContext, getPageChildren, Pages } from '../pages';
 import { StyledTable, StyledLink, StyledTableContainer } from './StyledComponents';
 
 type PropDefinition = [string, boolean, string, string, string];
 export type PropsDefinition = PropDefinition[];
-const types = getPageChildren(Pages.Types);
 
 export const StyledCode = styled.code`
   background: rgba(100, 100, 100, 0.5);
@@ -28,6 +27,11 @@ export const parseCode = (text: string) => {
 
 const PropsTable: React.FC<{ props: PropsDefinition }> = ({ props = [] }) => {
   const { dispatch } = useContext(DispatchContext);
+  const [types, setTypes] = useState<Pages[]>([]);
+
+  useEffect(() => {
+    getPageChildren(Pages.Types).then(setTypes);
+  }, []);
 
   return (
     <Block>

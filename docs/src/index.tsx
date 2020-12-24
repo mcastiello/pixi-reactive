@@ -8,17 +8,19 @@ import ReactDOM from 'react-dom';
 import Framework7 from 'framework7/framework7.esm.bundle';
 import Framework7React, { F7App } from 'framework7-react';
 import Docs from './Docs';
-import { routes } from './pages';
+import { loadRoutes } from './pages';
 
 Framework7.use(Framework7React);
 
-ReactDOM.render(
-  <F7App
-    params={{
-      routes
-    }}
-  >
-    <Docs />
-  </F7App>,
-  document.getElementById('root')
-);
+loadRoutes().then((routes) => {
+  ReactDOM.render(
+    <F7App
+      params={{
+        routes
+      }}
+    >
+      <Docs routes={routes} />
+    </F7App>,
+    document.getElementById('root')
+  );
+})

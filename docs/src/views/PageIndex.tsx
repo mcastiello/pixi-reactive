@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
-import { getPageChildren, PageIndexProps } from '../pages';
+import React, { useEffect, useState } from 'react';
+import { getPageChildren, PageIndexProps, Pages } from '../pages';
 import { StyledTitle, IndexComponentLink } from './StyledComponents';
 
 const PageIndex: React.FC<PageIndexProps> = ({ page, showTitle = true }) => {
-  const [pages] = useState(getPageChildren(page));
+  const [pages, setPages] = useState<Pages[]>([]);
+
+  useEffect(() => {
+    getPageChildren(page).then(setPages);
+  }, [page])
 
   return (
     <>

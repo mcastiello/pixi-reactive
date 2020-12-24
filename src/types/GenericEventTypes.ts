@@ -1,8 +1,10 @@
+import { Size } from 'react-virtualized-auto-sizer';
 import { EventListener } from './EventTypes';
 
 export type RenderingEventType = {
   onUpdate?: () => void;
   onAfterRender?: () => void;
+  onResize?: (size: Size) => void;
 }
 
 export type GenericEventType = RenderingEventType & {

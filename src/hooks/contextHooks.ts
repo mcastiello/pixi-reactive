@@ -179,7 +179,7 @@ export const useParentContext = <T extends PIXI.Container>(parent: T): ParentCon
   const [width, setWidth] = useState(parentContext.width);
   const [height, setHeight] = useState(parentContext.height);
   const [left, top] = useRelativePosition((parent as unknown) as PIXI.Sprite | undefined);
-  const [transform, setTransform] = useState([1, 0, 0, 1, 0, 0]);
+  const [transform, setTransform] = useState<number[]|undefined>();
 
   useEffect(() => {
     if (parent) {

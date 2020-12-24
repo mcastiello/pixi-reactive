@@ -6,7 +6,7 @@ export type ParentContextType<T extends PIXI.Container> = {
   y: number;
   width: number;
   height: number;
-  transform: number[];
+  transform?: number[];
   top: number;
   left: number;
 };

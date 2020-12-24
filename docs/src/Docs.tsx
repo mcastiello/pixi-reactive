@@ -1,12 +1,12 @@
 import Framework7 from 'framework7';
 import { Link, Navbar, NavLeft, NavRight, Page, Panel, View } from 'framework7-react';
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
-import { Pages, PageState, DispatchContext } from './pages';
+import { Pages, PageState, DispatchContext, RouteType } from './pages';
 import { Background, StyledPage, Logo, Title } from './views/StyledComponents';
 import Content from './views/Content';
 import SideBar from './views/SideBar';
 
-const Docs: React.FC = () => {
+const Docs: React.FC<{ routes: RouteType[] }> = ({ routes }) => {
   const [panelOpen, setPanelOpenSate] = useState(false);
   const reducer = useCallback((state: PageState, page: Pages): PageState => ({ ...state, page }), []);
   const [state, dispatch] = useReducer(reducer, { page: Pages.Index });
@@ -54,7 +54,7 @@ const Docs: React.FC = () => {
               </NavRight>
             </Navbar>
             {Framework7.device.desktop && <SideBar page={Pages.Index} />}
-            <Content {...state} style={{ maxWidth: `calc(100% - ${Framework7.device.desktop ? '320px' : '0'})` }} />
+            <Content {...state} style={{ maxWidth: `calc(100% - ${Framework7.device.desktop ? '320px' : '0'})` }} routes={routes} />
           </StyledPage>
         </Background>
       </View>

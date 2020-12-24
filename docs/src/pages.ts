@@ -139,7 +139,7 @@ export const breadcrumbMap: BreadcrumbMap = new Map([
 
 export const getParentPage = (page: Pages): Pages | undefined => breadcrumbMap.get(page);
 
-export const getPageChildren = (page: Pages): Pages[] => {
+export const getPageChildren =  async (page: Pages): Promise<Pages[]> => {
   const list: Pages[] = [];
 
   breadcrumbMap.forEach((parent, child) => {
@@ -153,7 +153,7 @@ export const getPageChildren = (page: Pages): Pages[] => {
 
 const crumbsCacheMap = new Map<Pages, Pages[]>();
 
-export const getBreadCrumbs = (page: Pages): Pages[] => {
+export const getBreadCrumbs = async (page: Pages): Promise<Pages[]> => {
   const list: Pages[] = [page];
 
   if (crumbsCacheMap.has(page)) {
@@ -174,17 +174,33 @@ export const getBreadCrumbs = (page: Pages): Pages[] => {
   return list;
 };
 
-export const getComponentUrl = (page: Pages) =>
-  `/${getBreadCrumbs(page as Pages)
+export const getComponentUrl = async (page: Pages) =>
+  `/${(await getBreadCrumbs(page as Pages))
     .join('/')
     .toLowerCase()}/`;
 
-export const routes = Object.keys(Pages).map((page) => {
-  return {
-    name: page,
-    path: getComponentUrl(page as Pages),
-    asyncComponent: () => import(`./views/pages/${page}`)
-  };
-});
+export type RouteType = {
+  name: string,
+  path: string,
+  asyncComponent: () => Promise<any>
+}
+
+export const loadRoutes = async () => {
+  const pages = Object.keys(Pages)
+  const routes:RouteType[] = [];
+
+  for (let i=0; i<pages.length; i++) {
+    const page = pages[i] as Pages;
+    const path = await getComponentUrl(page);
+
+    routes.push({
+      name: page,
+      path,
+      asyncComponent: () => import(`./views/pages/${page}`)
+    })
+  }
+
+  return routes;
+}
 
 export const DispatchContext = React.createContext<DispatchContext>({ dispatch: () => null });

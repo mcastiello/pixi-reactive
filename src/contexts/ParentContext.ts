@@ -8,7 +8,6 @@ export const defaultParentContext: ParentContextType<PIXI.Container> = {
   y: 0,
   width: 0,
   height: 0,
-  transform: [1, 0, 0, 1, 0, 0],
   top: 0,
   left: 0
 };

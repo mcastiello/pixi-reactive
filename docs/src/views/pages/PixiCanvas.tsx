@@ -23,6 +23,7 @@ const props: PropsDefinition = [
 ];
 
 export const renderEvents: PropsDefinition = [
+  ['onResize', false, 'function', 'null', 'Callback executed when the canvas is resized'],
   ['onUpdate', false, 'function', 'null', 'Callback executed at every animation frame'],
   ['onAfterRender', false, 'function', 'null', 'Callback executed after a frame has been rendered on the canvas']
 ];

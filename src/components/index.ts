@@ -3,6 +3,7 @@ export { default as PixiDisplayObject } from './PixiDisplayObject';
 export { default as PixiHtmlContainer } from './PixiHtmlContainer';
 export { default as PixiContainer } from './PixiContainer';
 export { default as PixiTexture } from './PixiTexture';
+export { default as PixiRenderTexture } from './PixiRenderTexture';
 export { default as PixiSprite } from './PixiSprite';
 export { default as PixiTilingSprite } from './PixiTilingSprite';
 export { default as PixiAnimatedSprite } from './PixiAnimatedSprite';

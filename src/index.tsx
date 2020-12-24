@@ -1,6 +1,7 @@
 export {
   PixiHtmlContainer,
   PixiTexture,
+  PixiRenderTexture,
   PixiContainer,
   PixiCanvas,
   PixiAnimatedSprite,

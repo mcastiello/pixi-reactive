@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { useId, useTextureUpdate } from '../hooks';
 import { PixiTextureProps } from '../props';
 
-const PixiTexture: React.FC<PixiTextureProps> = ({ name, src }) => {
+const PixiTexture: React.FC<PixiTextureProps> = ({ name, src, onLoad }) => {
   const [texture, setTexture] = useState<PIXI.Texture | undefined>();
   const textureId = useId(name);
 
+  const loadCallback = useCallback((loadedTexture: PIXI.Texture) => {
+    setTexture(loadedTexture);
+    if (onLoad) {
+      onLoad();
+    }
+  }, [onLoad])
+
   useEffect(() => {
-    PIXI.Texture.fromURL(src).then((loadedTexture) => setTexture(loadedTexture));
-  }, [src]);
+    PIXI.Texture.fromURL(src).then(loadCallback);
+  }, [src, loadCallback]);
 
   useEffect(() => {
     texture?.textureCacheIds.splice(0);

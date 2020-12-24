@@ -7,7 +7,7 @@ import ComponentLink from '../ComponentLink';
 import PropsTable, { PropsDefinition } from '../PropsTable';
 import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledComponents';
 
-export const maskProps: PropsDefinition = [
+const maskProps: PropsDefinition = [
   ['enabled', false, 'boolean', 'true', 'Whether the mask is applied to the element or not'],
   ['texture', false, 'string', 'null', 'Name of the texture to be used']
 ];

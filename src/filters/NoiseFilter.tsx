@@ -13,7 +13,7 @@ const FXAAFilter: React.FC<NoiseFilterProps> = (props) => {
     seed
   });
 
-  return <PixiFilter item={filter} {...props} />;
+  return <PixiFilter item={filter} {...props} enabled={undefined} />;
 };
 
 export default FXAAFilter;

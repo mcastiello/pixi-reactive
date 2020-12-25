@@ -50,7 +50,7 @@ const ColorMatrixFilterDoc: React.FC = () => {
         please refer to the <ComponentLink page={Pages.Effects} /> section.
       </StyledIntroduction>
       <Block style={{ textAlign: 'right' }}>
-        <span style={{ marginRight: 10 }}>{'Toggle Mask'}</span>
+        <span style={{ marginRight: 10 }}>{'Toggle Filter'}</span>
         <Toggle defaultChecked onChange={toggle} />
       </Block>
       <Block style={{ height: 300 }}>

@@ -4,7 +4,7 @@ import { EffectContext } from '../../contexts';
 import { GreyScaleEffectProps } from '../../props';
 import { EffectType } from '../../types';
 
-const GreyScaleEffect: React.FC<GreyScaleEffectProps> = ({ multiply = true, enabled = true, scale = 0.5 }) => {
+const GreyScaleEffect: React.FC<GreyScaleEffectProps> = ({ multiply = true, enabled = true, amount = 0.5 }) => {
   const [id] = useState(v4());
   const { updateEffect, removeEffect } = useContext(EffectContext);
 
@@ -14,13 +14,13 @@ const GreyScaleEffect: React.FC<GreyScaleEffectProps> = ({ multiply = true, enab
       multiply,
       enabled,
       effect: EffectType.GreyScale,
-      params: [scale]
+      params: [amount]
     });
 
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect, scale]);
+  }, [id, multiply, enabled, updateEffect, removeEffect, amount]);
 
   return null;
 };

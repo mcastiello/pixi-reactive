@@ -48,7 +48,7 @@ const BlurFilterDoc: React.FC = () => {
         <StyledCode>blurY</StyledCode>) or on both at the sa time (<StyledCode>blur</StyledCode>)
       </StyledIntroduction>
       <Block style={{ textAlign: 'right' }}>
-        <span style={{ marginRight: 10 }}>{'Toggle Mask'}</span>
+        <span style={{ marginRight: 10 }}>{'Toggle Filter'}</span>
         <Toggle defaultChecked onChange={toggle} />
       </Block>
       <Block style={{ height: 300 }}>

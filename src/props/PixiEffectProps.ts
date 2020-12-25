@@ -18,17 +18,13 @@ export type ColorToneProps = EffectProps & {
 
 export type ContrastEffectProps = EffectProps & AmountValueEffect;
 
-export type GreyScaleEffectProps = EffectProps & {
-  scale?: number;
-};
+export type GreyScaleEffectProps = EffectProps & AmountValueEffect;
 
 export type HueEffectProps = EffectProps & {
   rotation?: number;
 };
 
-export type NightEffectProps = EffectProps & {
-  intensity?: number;
-};
+export type NightEffectProps = EffectProps & AmountValueEffect;
 
 export type PredatorEffectProps = EffectProps & AmountValueEffect;
 

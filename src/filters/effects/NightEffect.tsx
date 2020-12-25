@@ -4,7 +4,7 @@ import { EffectContext } from '../../contexts';
 import { NightEffectProps } from '../../props';
 import { EffectType } from '../../types';
 
-const NightEffect: React.FC<NightEffectProps> = ({ multiply = true, enabled = true, intensity = 0 }) => {
+const NightEffect: React.FC<NightEffectProps> = ({ multiply = true, enabled = true, amount = 0.5 }) => {
   const [id] = useState(v4());
   const { updateEffect, removeEffect } = useContext(EffectContext);
 
@@ -14,13 +14,13 @@ const NightEffect: React.FC<NightEffectProps> = ({ multiply = true, enabled = tr
       multiply,
       enabled,
       effect: EffectType.Night,
-      params: [intensity]
+      params: [amount]
     });
 
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect, intensity]);
+  }, [id, multiply, enabled, updateEffect, removeEffect, amount]);
 
   return null;
 };

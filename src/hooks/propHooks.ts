@@ -275,15 +275,27 @@ export const useSpriteProps = <T extends PIXI.Sprite>(sprite: T, props: SpritePr
 export const useAlignedPosition = <T extends PIXI.Sprite>(sprite: T, props: GenericType & SpritePropsType) => {
   const { update } = useContext(RenderingContext);
   const { width: parentWidth, height: parentHeight } = useContext(ParentContext);
-  const { x = 0, y = 0, alignX = 0, alignY = 0 } = props;
+  const { x = 0, y = 0, alignX, alignY } = props;
 
   useEffect(() => {
-    sprite.x = parentWidth * alignX + x;
-    sprite.y = parentHeight * alignY + y;
-    sprite.anchor.x = alignX;
-    sprite.anchor.y = alignY;
+    if (alignX) {
+      sprite.x = parentWidth * alignX + x;
+      sprite.anchor.x = alignX;
+    } else {
+      sprite.x = x;
+    }
     update();
-  }, [update, sprite, parentWidth, parentHeight, x, y, alignX, alignY]);
+  }, [update, sprite, parentWidth, x, alignX]);
+
+  useEffect(() => {
+    if (alignY) {
+      sprite.y = parentHeight * alignY + y;
+      sprite.anchor.y = alignY;
+    } else {
+      sprite.y = y;
+    }
+    update();
+  }, [update, sprite, parentHeight, y, alignY]);
 };
 
 export const useTilingSpriteProps = <T extends PIXI.TilingSprite>(sprite: T, props: TilingSpritePropsType) => {

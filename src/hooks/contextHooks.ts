@@ -61,7 +61,7 @@ export const useAnimationContext = (speed: number): AnimationContextType => {
 
         return {
           frameId: frameId + 1,
-          elapsed: PIXI.Ticker.shared.deltaMS,
+          elapsed: PIXI.Ticker.shared.deltaMS * speed,
           fps: latestFps,
           history: fpsHistory,
           averageFps: Math.round(fpsHistory.reduce((a, b) => a + b, 0) / fpsHistory.length),
@@ -322,7 +322,7 @@ export const usePointerContext = (retina: boolean) => {
           return state;
         }
       case PointerContextActionType.UpdatePosition:
-        if (state.over && action.x && action.y && action.x !== state.x && action.y !== state.y) {
+        if (state.over && action.x && action.y && (action.x !== state.x || action.y !== state.y)) {
           return { x: action.x, y: action.y, over: true };
         } else {
           return state;

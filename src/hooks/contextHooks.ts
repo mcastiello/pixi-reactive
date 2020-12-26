@@ -13,7 +13,7 @@ import {
   LoadResourceType,
   TextureContextType
 } from '../types';
-import { initialSpeedState, ParentContext, AnimationContext } from '../contexts';
+import { initialSpeedState, ParentContext, AnimationContext, RenderingContext } from '../contexts';
 import * as PIXI from 'pixi.js';
 import { PointerContextAction, PointerContextActionType, PointerContextType } from '../types/PointerContextType';
 import { useRelativePosition } from './genericHooks';
@@ -304,6 +304,7 @@ const isMouseEvent = (event: Event): event is MouseEvent => {
 };
 
 export const usePointerContext = () => {
+  const { width, height } = useContext(RenderingContext);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const reducer = useCallback((state: PointerContextType, action: PointerContextAction): PointerContextType => {
     switch (action.type) {
@@ -339,9 +340,14 @@ export const usePointerContext = () => {
       const x = clientX - offset.x;
       const y = clientY - offset.y;
 
-      update({ type: PointerContextActionType.UpdatePosition, x, y });
+      if (x >= 0 && x < width && y >= 0 && y < height) {
+        update({ type: PointerContextActionType.StartOver });
+        update({ type: PointerContextActionType.UpdatePosition, x, y });
+      } else {
+        update({ type: PointerContextActionType.EndOver });
+      }
     },
-    [offset]
+    [offset, width, height]
   );
   const updatePosition = useCallback(
     (event: SyntheticEvent) => {
@@ -353,12 +359,15 @@ export const usePointerContext = () => {
     },
     [updateMousePosition, updateTouchPosition]
   );
-  const pointerStart = useCallback((event: SyntheticEvent) => {
-    const { x, y } = (event.nativeEvent.target as HTMLCanvasElement).getBoundingClientRect();
-    setOffset({ x, y });
-    update({ type: PointerContextActionType.StartOver });
-    updatePosition(event);
-  }, [updatePosition]);
+  const pointerStart = useCallback(
+    (event: SyntheticEvent) => {
+      const { x, y } = (event.nativeEvent.target as HTMLCanvasElement).getBoundingClientRect();
+      setOffset({ x, y });
+      update({ type: PointerContextActionType.StartOver });
+      updatePosition(event);
+    },
+    [updatePosition]
+  );
   const pointerEnd = useCallback(() => update({ type: PointerContextActionType.EndOver }), []);
 
   return { pointerContext, updatePosition, pointerStart, pointerEnd };

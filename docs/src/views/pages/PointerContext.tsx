@@ -7,7 +7,11 @@ import ComponentLink from '../ComponentLink';
 import PropsTable, { PropsDefinition, StyledCode } from '../PropsTable';
 import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledComponents';
 
-const props: PropsDefinition = [];
+const props: PropsDefinition = [
+  ['x', true, 'number', '0', 'Relative pointer position from the left border of the canvas'],
+  ['y', true, 'number', '0', 'Relative pointer position from the top border of the canvas'],
+  ['over', true, 'boolean', 'false', 'Whether the pointer/touch is over the canvas']
+];
 
 const textures = {
   galaxy: '/static/assets/galaxy.png',
@@ -46,7 +50,8 @@ const PointerContextDoc: React.FC = () => {
       <StyledIntroduction>
         This context wil provide you with the <StyledCode>x</StyledCode> and <StyledCode>y</StyledCode> coordinates of the pointer relative
         to the <ComponentLink page={Pages.PixiCanvas} />. The <StyledCode>over</StyledCode> flag will tell you if the pointer is over the
-        canvas or if a touch action has started over the canvas.<br/>
+        canvas or if a touch action has started over the canvas.
+        <br />
         Try to move the mouse or touch and drag over the canvas below:
       </StyledIntroduction>
       <Block style={{ height: 300 }}>

@@ -297,10 +297,10 @@ export const useTextureContext = (resources: LoadResourceType) => {
 };
 
 const isTouchEvent = (event: Event): event is TouchEvent => {
-  return /touch/.test(event.type);
+  return !!(event as TouchEvent)?.touches;
 };
 const isMouseEvent = (event: Event): event is MouseEvent => {
-  return /mouse|pointer/.test(event.type);
+  return !isTouchEvent(event);
 };
 
 export const usePointerContext = () => {

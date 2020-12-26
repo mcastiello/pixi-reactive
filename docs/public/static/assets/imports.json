@@ -1,0 +1,5 @@
+{
+  "galaxy": "/static/assets/galaxy.png",
+  "ship": "/static/assets/spaceship.png",
+  "colors": "/static/assets/colors.json"
+}

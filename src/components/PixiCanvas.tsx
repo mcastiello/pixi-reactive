@@ -24,6 +24,7 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   textures = {},
   speed = 1,
   overflow = Overflow.All,
+  filterArea,
   onUpdate,
   onAfterRender,
   onResize,
@@ -74,6 +75,14 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
 
     setContainerStyle(newStyle);
   }, [width, height, overflow]);
+
+  useEffect(() => {
+    if (filterArea) {
+      renderingContext.stage.filterArea = new PIXI.Rectangle(filterArea.x, filterArea.y, filterArea.width, filterArea.height);
+    } else {
+      renderingContext.stage.filterArea = (null as unknown) as PIXI.Rectangle;
+    }
+  }, [renderingContext.stage, filterArea]);
 
   useEffect(() => {
     if (typeof onUpdate === 'function') {

@@ -1,4 +1,4 @@
-import { LoadResourceType } from '../types';
+import { LoadResourceType, Rectangle } from '../types';
 import { RenderingEventType } from '../types/GenericEventTypes';
 import { PixiHtmlContainerProps } from './PixiHtmlContainerProps';
 
@@ -10,4 +10,5 @@ export type PixiCanvasProps = RenderingEventType &
     retina?: boolean;
     speed?: number;
     textures?: LoadResourceType;
+    filterArea?: Rectangle;
   };

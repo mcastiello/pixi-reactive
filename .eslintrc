@@ -46,6 +46,7 @@
           "webpack",
           "plugins",
           "pixi",
+          "rect",
           "sizer",
           "args",
           "color",

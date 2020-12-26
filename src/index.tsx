@@ -11,7 +11,7 @@ export {
   PixiText,
   PixiTilingSprite
 } from './components';
-export { AnimationContext, RenderingContext, ParentContext, TextureContext, SpeedContext } from './contexts';
+export { AnimationContext, RenderingContext, ParentContext, TextureContext, SpeedContext, PointerContext } from './contexts';
 export { BlurFilter, AlphaFilter, ColorMatrixFilter, FXAAFilter, NoiseFilter } from './filters';
 export {
   BlackAndWhiteEffect,

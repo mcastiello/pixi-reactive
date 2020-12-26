@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useReducer, useState } from 'react';
+import { SyntheticEvent, useCallback, useContext, useEffect, useReducer, useState } from 'react';
 import {
   SpeedAction,
   SpeedContextType,
@@ -15,7 +15,10 @@ import {
 } from '../types';
 import { initialSpeedState, ParentContext, AnimationContext } from '../contexts';
 import * as PIXI from 'pixi.js';
+import { PointerContextAction, PointerContextActionType, PointerContextType } from '../types/PointerContextType';
 import { useRelativePosition } from './genericHooks';
+
+const MAX_HISTORY_SIZE = 120;
 
 export const useSpeedContext = (): SpeedContextType => {
   const reducer = useCallback((state: SpeedState, action: SpeedAction): SpeedState => {
@@ -50,11 +53,11 @@ export const useAnimationContext = (speed: number): AnimationContextType => {
   const initialState = useContext(AnimationContext);
   const reducer = useCallback(
     (state: AnimationContextType) => {
-      const { frameId, fps, minFps, maxFps, history } = state;
+      const { frameId, history } = state;
 
       if (speed > 0) {
         const latestFps = Math.round(PIXI.Ticker.shared.FPS);
-        const fpsHistory = [latestFps, ...history.slice(0, 29)];
+        const fpsHistory = [latestFps, ...history.slice(0, MAX_HISTORY_SIZE - 1)];
 
         return {
           frameId: frameId + 1,
@@ -62,8 +65,8 @@ export const useAnimationContext = (speed: number): AnimationContextType => {
           fps: latestFps,
           history: fpsHistory,
           averageFps: Math.round(fpsHistory.reduce((a, b) => a + b, 0) / fpsHistory.length),
-          minFps: fps < minFps || minFps === 0 ? latestFps : minFps,
-          maxFps: fps > maxFps ? latestFps : maxFps
+          minFps: Math.min(...fpsHistory),
+          maxFps: Math.max(...fpsHistory)
         };
       } else {
         return state;
@@ -179,7 +182,7 @@ export const useParentContext = <T extends PIXI.Container>(parent: T): ParentCon
   const [width, setWidth] = useState(parentContext.width);
   const [height, setHeight] = useState(parentContext.height);
   const [left, top] = useRelativePosition((parent as unknown) as PIXI.Sprite | undefined);
-  const [transform, setTransform] = useState<number[]|undefined>();
+  const [transform, setTransform] = useState<number[] | undefined>();
 
   useEffect(() => {
     if (parent) {
@@ -291,4 +294,72 @@ export const useTextureContext = (resources: LoadResourceType) => {
   }, [resources, loader]);
 
   return context;
+};
+
+const isTouchEvent = (event: Event): event is TouchEvent => {
+  return /touch/.test(event.type);
+};
+const isMouseEvent = (event: Event): event is MouseEvent => {
+  return /mouse|pointer/.test(event.type);
+};
+
+export const usePointerContext = () => {
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const reducer = useCallback((state: PointerContextType, action: PointerContextAction): PointerContextType => {
+    switch (action.type) {
+      case PointerContextActionType.StartOver:
+        if (!state.over) {
+          return { ...state, over: true };
+        } else {
+          return state;
+        }
+      case PointerContextActionType.EndOver:
+        if (state.over) {
+          return { ...state, over: false };
+        } else {
+          return state;
+        }
+      case PointerContextActionType.UpdatePosition:
+        if (state.over && action.x && action.y) {
+          return { x: action.x, y: action.y, over: true };
+        } else {
+          return state;
+        }
+    }
+  }, []);
+  const [pointerContext, update] = useReducer(reducer, { x: 0, y: 0, over: false });
+  const updateMousePosition = useCallback((event: MouseEvent) => {
+    const { offsetX: x, offsetY: y } = event;
+
+    update({ type: PointerContextActionType.UpdatePosition, x, y });
+  }, []);
+  const updateTouchPosition = useCallback(
+    (event: TouchEvent) => {
+      const { clientX, clientY } = event.touches[0];
+      const x = clientX - offset.x;
+      const y = clientY - offset.y;
+
+      update({ type: PointerContextActionType.UpdatePosition, x, y });
+    },
+    [offset]
+  );
+  const updatePosition = useCallback(
+    (event: SyntheticEvent) => {
+      if (isTouchEvent(event.nativeEvent)) {
+        updateTouchPosition(event.nativeEvent);
+      } else if (isMouseEvent(event.nativeEvent)) {
+        updateMousePosition(event.nativeEvent);
+      }
+    },
+    [updateMousePosition, updateTouchPosition]
+  );
+  const pointerStart = useCallback((event: SyntheticEvent) => {
+    const { x, y } = (event.nativeEvent.target as HTMLCanvasElement).getBoundingClientRect();
+    setOffset({ x, y });
+    update({ type: PointerContextActionType.StartOver });
+    updatePosition(event);
+  }, [updatePosition]);
+  const pointerEnd = useCallback(() => update({ type: PointerContextActionType.EndOver }), []);
+
+  return { pointerContext, updatePosition, pointerStart, pointerEnd };
 };

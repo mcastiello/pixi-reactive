@@ -1,9 +1,10 @@
 import * as PIXI from 'pixi.js';
 import React, { CSSProperties, useContext, useEffect, useState } from 'react';
+import { usePointerContext } from '../hooks/contextHooks';
 import { PixiCanvasProps } from '../props';
 import AutoSizer, { Size } from 'react-virtualized-auto-sizer';
 import { useId, useAnimationContext, useRenderingContext, useSpeedContext, useTextureContext } from '../hooks';
-import { SpeedContext, AnimationContext, RenderingContext, ParentContext, TextureContext } from '../contexts';
+import { SpeedContext, AnimationContext, RenderingContext, ParentContext, TextureContext, PointerContext } from '../contexts';
 import { Overflow, ParentContextType } from '../types';
 
 const defaultStyle: CSSProperties = {
@@ -36,6 +37,8 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   const renderingContext = useRenderingContext(canvasId, animationContext.frameId);
   const genericParentContext = useContext(ParentContext);
   const [containerStyle, setContainerStyle] = useState<CSSProperties>(defaultStyle);
+
+  const { pointerContext, pointerStart, pointerEnd, updatePosition } = usePointerContext();
 
   const { setSpeed } = speedContext;
 
@@ -102,34 +105,53 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
       <SpeedContext.Provider value={speedContext}>
         <RenderingContext.Provider value={renderingContext}>
           <AnimationContext.Provider value={animationContext}>
-            {renderingContext.stage && (
-              <ParentContext.Provider value={parentContext}>
-                <AutoSizer>
-                  {(size: Size) => {
-                    const multiplier = retina ? 2 : 1;
-                    const parentWidth = size.width;
-                    const parentHeight = size.height;
-                    const containerWidth = width || parentWidth;
-                    const containerHeight = height || parentHeight;
-                    const canvasWidth = containerWidth * multiplier;
-                    const canvasHeight = containerHeight * multiplier;
+            <PointerContext.Provider value={pointerContext}>
+              {renderingContext.stage && (
+                <ParentContext.Provider value={parentContext}>
+                  <AutoSizer>
+                    {(size: Size) => {
+                      const multiplier = retina ? 2 : 1;
+                      const parentWidth = size.width;
+                      const parentHeight = size.height;
+                      const containerWidth = width || parentWidth;
+                      const containerHeight = height || parentHeight;
+                      const canvasWidth = containerWidth * multiplier;
+                      const canvasHeight = containerHeight * multiplier;
 
-                    return (
-                      <div className={'pixi-root'} style={{ ...containerStyle, width: containerWidth, height: containerHeight }}>
-                        <canvas
-                          id={canvasId}
-                          className={className}
-                          width={canvasWidth}
-                          height={canvasHeight}
-                          style={{ ...defaultStyle, width: containerWidth, height: containerHeight }}
-                        />
-                        {children}
-                      </div>
-                    );
-                  }}
-                </AutoSizer>
-              </ParentContext.Provider>
-            )}
+                      return (
+                        <div className={'pixi-root'} style={{ ...containerStyle, width: containerWidth, height: containerHeight }}>
+                          <canvas
+                            id={canvasId}
+                            className={className}
+                            width={canvasWidth}
+                            height={canvasHeight}
+                            style={{ ...defaultStyle, width: containerWidth, height: containerHeight }}
+                            onMouseMove={updatePosition}
+                            onTouchMove={updatePosition}
+                            onMouseEnter={pointerStart}
+                            onMouseOver={pointerStart}
+                            onMouseOut={pointerEnd}
+                            onMouseLeave={pointerEnd}
+                            onTouchStart={pointerStart}
+                            onTouchEnd={pointerEnd}
+                            onTouchCancel={pointerEnd}
+                            onPointerDown={pointerStart}
+                            onPointerEnter={pointerStart}
+                            onPointerOver={pointerStart}
+                            onPointerUp={pointerEnd}
+                            onPointerOut={pointerEnd}
+                            onPointerCancel={pointerEnd}
+                            onPointerLeave={pointerEnd}
+                            onPointerMove={updatePosition}
+                          />
+                          {children}
+                        </div>
+                      );
+                    }}
+                  </AutoSizer>
+                </ParentContext.Provider>
+              )}
+            </PointerContext.Provider>
           </AnimationContext.Provider>
         </RenderingContext.Provider>
       </SpeedContext.Provider>

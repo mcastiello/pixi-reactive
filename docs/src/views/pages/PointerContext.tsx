@@ -46,7 +46,8 @@ const PointerContextDoc: React.FC = () => {
       <StyledIntroduction>
         This context wil provide you with the <StyledCode>x</StyledCode> and <StyledCode>y</StyledCode> coordinates of the pointer relative
         to the <ComponentLink page={Pages.PixiCanvas} />. The <StyledCode>over</StyledCode> flag will tell you if the pointer is over the
-        canvas or if a touch action has started over the canvas.
+        canvas or if a touch action has started over the canvas.<br/>
+        Try to move the mouse or touch and drag over the canvas below:
       </StyledIntroduction>
       <Block style={{ height: 300 }}>
         <PointerContextExample />

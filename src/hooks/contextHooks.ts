@@ -320,7 +320,7 @@ export const usePointerContext = () => {
           return state;
         }
       case PointerContextActionType.UpdatePosition:
-        if (state.over && action.x && action.y) {
+        if (state.over && action.x && action.y && action.x !== state.x && action.y !== state.y) {
           return { x: action.x, y: action.y, over: true };
         } else {
           return state;

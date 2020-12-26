@@ -87,7 +87,7 @@ export const useAnimationContext = (speed: number): AnimationContextType => {
   return context;
 };
 
-export const useRenderingContext = (canvasReference: string | HTMLCanvasElement, frameId: number): RenderingContextType => {
+export const useRenderingContext = (canvasReference: string | HTMLCanvasElement, retina = false, frameId: number): RenderingContextType => {
   const [canvas, setCanvas] = useState<HTMLCanvasElement | undefined>(typeof canvasReference === 'string' ? undefined : canvasReference);
   const [stage] = useState<PIXI.Container>(new PIXI.Container());
   const [renderer, setRenderer] = useState<PIXI.Renderer | undefined>();
@@ -110,6 +110,7 @@ export const useRenderingContext = (canvasReference: string | HTMLCanvasElement,
               height = canvas.height;
 
               renderer.resize(width, height);
+              renderer.resolution = retina ? 2 : 1;
 
               update = true;
             }
@@ -303,7 +304,7 @@ const isMouseEvent = (event: Event): event is MouseEvent => {
   return !isTouchEvent(event);
 };
 
-export const usePointerContext = () => {
+export const usePointerContext = (retina: boolean) => {
   const { width, height } = useContext(RenderingContext);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const reducer = useCallback((state: PointerContextType, action: PointerContextAction): PointerContextType => {
@@ -329,11 +330,21 @@ export const usePointerContext = () => {
     }
   }, []);
   const [pointerContext, update] = useReducer(reducer, { x: 0, y: 0, over: false });
-  const updateMousePosition = useCallback((event: MouseEvent) => {
-    const { offsetX: x, offsetY: y } = event;
+  const triggerUpdatePosition = useCallback(
+    (x: number, y: number) => {
+      const multiplier = retina ? 2 : 1;
+      update({ type: PointerContextActionType.UpdatePosition, x: x * multiplier, y: y * multiplier });
+    },
+    [retina]
+  );
+  const updateMousePosition = useCallback(
+    (event: MouseEvent) => {
+      const { offsetX: x, offsetY: y } = event;
 
-    update({ type: PointerContextActionType.UpdatePosition, x, y });
-  }, []);
+      triggerUpdatePosition(x, y);
+    },
+    [triggerUpdatePosition]
+  );
   const updateTouchPosition = useCallback(
     (event: TouchEvent) => {
       const { clientX, clientY } = event.touches[0];
@@ -342,12 +353,12 @@ export const usePointerContext = () => {
 
       if (x >= 0 && x < width && y >= 0 && y < height) {
         update({ type: PointerContextActionType.StartOver });
-        update({ type: PointerContextActionType.UpdatePosition, x, y });
+        triggerUpdatePosition(x, y);
       } else {
         update({ type: PointerContextActionType.EndOver });
       }
     },
-    [offset, width, height]
+    [offset, width, height, triggerUpdatePosition]
   );
   const updatePosition = useCallback(
     (event: SyntheticEvent) => {

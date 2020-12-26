@@ -34,11 +34,11 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   const speedContext = useSpeedContext();
   const textureContext = useTextureContext(textures);
   const animationContext = useAnimationContext(speedContext.speed);
-  const renderingContext = useRenderingContext(canvasId, animationContext.frameId);
+  const renderingContext = useRenderingContext(canvasId, retina, animationContext.frameId);
   const genericParentContext = useContext(ParentContext);
   const [containerStyle, setContainerStyle] = useState<CSSProperties>(defaultStyle);
 
-  const { pointerContext, pointerStart, pointerEnd, updatePosition } = usePointerContext();
+  const { pointerContext, pointerStart, pointerEnd, updatePosition } = usePointerContext(retina);
 
   const { setSpeed } = speedContext;
 

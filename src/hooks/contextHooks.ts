@@ -87,8 +87,8 @@ export const useAnimationContext = (speed: number): AnimationContextType => {
   return context;
 };
 
-export const useRenderingContext = (canvasReference: string | HTMLCanvasElement, retina = false, frameId: number): RenderingContextType => {
-  const [canvas, setCanvas] = useState<HTMLCanvasElement | undefined>(typeof canvasReference === 'string' ? undefined : canvasReference);
+export const useRenderingContext = (canvasReference: string, retina = false, frameId: number): RenderingContextType => {
+  const [canvas, setCanvas] = useState<HTMLCanvasElement | undefined>(undefined);
   const [stage] = useState<PIXI.Container>(new PIXI.Container());
   const [renderer, setRenderer] = useState<PIXI.Renderer | undefined>();
 
@@ -126,7 +126,7 @@ export const useRenderingContext = (canvasReference: string | HTMLCanvasElement,
           return state;
       }
     },
-    [renderer, canvas, stage]
+    [renderer, canvas, stage, retina]
   );
 
   const [state, dispatch] = useReducer(reducer, { height: 0, width: 0, renderId: 0, update: true });
@@ -146,8 +146,7 @@ export const useRenderingContext = (canvasReference: string | HTMLCanvasElement,
   );
 
   useEffect(() => {
-    const reference =
-      typeof canvasReference === 'string' ? (document.getElementById(canvasReference) as HTMLCanvasElement) : canvasReference;
+    const reference = document.getElementById(canvasReference) as HTMLCanvasElement;
 
     if (reference) {
       setCanvas(reference);
@@ -161,6 +160,17 @@ export const useRenderingContext = (canvasReference: string | HTMLCanvasElement,
       setRenderer(new PIXI.Renderer({ view: canvas, transparent: true, width: canvas.width, height: canvas.height }));
     }
   }, [canvas]);
+
+  useEffect(() => {
+    const reference = document.getElementById(canvasReference);
+
+    if (!reference && renderer) {
+      // Force release of WebGL context
+      renderer.gl.getExtension('WEBGL_lose_context')?.loseContext();
+      renderer.destroy();
+      setRenderer(undefined);
+    }
+  }, [canvasReference, renderer, frameId]);
 
   useEffect(() => {
     render();
@@ -234,7 +244,7 @@ export const useParentContext = <T extends PIXI.Container>(parent: T): ParentCon
 
 const cleanName = (name: string) => name.replace(/(?:(\.\w+?$)|(_image$))/, '');
 
-const textureLoaded = new Map<string, boolean>();
+const textureLoaded = new Map<string, string>();
 
 let loadedResources: TextureContextType = {};
 
@@ -283,10 +293,16 @@ export const useTextureContext = (resources: LoadResourceType) => {
   useEffect(() => {
     let count = 0;
     Object.keys(resources).forEach((key) => {
-      if (!textureLoaded.get(key)) {
+      const existingResource = textureLoaded.get(key);
+      if (!existingResource) {
         loader.add(key, resources[key]);
-        textureLoaded.set(key, true);
+        textureLoaded.set(key, resources[key]);
         count++;
+      } else if (existingResource !== resources[key]) {
+        console.warn(
+          `Attempt of overriding existing resource ${key} from ${existingResource}
+          to ${resources[key]}. Please use a unique name for your resource.`
+        );
       }
     });
     if (count) {

@@ -4,9 +4,11 @@ import { useFilter, useFilterProps } from '../hooks';
 import PixiFilter from './PixiFilter';
 import { NoiseFilterProps } from '../props';
 
+const FXAA_SEED = Math.random();
+
 const FXAAFilter: React.FC<NoiseFilterProps> = (props) => {
   const filter = useFilter(new PIXI.filters.NoiseFilter());
-  const { noise = 0.5, seed = Math.random() } = props;
+  const { noise = 0.5, seed = FXAA_SEED } = props;
 
   useFilterProps(filter, {
     noise,

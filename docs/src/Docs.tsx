@@ -1,21 +1,37 @@
 import Framework7 from 'framework7';
 import { Link, Navbar, NavLeft, NavRight, Page, Panel, View } from 'framework7-react';
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
-import { Pages, PageState, DispatchContext, RouteType } from './pages';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Pages, RouteType } from './pages';
 import { Background, StyledPage, Logo, Title } from './views/StyledComponents';
 import Content from './views/Content';
 import SideBar from './views/SideBar';
 
 const Docs: React.FC<{ routes: RouteType[] }> = ({ routes }) => {
   const [panelOpen, setPanelOpenSate] = useState(false);
-  const reducer = useCallback((state: PageState, page: Pages): PageState => ({ ...state, page }), []);
-  const [state, dispatch] = useReducer(reducer, { page: Pages.Index });
+  const [hash, setHash] = useState<string | undefined>();
+  const [page, setPage] = useState(Pages.Index);
 
   const openSideBar = useCallback(() => setPanelOpenSate(true), []);
   const closeSideBar = useCallback(() => setPanelOpenSate(false), []);
 
   useEffect(() => {
-    switch (state.page) {
+    window.onpopstate = () => {
+      setHash(window.location.hash || '#/index/');
+    };
+
+    setHash(window.location.hash || '#/index/');
+  }, []);
+
+  useEffect(() => {
+    const route = routes.filter((route) => `#${route.path}` === hash)[0];
+
+    if (route) {
+      setPage(route.name as Pages);
+    }
+  }, [routes, hash]);
+
+  useEffect(() => {
+    switch (page) {
       case Pages.Index:
       case Pages.Components:
       case Pages.Filters:
@@ -26,10 +42,10 @@ const Docs: React.FC<{ routes: RouteType[] }> = ({ routes }) => {
       default:
         closeSideBar();
     }
-  }, [state, closeSideBar]);
+  }, [page, closeSideBar]);
 
   return (
-    <DispatchContext.Provider value={{ dispatch }}>
+    <>
       <Panel left backdrop cover opened={panelOpen} onPanelClosed={closeSideBar}>
         <View>
           <Page>
@@ -48,17 +64,22 @@ const Docs: React.FC<{ routes: RouteType[] }> = ({ routes }) => {
               </NavLeft>
               <Title>Pixi Reactive</Title>
               <NavRight>
-                <Link onClick={() => dispatch(Pages.Index)}>
+                <Link href={'#'} external>
                   <Logo alt={'Pixi Reactive'} src={'./static/assets/pixi-reactive.png'} />
                 </Link>
               </NavRight>
             </Navbar>
             {Framework7.device.desktop && <SideBar page={Pages.Index} />}
-            <Content {...state} style={{ maxWidth: `calc(100% - ${Framework7.device.desktop ? '320px' : '0'})` }} routes={routes} />
+            <Content
+              page={page}
+              hash={hash}
+              style={{ maxWidth: `calc(100% - ${Framework7.device.desktop ? '320px' : '0'})` }}
+              routes={routes}
+            />
           </StyledPage>
         </Background>
       </View>
-    </DispatchContext.Provider>
+    </>
   );
 };
 

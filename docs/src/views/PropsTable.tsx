@@ -1,7 +1,7 @@
 import { Block, Icon } from 'framework7-react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { DispatchContext, getPageChildren, Pages } from '../pages';
+import { getPageChildren, Pages } from '../pages';
 import { StyledTable, StyledLink, StyledTableContainer } from './StyledComponents';
 
 type PropDefinition = [string, boolean, string, string, string];
@@ -26,7 +26,6 @@ export const parseCode = (text: string) => {
 };
 
 const PropsTable: React.FC<{ props: PropsDefinition }> = ({ props = [] }) => {
-  const { dispatch } = useContext(DispatchContext);
   const [types, setTypes] = useState<Pages[]>([]);
 
   useEffect(() => {
@@ -53,13 +52,7 @@ const PropsTable: React.FC<{ props: PropsDefinition }> = ({ props = [] }) => {
                   <td>{prop[0]}</td>
                   <td>{prop[1] ? <Icon f7={'checkmark_alt'} size={14} /> : null}</td>
                   <td>
-                    <code>
-                      {types.includes(prop[2] as Pages) ? (
-                        <StyledLink text={prop[2]} onClick={() => dispatch(prop[2] as Pages)} />
-                      ) : (
-                        prop[2]
-                      )}
-                    </code>
+                    <code>{types.includes(prop[2] as Pages) ? <StyledLink text={prop[2]} external /> : prop[2]}</code>
                   </td>
                   <td>
                     <code>{prop[3]}</code>

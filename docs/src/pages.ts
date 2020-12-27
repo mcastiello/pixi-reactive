@@ -1,5 +1,3 @@
-import React from 'react';
-
 export enum Pages {
   Index = 'Index',
   Components = 'Components',
@@ -65,10 +63,6 @@ export enum Pages {
 
 export type PageState = {
   page: Pages;
-};
-
-export type DispatchContext = {
-  dispatch: (page: Pages) => void;
 };
 
 export type PageIndexProps = PageState & {
@@ -141,7 +135,7 @@ export const breadcrumbMap: BreadcrumbMap = new Map([
 
 export const getParentPage = (page: Pages): Pages | undefined => breadcrumbMap.get(page);
 
-export const getPageChildren =  async (page: Pages): Promise<Pages[]> => {
+export const getPageChildren = async (page: Pages): Promise<Pages[]> => {
   const list: Pages[] = [];
 
   breadcrumbMap.forEach((parent, child) => {
@@ -176,22 +170,19 @@ export const getBreadCrumbs = async (page: Pages): Promise<Pages[]> => {
   return list;
 };
 
-export const getComponentUrl = async (page: Pages) =>
-  `/${(await getBreadCrumbs(page as Pages))
-    .join('/')
-    .toLowerCase()}/`;
+export const getComponentUrl = async (page: Pages) => `/${(await getBreadCrumbs(page as Pages)).join('/').toLowerCase()}/`;
 
 export type RouteType = {
-  name: string,
-  path: string,
-  asyncComponent: () => Promise<any>
-}
+  name: string;
+  path: string;
+  asyncComponent: () => Promise<any>;
+};
 
 export const loadRoutes = async () => {
-  const pages = Object.keys(Pages)
-  const routes:RouteType[] = [];
+  const pages = Object.keys(Pages);
+  const routes: RouteType[] = [];
 
-  for (let i=0; i<pages.length; i++) {
+  for (let i = 0; i < pages.length; i++) {
     const page = pages[i] as Pages;
     const path = await getComponentUrl(page);
 
@@ -199,10 +190,8 @@ export const loadRoutes = async () => {
       name: page,
       path,
       asyncComponent: () => import(`./views/pages/${page}`)
-    })
+    });
   }
 
   return routes;
-}
-
-export const DispatchContext = React.createContext<DispatchContext>({ dispatch: () => null });
+};

@@ -1,9 +1,9 @@
 import { AccordionContent, List, ListItem } from 'framework7-react';
-import React, { ReactElement, useContext, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { StyledList } from './StyledComponents';
-import { DispatchContext, getComponentUrl, getPageChildren, Pages, PageState } from '../pages';
+import { getComponentUrl, getPageChildren, Pages, PageState } from '../pages';
 
-const createSections = async (pages: Pages[], dispatch: (page: Pages) => void) => {
+const createSections = async (pages: Pages[]) => {
   const sections: ReactElement[] = [];
 
   for (let i = 0; i < pages.length; i++) {
@@ -16,11 +16,11 @@ const createSections = async (pages: Pages[], dispatch: (page: Pages) => void) =
       const page = childPages[k];
       const path = await getComponentUrl(page);
 
-      items.push(<ListItem key={page} link={`#${path}`} title={page} onClick={() => dispatch(page)} />);
+      items.push(<ListItem key={page} link={`#${path}`} title={page} external />);
     }
 
     sections.push(
-      <ListItem link={`#${sectionPath}`} key={section} accordionItem title={section} onClick={() => dispatch(section)}>
+      <ListItem link={`#${sectionPath}`} key={section} accordionItem title={section}>
         <AccordionContent themeDark>
           <List>{items}</List>
         </AccordionContent>
@@ -34,15 +34,14 @@ const createSections = async (pages: Pages[], dispatch: (page: Pages) => void) =
 const SideBar: React.FC<PageState> = ({ page }) => {
   const [sections, setSections] = useState<Pages[]>([]);
   const [items, setItems] = useState<ReactElement[]>([]);
-  const { dispatch } = useContext(DispatchContext);
 
   useEffect(() => {
     getPageChildren(page).then(setSections);
   }, [page]);
 
   useEffect(() => {
-    createSections(sections, dispatch).then(setItems);
-  }, [sections, dispatch]);
+    createSections(sections).then(setItems);
+  }, [sections]);
 
   return <StyledList accordionList>{items}</StyledList>;
 };

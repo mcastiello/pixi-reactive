@@ -3,7 +3,7 @@ import { PixiCanvas, PixiSprite, PixiTexture, PixiTilingSprite } from 'pixi-reac
 
 const textures = {
   galaxy: './static/assets/galaxy.png',
-  ship: './static/assets/spritesheet.json'
+  sheet: './static/assets/spritesheet.json'
 };
 
 const PixiSpriteExample: React.FC = () => {

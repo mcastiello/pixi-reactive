@@ -55,7 +55,7 @@ const updateScene = (state: Space): Space => {
   };
 };
 
-const PixiCanvasExample: React.FC = () => {
+export const PixiCanvasExample: React.FC = () => {
   const [state, update] = useReducer(updateScene, {
     galaxyTileX: 0,
     starsTileX: 0,

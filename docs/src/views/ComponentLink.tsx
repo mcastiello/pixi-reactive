@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { DispatchContext, getComponentUrl, Pages } from '../pages';
-import { StyledIndexLink } from './StyledComponents';
+import { StyledComponentLink } from './StyledComponents';
 
 const ComponentLink: React.FC<{ page: Pages; className?: string }> = ({ page, className }) => {
   const { dispatch } = useContext(DispatchContext);
@@ -10,7 +10,7 @@ const ComponentLink: React.FC<{ page: Pages; className?: string }> = ({ page, cl
     getComponentUrl(page).then(url => setUrl(`#${url}`))
   }, [page]);
 
-  return <StyledIndexLink className={className} href={url} key={page} text={page} onClick={() => dispatch(page)} />;
+  return <StyledComponentLink className={className} href={url} key={page} text={page} onClick={() => dispatch(page)} />;
 };
 
 export default ComponentLink;

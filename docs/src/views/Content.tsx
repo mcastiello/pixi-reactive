@@ -37,7 +37,7 @@ const BreadCrumb: React.FC<PageState> = ({ page }) => {
     getBreadCrumbsLinks(crumbs, dispatch).then(setItems);
   }, [crumbs, dispatch]);
 
-  return <div>{items}</div>;
+  return <>{items.length > 1 ? <div>{items}</div> : null}</>;
 };
 
 const Content: React.FC<PageState & { style: CSSProperties; routes: RouteType[] }> = ({ page, style, routes }) => {

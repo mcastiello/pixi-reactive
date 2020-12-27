@@ -60,13 +60,14 @@ const PixiSpriteDoc: React.FC = () => {
     <>
       <StyledTitle>PixiSprite</StyledTitle>
       <StyledIntroduction>
-        The PixiSprite is the component that will render a texture onto the canvas. It is possible to use a preloaded texture by using the{' '}
-        <StyledCode>texture</StyledCode> property or by adding a <ComponentLink page={Pages.PixiTexture} /> as a child node. <br />
+        The PixiSprite is the component that will render a texture onto the canvas. It is possible to use a texture preloaded by the{' '}
+        <ComponentLink page={Pages.TextureContext} /> by using the <StyledCode>texture</StyledCode> property or by adding a{' '}
+        <ComponentLink page={Pages.PixiTexture} /> as a child node. <br />
         If you are familiar with the PIXI properties, there are a couple of extra properties added by this library. Both{' '}
         <StyledCode>alignX</StyledCode> and <StyledCode>alignX</StyledCode> are not original properties but it is something I've found quite
-        useful during the year as game developer. These 2 properties will allow you to align the sprite on the X and Y axis. If you'll use
-        the <StyledCode>x</StyledCode> and/or <StyledCode>y</StyledCode> properties, they will work as relative position translations from
-        the aligned central position.
+        useful during the years as a game developer. These 2 properties will allow you to align the sprite on the X and Y axis. If you'll
+        use the <StyledCode>x</StyledCode> and/or <StyledCode>y</StyledCode> properties, they will work as relative position translations
+        from the aligned central position.
       </StyledIntroduction>
       <Block style={{ height: 300 }}>
         <PixiSpriteExample />

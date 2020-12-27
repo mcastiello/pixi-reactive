@@ -38,11 +38,14 @@ export const StyledContainer = styled.div`
 
 export const StyledLink = styled(Link)`
   color: var(--link-color);
-  font-size: 20px;
 `;
 
-export const StyledIndexLink = styled(StyledLink)`
+export const StyledComponentLink = styled(StyledLink)`
   font-family: 'Courier New', sans-serif;
+`;
+
+export const StyledIndexLink = styled(StyledComponentLink)`
+  font-size: 20px;
 `;
 
 export const IndexComponentLink = styled(StyledIndexLink)`

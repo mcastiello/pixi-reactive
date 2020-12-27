@@ -17,7 +17,7 @@ const PixiTextureExample: React.FC = () => {
   return (
     <PixiCanvas>
       <PixiSprite alignY={0.5} alignX={0.5}>
-        <PixiTexture name={'ship'} src={'/static/assets/spaceship.png'} />
+        <PixiTexture name={'ship'} src={'./static/assets/spaceship.png'} />
       </PixiSprite>
     </PixiCanvas>
   );
@@ -37,7 +37,7 @@ const PixiTextureDoc: React.FC = () => {
         <PixiTextureExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiTextureExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiTextureExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={textureProps} />

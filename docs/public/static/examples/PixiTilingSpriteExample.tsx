@@ -2,8 +2,8 @@ import React, { useReducer } from 'react';
 import { PixiCanvas, PixiTilingSprite, PixiTexture } from 'pixi-reactive';
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  stars: '/static/assets/slow-stars.png'
+  galaxy: './static/assets/galaxy.png',
+  stars: './static/assets/slow-stars.png'
 };
 
 type Space = {
@@ -32,7 +32,7 @@ const PixiTilingSpriteExample: React.FC = () => {
       <PixiTilingSprite texture={'galaxy'} tileX={state.galaxyTileX} />
       <PixiTilingSprite texture={'stars'} tileX={state.slowStarsTileX} />
       <PixiTilingSprite tileX={state.fastStarsTileX} tileScaleY={0.5}>
-        <PixiTexture src={'/static/assets/fast-stars.png'} />
+        <PixiTexture src={'./static/assets/fast-stars.png'} />
       </PixiTilingSprite>
     </PixiCanvas>
   );

@@ -13,8 +13,8 @@ const props: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const RectangleExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
@@ -68,7 +68,7 @@ const RectangleDoc: React.FC = () => {
         <RectangleExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/RectangleExample.tsx'} />
+        <CodeViewer src={'./static/examples/RectangleExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

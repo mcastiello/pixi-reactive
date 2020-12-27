@@ -1,4 +1,4 @@
-![PIXIReactive Logo](./docs/public/static/assets/pixi-reactive.png)
+![PIXIReactive Logo](./docs/public./static/assets/pixi-reactive.png)
 # pixi-reactive
 > The `PixiReactive` library is a quick way to use all the features provided by [PIXI](http://pixijs.download/release/docs/index.html)
 > inside a [React](https://reactjs.org/) virtual DOM. The ultimate goal is to encapsulate all the PIXI elements inside React Function Components that can be easily added to your project. As a matter of fact, in most use cases, you may never need to instantiate a PIXI object yourself. You won't need to load a renderer or worry about the animation loop, and the page resize. You just need to add a `PixiCanvas` to your component and start coding your game or animation.
@@ -27,9 +27,9 @@ import { PixiCanvas, PixiTilingSprite, PixiSprite } from 'pixi-reactive';
  * List of textures. It supports image assets or JSON files created with TexturePacker
  */
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  stars: '/static/assets/slow-stars.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  stars: './static/assets/slow-stars.png',
+  ship: './static/assets/spaceship.png'
 };
 
 type Space = {
@@ -76,7 +76,7 @@ const PixiCanvasExample: React.FC = () => {
   );
 };
 ```
-For more detailed information, please refer to the [Online Documentation]().
+For more detailed information, please refer to the [Online Documentation](https://mcastiello.github.io/pixi-reactive/).
 
 ## Coming Next
 The following are a few things I'm going to add in the next few releases (in order of priority).

@@ -12,8 +12,8 @@ const textureProps: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const Balloon = styled.div`
@@ -60,7 +60,7 @@ const PixiHtmlContainerDoc: React.FC = () => {
         <PixiHtmlContainerExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiHtmlContainerExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiHtmlContainerExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={textureProps} />

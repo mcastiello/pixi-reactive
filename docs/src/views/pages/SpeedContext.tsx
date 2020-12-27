@@ -18,8 +18,8 @@ const props: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const StyledButton = styled(Link)`
@@ -100,7 +100,7 @@ const SpeedContextDoc: React.FC = () => {
         <SpeedContextExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/SpeedContextExample.tsx'} />
+        <CodeViewer src={'./static/examples/SpeedContextExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

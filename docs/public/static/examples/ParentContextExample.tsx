@@ -3,8 +3,8 @@ import { PixiCanvas, PixiSprite, ParentContext } from 'pixi-reactive';
 import styled from 'styled-components';
 
 const textures = {
-  red: '/static/assets/red.png',
-  yellow: '/static/assets/yellow.png'
+  red: './static/assets/red.png',
+  yellow: './static/assets/yellow.png'
 };
 
 const StyledDetail = styled.span`

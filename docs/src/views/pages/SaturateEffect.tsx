@@ -9,8 +9,8 @@ import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledCo
 const props: PropsDefinition = [...amountEffectProps];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const SaturateEffectExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
@@ -46,7 +46,7 @@ const SaturateEffectDoc: React.FC = () => {
         <SaturateEffectExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/SaturateEffectExample.tsx'} />
+        <CodeViewer src={'./static/examples/SaturateEffectExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

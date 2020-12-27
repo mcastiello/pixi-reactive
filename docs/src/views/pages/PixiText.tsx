@@ -74,19 +74,19 @@ const PixiTextDoc: React.FC = () => {
         <PixiTextExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiTextExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiTextExample.tsx'} />
       </Block>
       <Block style={{ height: 100 }}>
         <PixiScrollingTextExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiScrollingTextExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiScrollingTextExample.tsx'} />
       </Block>
       <Block style={{ height: 100 }}>
         <PixiAnimatedTextExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiAnimatedTextExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiAnimatedTextExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

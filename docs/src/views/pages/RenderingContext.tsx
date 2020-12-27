@@ -23,8 +23,8 @@ const props: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const Ship: React.FC = () => {
@@ -98,7 +98,7 @@ const RenderingContextDoc: React.FC = () => {
         <RenderingContextExample retina={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/RenderingContextExample.tsx'} />
+        <CodeViewer src={'./static/examples/RenderingContextExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

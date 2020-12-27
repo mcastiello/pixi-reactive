@@ -14,8 +14,8 @@ const textureProps: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const PixiRenderTextureExample: React.FC = () => {
@@ -50,7 +50,7 @@ const PixiRenderTextureDoc: React.FC = () => {
         <PixiRenderTextureExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiRenderTextureExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiRenderTextureExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={textureProps} />

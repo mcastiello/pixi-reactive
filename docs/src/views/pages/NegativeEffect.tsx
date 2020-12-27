@@ -9,8 +9,8 @@ import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledCo
 const props: PropsDefinition = [...effectProps];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const NegativeEffectExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
@@ -46,7 +46,7 @@ const NegativeEffectDoc: React.FC = () => {
         <NegativeEffectExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/NegativeEffectExample.tsx'} />
+        <CodeViewer src={'./static/examples/NegativeEffectExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

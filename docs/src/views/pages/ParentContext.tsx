@@ -27,8 +27,8 @@ const props: PropsDefinition = [
 ];
 
 const textures = {
-  red: '/static/assets/red.png',
-  yellow: '/static/assets/yellow.png'
+  red: './static/assets/red.png',
+  yellow: './static/assets/yellow.png'
 };
 
 const StyledDetail = styled.span`
@@ -111,7 +111,7 @@ const ParentContextDoc: React.FC = () => {
         <ParentContextExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/ParentContextExample.tsx'} />
+        <CodeViewer src={'./static/examples/ParentContextExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

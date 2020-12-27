@@ -12,8 +12,8 @@ const noiseProps: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const NoiseFilterExample: React.FC = () => {
@@ -46,7 +46,7 @@ const NoiseFilterDoc: React.FC = () => {
         <NoiseFilterExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/NoiseFilterExample.tsx'} />
+        <CodeViewer src={'./static/examples/NoiseFilterExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={noiseProps} />

@@ -65,8 +65,8 @@ export const genericEvents: PropsDefinition = [
 ]
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const PixiContainerExample: React.FC = () => {
@@ -95,7 +95,7 @@ const PixiContainerDoc: React.FC = () => {
         <PixiContainerExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiContainerExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiContainerExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={genericProps} />

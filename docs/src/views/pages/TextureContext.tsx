@@ -26,9 +26,9 @@ const TextureContextDoc: React.FC = () => {
       </StyledIntroduction>
       <Block>
         Assuming this is the content of the <StyledCode>JSON</StyledCode> file
-        <CodeViewer src={'/static/assets/colors.json'} />
+        <CodeViewer src={'./static/assets/colors.json'} />
         And this is the file list you are going to pass to the loader
-        <CodeViewer src={'/static/assets/imports.json'} />
+        <CodeViewer src={'./static/assets/imports.json'} />
         The resulting <StyledCode>TextureContext</StyledCode> will be the following
         <CodeViewer>
           {'{\n' +

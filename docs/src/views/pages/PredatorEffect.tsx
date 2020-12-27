@@ -9,8 +9,8 @@ import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledCo
 const props: PropsDefinition = [...amountEffectProps];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const PredatorEffectExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
@@ -46,7 +46,7 @@ const PredatorEffectDoc: React.FC = () => {
         <PredatorEffectExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PredatorEffectExample.tsx'} />
+        <CodeViewer src={'./static/examples/PredatorEffectExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

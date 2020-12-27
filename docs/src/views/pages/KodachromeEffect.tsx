@@ -9,8 +9,8 @@ import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledCo
 const props: PropsDefinition = [...effectProps];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const KodachromeEffectExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
@@ -46,7 +46,7 @@ const KodachromeEffectDoc: React.FC = () => {
         <KodachromeEffectExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/KodachromeEffectExample.tsx'} />
+        <CodeViewer src={'./static/examples/KodachromeEffectExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

@@ -12,7 +12,7 @@ const Index: React.FC = () => {
   return (
     <>
       <div style={{ textAlign: 'center' }}>
-        <img src={'/static/assets/pixi-reactive.png'} alt={'Pixi Reactive'} />
+        <img src={'./static/assets/pixi-reactive.png'} alt={'Pixi Reactive'} />
       </div>
       <StyledIntroduction>
         The <StyledCode>PixiReactive</StyledCode> library is a quick way to use all the features provided by{' '}
@@ -42,7 +42,7 @@ const Index: React.FC = () => {
       </StyledIntroduction>
       <StyledSectionTitle>Usage</StyledSectionTitle>
       <StyledIntroduction>
-        <CodeViewer src={'/static/examples/PixiCanvasExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiCanvasExample.tsx'} />
       </StyledIntroduction>
       <Block style={{ height: 300 }}>
         <PixiCanvasExample />

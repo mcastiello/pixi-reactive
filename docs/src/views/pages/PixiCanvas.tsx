@@ -29,9 +29,9 @@ export const renderEvents: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  stars: '/static/assets/slow-stars.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  stars: './static/assets/slow-stars.png',
+  ship: './static/assets/spaceship.png'
 };
 
 type Space = {
@@ -84,7 +84,7 @@ const PixiCanvasDoc: React.FC = () => {
         <PixiCanvasExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiCanvasExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiCanvasExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

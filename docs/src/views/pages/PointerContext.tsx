@@ -14,8 +14,8 @@ const props: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const Ship: React.FC = () => {
@@ -58,7 +58,7 @@ const PointerContextDoc: React.FC = () => {
         <PointerContextExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PointerContextExample.tsx'} />
+        <CodeViewer src={'./static/examples/PointerContextExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

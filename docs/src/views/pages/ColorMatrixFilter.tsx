@@ -14,8 +14,8 @@ const alphaProps: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const ColorMatrixFilterExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
@@ -57,7 +57,7 @@ const ColorMatrixFilterDoc: React.FC = () => {
         <ColorMatrixFilterExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/ColorMatrixFilterExample.tsx'} />
+        <CodeViewer src={'./static/examples/ColorMatrixFilterExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={alphaProps} />

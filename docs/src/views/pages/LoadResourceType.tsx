@@ -17,7 +17,7 @@ const TextureContextDoc: React.FC = () => {
         The following is a valid example of an object that can be used to load resources:
       </StyledIntroduction>
       <Block>
-        <CodeViewer src={'/static/assets/imports.json'} />
+        <CodeViewer src={'./static/assets/imports.json'} />
       </Block>
     </>
   );

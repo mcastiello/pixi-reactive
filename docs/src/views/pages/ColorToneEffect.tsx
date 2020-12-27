@@ -15,8 +15,8 @@ const props: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const ColorToneEffectExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
@@ -55,7 +55,7 @@ const ColorToneEffectDoc: React.FC = () => {
         <ColorToneEffectExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/ColorToneEffectExample.tsx'} />
+        <CodeViewer src={'./static/examples/ColorToneEffectExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

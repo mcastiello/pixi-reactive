@@ -2,8 +2,8 @@ import React from 'react';
 import { PixiCanvas, PixiTilingSprite, PixiSprite, PixiContainer } from 'pixi-reactive';
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const PxiContainerExample: React.FC = () => {

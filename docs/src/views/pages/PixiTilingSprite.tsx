@@ -18,8 +18,8 @@ const props: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  stars: '/static/assets/slow-stars.png'
+  galaxy: './static/assets/galaxy.png',
+  stars: './static/assets/slow-stars.png'
 };
 
 type Space = {
@@ -48,7 +48,7 @@ const PixiTilingSpriteExample: React.FC = () => {
       <PixiTilingSprite texture={'galaxy'} tileX={state.galaxyTileX} />
       <PixiTilingSprite texture={'stars'} tileX={state.slowStarsTileX} />
       <PixiTilingSprite tileX={state.fastStarsTileX} tileScaleY={0.5}>
-        <PixiTexture src={'/static/assets/fast-stars.png'} />
+        <PixiTexture src={'./static/assets/fast-stars.png'} />
       </PixiTilingSprite>
     </PixiCanvas>
   );
@@ -66,7 +66,7 @@ const PixiTilingSpriteDoc: React.FC = () => {
         <PixiTilingSpriteExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiTilingSpriteExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiTilingSpriteExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

@@ -7,8 +7,8 @@ import PropsTable from '../PropsTable';
 import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledComponents';
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const FXAAFilterExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
@@ -43,7 +43,7 @@ const FXAAFilterDoc: React.FC = () => {
         <FXAAFilterExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/FXAAFilterExample.tsx'} />
+        <CodeViewer src={'./static/examples/FXAAFilterExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={filterProps} />

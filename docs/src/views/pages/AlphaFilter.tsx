@@ -9,8 +9,8 @@ import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledCo
 const alphaProps: PropsDefinition = [['alpha', false, 'number', '1', 'Alpha value assigned to the parent element'], ...filterProps];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const AlphaFilterExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
@@ -63,7 +63,7 @@ const AlphaFilterDoc: React.FC = () => {
         <AlphaFilterExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/AlphaFilterExample.tsx'} />
+        <CodeViewer src={'./static/examples/AlphaFilterExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={alphaProps} />

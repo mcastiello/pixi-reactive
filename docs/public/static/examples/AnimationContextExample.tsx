@@ -30,9 +30,9 @@ const FrameRateStats: React.FC = () => {
 const AnimationContextExample: React.FC = () => {
   return (
     <PixiCanvas>
-      <AnimatedBackground src={'/static/assets/galaxy.png'} speed={0.1} />
-      <AnimatedBackground src={'/static/assets/slow-stars.png'} speed={0.5} />
-      <AnimatedBackground src={'/static/assets/fast-stars.png'} speed={2} scale={0.5} />
+      <AnimatedBackground src={'./static/assets/galaxy.png'} speed={0.1} />
+      <AnimatedBackground src={'./static/assets/slow-stars.png'} speed={0.5} />
+      <AnimatedBackground src={'./static/assets/fast-stars.png'} speed={2} scale={0.5} />
       <FrameRateStats />
     </PixiCanvas>
   );

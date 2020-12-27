@@ -23,7 +23,7 @@ const events: PropsDefinition = [
 ];
 
 const textures = {
-  coin: '/static/assets/animation.json'
+  coin: './static/assets/animation.json'
 };
 
 const PixiAnimatedSpriteExample: React.FC = () => {
@@ -38,10 +38,10 @@ const PixiAnimatedSpriteColorsExample: React.FC = () => {
   return (
     <PixiCanvas>
       <PixiAnimatedSprite alignX={0.5} alignY={0.5} playing={true} fps={4}>
-        <PixiTexture src={'/static/assets/blue.png'} />
-        <PixiTexture src={'/static/assets/green.png'} />
-        <PixiTexture src={'/static/assets/red.png'} />
-        <PixiTexture src={'/static/assets/yellow.png'} />
+        <PixiTexture src={'./static/assets/blue.png'} />
+        <PixiTexture src={'./static/assets/green.png'} />
+        <PixiTexture src={'./static/assets/red.png'} />
+        <PixiTexture src={'./static/assets/yellow.png'} />
       </PixiAnimatedSprite>
     </PixiCanvas>
   );
@@ -60,13 +60,13 @@ const PixiAnimatedSpriteDoc: React.FC = () => {
         <PixiAnimatedSpriteExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiAnimatedSpriteExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiAnimatedSpriteExample.tsx'} />
       </Block>
       <Block style={{ height: 200 }}>
         <PixiAnimatedSpriteColorsExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiAnimatedSpriteColorsExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiAnimatedSpriteColorsExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

@@ -2,8 +2,8 @@ import React, { useReducer } from 'react';
 import { PixiCanvas, PixiTilingSprite, PixiRenderTexture, PixiSprite } from 'pixi-reactive';
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const PixiRenderTextureExample: React.FC = () => {

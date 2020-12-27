@@ -2,7 +2,7 @@ import React from 'react';
 import { PixiCanvas, PixiAnimatedSprite } from 'pixi-reactive';
 
 const textures = {
-  coin: '/static/assets/animation.json'
+  coin: './static/assets/animation.json'
 };
 
 const PixiAnimatedSpriteExample: React.FC = () => {

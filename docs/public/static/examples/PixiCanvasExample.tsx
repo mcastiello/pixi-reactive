@@ -5,9 +5,9 @@ import { PixiCanvas, PixiTilingSprite, PixiSprite } from 'pixi-reactive';
  * List of textures. It supports image assets or JSON files created with TexturePacker
  */
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  stars: '/static/assets/slow-stars.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  stars: './static/assets/slow-stars.png',
+  ship: './static/assets/spaceship.png'
 };
 
 type Space = {

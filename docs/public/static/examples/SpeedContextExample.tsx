@@ -4,8 +4,8 @@ import { PixiCanvas, PixiSprite, PixiTilingSprite, RenderingContext, AnimationCo
 import styled from 'styled-components';
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const StyledButton = styled(Link)`

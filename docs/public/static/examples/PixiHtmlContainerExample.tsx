@@ -3,8 +3,8 @@ import { PixiCanvas, PixiHtmlContainer, PixiTilingSprite, PixiSprite, Overflow }
 import styled from 'styled-components';
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const Balloon = styled.div`

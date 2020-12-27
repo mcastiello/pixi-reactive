@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { PixiCanvas, PixiSprite, PixiTilingSprite, PointerContext } from 'pixi-reactive';
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const Ship: React.FC = () => {

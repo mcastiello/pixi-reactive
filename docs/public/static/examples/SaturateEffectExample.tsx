@@ -2,8 +2,8 @@ import React, { useCallback, useReducer, useState } from 'react';
 import { PixiCanvas, PixiSprite, PixiTilingSprite, ColorMatrixFilter, SaturateEffect } from 'pixi-reactive';
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const SaturateEffectExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {

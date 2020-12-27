@@ -18,9 +18,9 @@ const PixiMaskExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
   return (
     <PixiCanvas onUpdate={update}>
       <PixiTilingSprite tileY={position} width={216} height={150} alignY={0.5} alignX={0.5}>
-        <PixiTexture src={'/static/assets/galaxy.png'} />
+        <PixiTexture src={'./static/assets/galaxy.png'} />
         <PixiMask enabled={enabled}>
-          <PixiTexture src={'/static/assets/pixi-reactive.png'} />
+          <PixiTexture src={'./static/assets/pixi-reactive.png'} />
         </PixiMask>
       </PixiTilingSprite>
     </PixiCanvas>
@@ -47,7 +47,7 @@ const PixiMaskDoc: React.FC = () => {
         <PixiMaskExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiMaskExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiMaskExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={maskProps} />

@@ -39,8 +39,8 @@ export const spriteProps: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spritesheet.json'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spritesheet.json'
 };
 
 const PixiSpriteExample: React.FC = () => {
@@ -48,7 +48,7 @@ const PixiSpriteExample: React.FC = () => {
     <PixiCanvas textures={textures}>
       <PixiTilingSprite texture={'galaxy'} />
       <PixiSprite alignY={0.5} x={20}>
-        <PixiTexture src={'/static/assets/spaceship.png'} />
+        <PixiTexture src={'./static/assets/spaceship.png'} />
       </PixiSprite>
       <PixiSprite texture={'enemy-ship'} alignY={0.5} alignX={1} x={-20} />
     </PixiCanvas>
@@ -73,7 +73,7 @@ const PixiSpriteDoc: React.FC = () => {
         <PixiSpriteExample />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/PixiSpriteExample.tsx'} />
+        <CodeViewer src={'./static/examples/PixiSpriteExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={spriteProps} />

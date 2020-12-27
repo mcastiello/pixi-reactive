@@ -16,8 +16,8 @@ const blurProps: PropsDefinition = [
 ];
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const BlurFilterExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {
@@ -55,7 +55,7 @@ const BlurFilterDoc: React.FC = () => {
         <BlurFilterExample enabled={enabled} />
       </Block>
       <Block>
-        <CodeViewer src={'/static/examples/BlurFilterExample.tsx'} />
+        <CodeViewer src={'./static/examples/BlurFilterExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={blurProps} />

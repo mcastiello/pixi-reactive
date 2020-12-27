@@ -2,8 +2,8 @@ import React, { useCallback, useReducer, useState } from 'react';
 import { PixiCanvas, PixiSprite, PixiTilingSprite, FXAAFilter } from 'pixi-reactive';
 
 const textures = {
-  galaxy: '/static/assets/galaxy.png',
-  ship: '/static/assets/spaceship.png'
+  galaxy: './static/assets/galaxy.png',
+  ship: './static/assets/spaceship.png'
 };
 
 const FXAAFilterExample: React.FC<{ enabled: boolean }> = ({ enabled }) => {

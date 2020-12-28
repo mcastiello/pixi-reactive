@@ -1,6 +1,6 @@
 {
   "name": "pixi-reactive",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A library to help integrate PIXI into a React project",
   "author": "mcastiello",
   "license": "MIT",

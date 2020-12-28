@@ -3,7 +3,7 @@ import React, { PropsWithChildren, useContext, useEffect } from 'react';
 import { AnimationContext, ParentContext, RenderingContext } from '../contexts';
 import { useDisplayObjectEvents, useId, useParentContext, useGenericProps, useElement } from '../hooks';
 import { PixiDisplayObjectProps } from '../props';
-import { CursorType, GenericEventType } from '../types';
+import { CursorType } from '../types';
 
 const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T extends PIXI.Container>(
   props: PropsWithChildren<PixiDisplayObjectProps<T>>
@@ -37,9 +37,71 @@ const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T e
     hitArea,
     filterArea
   } = props;
+  const {
+    onClick,
+    onMouseDown,
+    onMouseMove,
+    onMouseOut,
+    onMouseOver,
+    onMouseUp,
+    onMouseUpOutside,
+    onPointerCancel,
+    onPointerDown,
+    onPointerMove,
+    onPointerOut,
+    onPointerOver,
+    onPointerTap,
+    onPointerUp,
+    onPointerUpOutside,
+    onRemovedFrom,
+    onRightClick,
+    onRightDown,
+    onRightUp,
+    onRightUpOutside,
+    onTap,
+    onTouchCancel,
+    onTouchEnd,
+    onTouchEndOutside,
+    onTouchMove,
+    onTouchStart,
+    onAdded,
+    onRemoved,
+    onChildAdded
+  } = props;
+
   const id = useId(name);
 
-  useDisplayObjectEvents(element, props as GenericEventType);
+  useDisplayObjectEvents(element, {
+    onClick,
+    onMouseDown,
+    onMouseMove,
+    onMouseOut,
+    onMouseOver,
+    onMouseUp,
+    onMouseUpOutside,
+    onPointerCancel,
+    onPointerDown,
+    onPointerMove,
+    onPointerOut,
+    onPointerOver,
+    onPointerTap,
+    onPointerUp,
+    onPointerUpOutside,
+    onRemovedFrom,
+    onRightClick,
+    onRightDown,
+    onRightUp,
+    onRightUpOutside,
+    onTap,
+    onTouchCancel,
+    onTouchEnd,
+    onTouchEndOutside,
+    onTouchMove,
+    onTouchStart,
+    onAdded,
+    onRemoved,
+    onChildAdded
+  });
 
   useGenericProps(element, {
     alpha,

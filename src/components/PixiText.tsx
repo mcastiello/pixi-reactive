@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { ParentContext, RenderingContext } from '../contexts';
-import { useId, useSpriteProps, useTextureUpdate } from '../hooks';
+import { useSpriteProps, useTextureUpdate } from '../hooks';
 import { useAlignedPosition } from '../hooks/propHooks';
 import { isAnimatedSprite, isSprite, PixiTextProps } from '../props';
 import { BlendModes, defaultTextStyle } from '../types';
 import PixiDisplayObject from './PixiDisplayObject';
 
 const PixiText: React.FC<PixiTextProps> = (props) => {
-  const { name, anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
+  const { anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = props;
   const { style = defaultTextStyle, children = '' } = props;
   const { update } = useContext(RenderingContext);
   const { parent } = useContext(ParentContext);
@@ -16,7 +16,6 @@ const PixiText: React.FC<PixiTextProps> = (props) => {
   const [state, setState] = useState(false);
   const [texture, setTexture] = useState(sprite.texture);
   const [isTextureMode] = useState(isSprite(parent) || isAnimatedSprite(parent));
-  const textureId = useId(name);
 
   useSpriteProps(sprite, {
     anchorX,
@@ -42,14 +41,9 @@ const PixiText: React.FC<PixiTextProps> = (props) => {
 
   useEffect(() => {
     if (state) {
-      setTexture(sprite.texture.clone());
+      setTexture(sprite.texture);
     }
   }, [state, sprite]);
-
-  useEffect(() => {
-    texture?.textureCacheIds.splice(0);
-    texture?.textureCacheIds.push(textureId);
-  }, [texture, textureId]);
 
   useTextureUpdate(texture);
 

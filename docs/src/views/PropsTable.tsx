@@ -1,7 +1,7 @@
 import { Block, Icon } from 'framework7-react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getPageChildren, Pages } from '../pages';
+import { getComponentUrl, getPageChildren, Pages } from '../pages';
 import { StyledTable, StyledLink, StyledTableContainer } from './StyledComponents';
 
 type PropDefinition = [string, boolean, string, string, string];
@@ -25,11 +25,30 @@ export const parseCode = (text: string) => {
   });
 };
 
+let pageUrlMap: Map<Pages, string>;
+
+const getTypeLinks = async () => {
+  if (!pageUrlMap) {
+    const pages = await getPageChildren(Pages.Types);
+    const map = new Map<Pages, string>();
+
+    for (let i = 0; i < pages.length; i++) {
+      const path = await getComponentUrl(pages[i]);
+
+      map.set(pages[i], `#${path}`);
+    }
+
+    pageUrlMap = map;
+  }
+
+  return pageUrlMap;
+};
+
 const PropsTable: React.FC<{ props: PropsDefinition }> = ({ props = [] }) => {
-  const [types, setTypes] = useState<Pages[]>([]);
+  const [types, setTypes] = useState<Map<Pages, string>>();
 
   useEffect(() => {
-    getPageChildren(Pages.Types).then(setTypes);
+    getTypeLinks().then(setTypes);
   }, []);
 
   return (
@@ -52,7 +71,13 @@ const PropsTable: React.FC<{ props: PropsDefinition }> = ({ props = [] }) => {
                   <td>{prop[0]}</td>
                   <td>{prop[1] ? <Icon f7={'checkmark_alt'} size={14} /> : null}</td>
                   <td>
-                    <code>{types.includes(prop[2] as Pages) ? <StyledLink text={prop[2]} external /> : prop[2]}</code>
+                    <code>
+                      {types && types.has(prop[2] as Pages) ? (
+                        <StyledLink text={prop[2]} href={types.get(prop[2] as Pages)} external />
+                      ) : (
+                        prop[2]
+                      )}
+                    </code>
                   </td>
                   <td>
                     <code>{prop[3]}</code>

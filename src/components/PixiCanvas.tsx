@@ -1,9 +1,8 @@
 import * as PIXI from 'pixi.js';
 import React, { CSSProperties, useContext, useEffect, useState } from 'react';
-import { usePointerContext } from '../hooks/contextHooks';
 import { PixiCanvasProps } from '../props';
 import AutoSizer, { Size } from 'react-virtualized-auto-sizer';
-import { useId, useAnimationContext, useRenderingContext, useSpeedContext, useTextureContext } from '../hooks';
+import { useId, useAnimationContext, useRenderingContext, useSpeedContext, useTextureContext, usePointerContext } from '../hooks';
 import { SpeedContext, AnimationContext, RenderingContext, ParentContext, TextureContext, PointerContext } from '../contexts';
 import { Overflow, ParentContextType } from '../types';
 

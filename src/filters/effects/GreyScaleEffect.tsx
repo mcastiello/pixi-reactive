@@ -16,11 +16,13 @@ const GreyScaleEffect: React.FC<GreyScaleEffectProps> = ({ multiply = true, enab
       effect: EffectType.GreyScale,
       params: [amount]
     });
+  }, [id, multiply, enabled, updateEffect, amount]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect, amount]);
+  }, [id, removeEffect]);
 
   return null;
 };

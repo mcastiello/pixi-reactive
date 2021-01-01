@@ -8,9 +8,11 @@ export {
   PixiCanvasTexture,
   PixiMask,
   PixiSprite,
+  PixiGraphics,
   PixiText,
   PixiTilingSprite
 } from './components';
+export { ShapeTexture, FillStyle, LineStyle, Rectangle, Circle, Ellipse, Star } from './components/shapes';
 export { AnimationContext, RenderingContext, ParentContext, TextureContext, SpeedContext, PointerContext } from './contexts';
 export { BlurFilter, AlphaFilter, ColorMatrixFilter, FXAAFilter, NoiseFilter } from './filters';
 export {
@@ -41,12 +43,14 @@ export {
   FontStyle,
   FontVariant,
   FontWeight,
-  Rectangle,
+  Point,
+  Area,
+  LineCap,
+  LineJoin,
   Overflow,
   TextAlign,
   TextBaseline,
   TextGradient,
-  TextLineJoin,
   TextStyle,
   TextWhiteLine
 } from './types';

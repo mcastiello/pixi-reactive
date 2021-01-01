@@ -7,11 +7,11 @@ import ComponentLink from '../ComponentLink';
 import PropsTable, { PropsDefinition } from '../PropsTable';
 import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledComponents';
 
-const textureProps: PropsDefinition = [
+export const textureProps: PropsDefinition = [
   ['name', false, 'string', 'null', 'Name or ID of the texture'],
   ['src', true, 'string', 'null', 'Path to the asset to be loaded']
 ];
-const textureEvents: PropsDefinition = [['onLoad', false, 'function', 'null', 'Triggered when the source image is loaded']];
+export const textureEvents: PropsDefinition = [['onLoad', false, 'function', 'null', 'Triggered when the source image is loaded']];
 
 const PixiTextureExample: React.FC = () => {
   return (

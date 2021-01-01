@@ -11,7 +11,9 @@ import {
   RenderingContextState,
   RenderAction,
   LoadResourceType,
-  TextureContextType
+  TextureContextType,
+  ShapeTextureType,
+  ShapeStyleType, LineDefinition, FillDefinition
 } from '../types';
 import { initialSpeedState, ParentContext, AnimationContext, RenderingContext } from '../contexts';
 import * as PIXI from 'pixi.js';
@@ -157,7 +159,7 @@ export const useRenderingContext = (canvasReference: string, retina = false, fra
 
   useEffect(() => {
     if (canvas) {
-      setRenderer(new PIXI.Renderer({ view: canvas, transparent: true, width: canvas.width, height: canvas.height }));
+      setRenderer(new PIXI.Renderer({ view: canvas, transparent: true, width: canvas.width, height: canvas.height, antialias: true }));
     }
   }, [canvas]);
 
@@ -398,4 +400,23 @@ export const usePointerContext = (retina: boolean) => {
   const pointerEnd = useCallback(() => update({ type: PointerContextActionType.EndOver }), []);
 
   return { pointerContext, updatePosition, pointerStart, pointerEnd };
+};
+
+export const useShapeTextureContext = (): ShapeTextureType => {
+  const [matrix, setMatrix] = useState<PIXI.Matrix | undefined>();
+  const [texture, setTexture] = useState<PIXI.Texture | undefined>();
+
+  return {
+    texture,
+    matrix: texture ? matrix : undefined,
+    setMatrix,
+    setTexture
+  };
+};
+
+export const useShapeStyleContext = (): ShapeStyleType => {
+  const [line, setLineStyle] = useState<LineDefinition | undefined>();
+  const [fill, setFillStyle] = useState<FillDefinition | undefined>();
+
+  return { line, fill, setLineStyle, setFillStyle };
 };

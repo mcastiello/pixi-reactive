@@ -15,11 +15,13 @@ const BlackAndWhiteEffect: React.FC<EffectProps> = ({ multiply = true, enabled =
       enabled,
       effect: EffectType.BlackAndWhite
     });
+  }, [id, multiply, enabled, updateEffect]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect]);
+  }, [id, removeEffect]);
 
   return null;
 };

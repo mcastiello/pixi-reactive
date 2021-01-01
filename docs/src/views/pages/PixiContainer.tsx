@@ -1,34 +1,38 @@
 import { Block } from 'framework7-react';
-import React  from 'react';
-import { PixiCanvas, PixiTilingSprite, PixiSprite,PixiContainer } from 'pixi-reactive';
+import React from 'react';
+import { PixiCanvas, PixiTilingSprite, PixiSprite, PixiContainer } from 'pixi-reactive';
 import CodeViewer from '../CodeViewer';
 import PropsTable, { PropsDefinition } from '../PropsTable';
 import { StyledTitle, StyledSectionTitle, StyledIntroduction } from '../StyledComponents';
 import { renderEvents } from './PixiCanvas';
 
-export const genericProps: PropsDefinition = [
-  ['alpha', false, 'number', '1', 'Value between 0 and 1 that defines the object opacity'],
-  ['angle', false, 'number', '0', 'Rotation of the object in degrees'],
-  ['buttonMode', false, 'boolean', 'false', 'When set to true it makes the element clickable and set the cursor as pointer'],
-  ['cursor', false, 'CursorType', 'CursorType.None', 'Cursor used while hovering on the object'],
-  ['interactive', false, 'boolean', 'false', 'Whether the object is interactive (react to pointer events)'],
-  ['name', false, 'string', 'null', 'Name of the object'],
+export const transformProps: PropsDefinition = [
+  ['x', false, 'number', '0', 'X coordinate of the object relative to the parent'],
+  ['y', false, 'number', '0', 'X coordinate of the object relative to the parent'],
   ['pivotX', false, 'number', '0', 'Relative coordinate on the X axis of the point around which the object rotate'],
   ['pivotY', false, 'number', '0', 'Relative coordinate on the Y axis of the point around which the object rotate'],
   ['rotation', false, 'number', '0', 'Rotation of the object in radians'],
   ['scaleX', false, 'number', '1', 'Scale of the object on the X axis'],
   ['scaleY', false, 'number', '1', 'Scale of the object on the Y axis'],
   ['skewX', false, 'number', '0', 'Skew transform value on the X axis'],
-  ['skewY', false, 'number', '0', 'Skew transform value on the Y axis'],
+  ['skewY', false, 'number', '0', 'Skew transform value on the Y axis']
+];
+
+export const genericProps: PropsDefinition = [
+  ...transformProps,
+  ['alpha', false, 'number', '1', 'Value between 0 and 1 that defines the object opacity'],
+  ['angle', false, 'number', '0', 'Rotation of the object in degrees'],
+  ['buttonMode', false, 'boolean', 'false', 'When set to true it makes the element clickable and set the cursor as pointer'],
+  ['cursor', false, 'CursorType', 'CursorType.None', 'Cursor used while hovering on the object'],
+  ['interactive', false, 'boolean', 'false', 'Whether the object is interactive (react to pointer events)'],
+  ['name', false, 'string', 'null', 'Name of the object'],
   ['visible', false, 'boolean', 'true', 'Whether the object is visible or not'],
-  ['x', false, 'number', '0', 'X coordinate of the object relative to the parent'],
-  ['y', false, 'number', '0', 'X coordinate of the object relative to the parent'],
   ['zIndex', false, 'number', '0', 'Order in which the object is rendered (only works if the parent `sortableChildren` is set to `true`)'],
   ['width', false, 'number', 'null', 'Width of the object'],
   ['height', false, 'number', 'null', 'Height of the object'],
   ['sortableChildren', false, 'boolean', 'false', 'Whether the children of the element can be sorted through the `zIndex`'],
-  ['filterArea', false, 'Rectangle', 'null', 'Area over which the filters will be applied'],
-  ['hitArea', false, 'Rectangle', 'null', 'Area of the element that will be used to test for interactions']
+  ['filterArea', false, 'Area', 'null', 'Area over which the filters will be applied'],
+  ['hitArea', false, 'Area', 'null', 'Area of the element that will be used to test for interactions']
 ];
 
 export const genericEvents: PropsDefinition = [
@@ -60,9 +64,9 @@ export const genericEvents: PropsDefinition = [
   ['onTouchMove', false, 'function', 'null', 'Callback executed when the `touchmove` event is triggered'],
   ['onTouchStart', false, 'function', 'null', 'Callback executed when the `touchstart` event is triggered'],
   ['onAdded', false, 'function', 'null', 'Callback executed the object is added to a parent element or into the rendered stage'],
-  ['onRemoved', false, 'function', 'null', 'Callback executed the element is removed from it\' parent'],
+  ['onRemoved', false, 'function', 'null', "Callback executed the element is removed from it' parent"],
   ['onChildAdded', false, 'function', 'null', 'Callback executed a child element is added']
-]
+];
 
 const textures = {
   galaxy: './static/assets/galaxy.png',

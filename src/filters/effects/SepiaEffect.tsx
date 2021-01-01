@@ -15,11 +15,13 @@ const SepiaEffect: React.FC<EffectProps> = ({ multiply = true, enabled = true })
       enabled,
       effect: EffectType.Sepia
     });
+  }, [id, multiply, enabled, updateEffect]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect]);
+  }, [id, removeEffect]);
 
   return null;
 };

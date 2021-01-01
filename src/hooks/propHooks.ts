@@ -1,9 +1,13 @@
+import * as PIXI from 'pixi.js';
 import { useContext, useEffect, useState } from 'react';
 import { ParentContext, RenderingContext } from '../contexts';
 import {
   AllFilterProps,
   FilterProps,
   FilterPropsMap,
+  GraphicsProps,
+  GraphicsPropsMap,
+  GraphicsPropsType,
   SpriteProps,
   SpritePropsMap,
   SpritePropsType,
@@ -20,7 +24,7 @@ import {
   GenericPropsMap,
   GenericType,
   PropValue,
-  Rectangle
+  Area
 } from '../types';
 
 const propsToMap = <S extends { [K in T]?: PropValue }, T extends keyof S>(props: S) => {
@@ -115,7 +119,7 @@ const updateGenericProps = <T extends PIXI.Container>(item: T, updatedProperties
         break;
       case GenericProps.FilterArea:
         if (value) {
-          rectangle = value as Rectangle;
+          rectangle = value as Area;
           item.filterArea = new PIXI.Rectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
         } else {
           // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -125,7 +129,7 @@ const updateGenericProps = <T extends PIXI.Container>(item: T, updatedProperties
         break;
       case GenericProps.HitArea:
         if (value) {
-          rectangle = value as Rectangle;
+          rectangle = value as Area;
           item.hitArea = new PIXI.Rectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
         } else {
           // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -150,13 +154,20 @@ const updateSpriteProps = <T extends PIXI.Sprite>(item: T, updatedProperties?: S
           item.anchor.y = value as number;
         }
         break;
-      case SpriteProps.BlendMode:
-        item.blendMode = BlendModesMap.get(value as BlendModes) || 0;
-        break;
       case SpriteProps.RoundPixels:
         item.roundPixels = value as boolean;
         break;
-      case SpriteProps.Tint:
+    }
+  });
+};
+
+const updateGraphicsProps = <T extends PIXI.Sprite | PIXI.Graphics>(item: T, updatedProperties?: GraphicsPropsMap) => {
+  updatedProperties?.forEach((value, key) => {
+    switch (key) {
+      case GraphicsProps.BlendMode:
+        item.blendMode = BlendModesMap.get(value as BlendModes) || 0;
+        break;
+      case GraphicsProps.Tint:
         item.tint = value as number;
         break;
     }
@@ -176,10 +187,10 @@ const updateTilingSpriteProps = <T extends PIXI.TilingSprite>(item: T, updatedPr
         item.tileScale.y = value as number;
         break;
       case TilingSpriteProps.TileX:
-        item.tilePosition.x = value as number % item.texture.width;
+        item.tilePosition.x = (value as number) % item.texture.width;
         break;
       case TilingSpriteProps.TileY:
-        item.tilePosition.y = value as number % item.texture.height;
+        item.tilePosition.y = (value as number) % item.texture.height;
         break;
       case TilingSpriteProps.UvRespectAnchor:
         item.uvRespectAnchor = value as boolean;
@@ -234,9 +245,8 @@ const updateFilterProps = <T extends PIXI.Filter>(item: T, updatedProperties?: F
   });
 };
 
-export const useGenericProps = <T extends PIXI.Container>(item: T, props: GenericType) => {
-  const { update } = useContext(RenderingContext);
-  const [state] = useState(propsToMap(props));
+const useUpdatedProps = <S extends { [K in T]?: PropValue }, T extends keyof S>(props: S) => {
+  const [state, setState] = useState<Map<T, PropValue>>(propsToMap(props));
   const [updatedProperties, setUpdatedProperties] = useState(state);
 
   useEffect(() => {
@@ -244,8 +254,16 @@ export const useGenericProps = <T extends PIXI.Container>(item: T, props: Generi
 
     if (updatedMap.size > 0) {
       setUpdatedProperties(updatedMap);
+      setState(propsToMap(props));
     }
   }, [props, state]);
+
+  return updatedProperties;
+};
+
+export const useGenericProps = <T extends PIXI.Container>(item: T, props: GenericType) => {
+  const { update } = useContext(RenderingContext);
+  const updatedProperties = useUpdatedProps(props);
 
   useEffect(() => {
     updateGenericProps(item, updatedProperties as GenericPropsMap);
@@ -255,21 +273,46 @@ export const useGenericProps = <T extends PIXI.Container>(item: T, props: Generi
 
 export const useSpriteProps = <T extends PIXI.Sprite>(sprite: T, props: SpritePropsType) => {
   const { update } = useContext(RenderingContext);
-  const [state] = useState(propsToMap(props));
-  const [updatedProperties, setUpdatedProperties] = useState(state);
-
-  useEffect(() => {
-    const propsMap = getMapUpdate(state, props);
-
-    if (propsMap.size > 0) {
-      setUpdatedProperties(propsMap);
-    }
-  }, [props, state]);
+  const updatedProperties = useUpdatedProps(props);
 
   useEffect(() => {
     updateSpriteProps(sprite, updatedProperties as SpritePropsMap);
     update();
   }, [updatedProperties, update, sprite]);
+};
+
+export const useGraphicsProps = <T extends PIXI.Sprite | PIXI.Graphics>(graphics: T, props: GraphicsPropsType) => {
+  const { update } = useContext(RenderingContext);
+  const updatedProperties = useUpdatedProps(props);
+
+  useEffect(() => {
+    updateGraphicsProps(graphics, updatedProperties as GraphicsPropsMap);
+    update();
+  }, [updatedProperties, update, graphics]);
+};
+
+export const useTransformMatrix = (
+  x = 0,
+  y = 0,
+  pivotX = 0,
+  pivotY = 0,
+  scaleX = 1,
+  scaleY = 1,
+  rotation = 0, // Rotation in radians
+  skewX = 0,
+  skewY = 0
+) => {
+  const [matrix, setMatrix] = useState(new PIXI.Matrix());
+
+  useEffect(() => {
+    const newMatrix = new PIXI.Matrix();
+
+    newMatrix.setTransform(x, y, pivotX, pivotY, scaleX, scaleY, rotation, skewX, skewY);
+
+    setMatrix(newMatrix);
+  }, [x, y, pivotX, pivotY, scaleX, scaleY, rotation, skewX, skewY]);
+
+  return matrix;
 };
 
 export const useAlignedPosition = <T extends PIXI.Sprite>(sprite: T, props: GenericType & SpritePropsType) => {
@@ -300,16 +343,7 @@ export const useAlignedPosition = <T extends PIXI.Sprite>(sprite: T, props: Gene
 
 export const useTilingSpriteProps = <T extends PIXI.TilingSprite>(sprite: T, props: TilingSpritePropsType) => {
   const { update } = useContext(RenderingContext);
-  const [state] = useState(propsToMap(props));
-  const [updatedProperties, setUpdatedProperties] = useState(state);
-
-  useEffect(() => {
-    const tileProps = getMapUpdate(state, props);
-
-    if (tileProps.size > 0) {
-      setUpdatedProperties(tileProps);
-    }
-  }, [props, state]);
+  const updatedProperties = useUpdatedProps(props);
 
   useEffect(() => {
     updateTilingSpriteProps(sprite, updatedProperties as TilingSpritePropsMap);
@@ -319,16 +353,7 @@ export const useTilingSpriteProps = <T extends PIXI.TilingSprite>(sprite: T, pro
 
 export const useFilterProps = <T extends PIXI.Filter>(filter: T, props: AllFilterProps) => {
   const { update } = useContext(RenderingContext);
-  const [state] = useState(propsToMap(props));
-  const [updatedProperties, setUpdatedProperties] = useState(state);
-
-  useEffect(() => {
-    const filterProps = getMapUpdate(state, props);
-
-    if (filterProps.size > 0) {
-      setUpdatedProperties(filterProps);
-    }
-  }, [props, state]);
+  const updatedProperties = useUpdatedProps(props);
 
   useEffect(() => {
     updateFilterProps(filter, updatedProperties as FilterPropsMap);

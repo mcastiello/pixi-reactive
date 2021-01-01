@@ -16,11 +16,13 @@ const HueEffect: React.FC<HueEffectProps> = ({ multiply = true, enabled = true, 
       effect: EffectType.Hue,
       params: [rotation]
     });
+  }, [id, multiply, enabled, updateEffect, rotation]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect, rotation]);
+  }, [id, removeEffect]);
 
   return null;
 };

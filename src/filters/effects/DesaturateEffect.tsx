@@ -15,11 +15,13 @@ const DesaturateEffect: React.FC<EffectProps> = ({ enabled = true }) => {
       enabled,
       effect: EffectType.Desaturate
     });
+  }, [id, enabled, updateEffect]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, enabled, updateEffect, removeEffect]);
+  }, [id, removeEffect]);
 
   return null;
 };

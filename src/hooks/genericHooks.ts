@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { useCallback, useContext, useEffect, useReducer, useState } from 'react';
 import { v4 } from 'uuid';
-import { AnimationContext, ParentContext, RenderingContext, TextureContext } from '../contexts';
+import { AnimationContext, ParentContext, RenderingContext, ShapeTextureContext, TextureContext } from '../contexts';
 import { isAnimatedSprite, isSprite } from '../props';
 import { AnimationAction, AnimationActionType, AnimationState } from '../types';
 
@@ -80,9 +80,8 @@ export const useFilter = <T extends PIXI.Filter>(item: T) => {
   return element;
 };
 
-export const useTexture = <T extends PIXI.Sprite>(sprite: T, textureName?: string) => {
+export const useLoadedTexture = (textureName?: string) => {
   const context = useContext(TextureContext);
-  const { update } = useContext(RenderingContext);
   const [texture, setTexture] = useState<PIXI.Texture | undefined>(
     typeof textureName === 'string' && context[textureName] instanceof PIXI.Texture ? (context[textureName] as PIXI.Texture) : undefined
   );
@@ -96,6 +95,13 @@ export const useTexture = <T extends PIXI.Sprite>(sprite: T, textureName?: strin
       }
     }
   }, [texture, context, textureName]);
+
+  return texture;
+};
+
+export const useTexture = <T extends PIXI.Sprite>(sprite: T, textureName?: string) => {
+  const { update } = useContext(RenderingContext);
+  const texture = useLoadedTexture(textureName);
 
   useEffect(() => {
     if (texture) {
@@ -155,23 +161,28 @@ export const useFrames = <T extends PIXI.AnimatedSprite>(sprite: T, frames?: str
 export const useTextureUpdate = (texture?: PIXI.Texture) => {
   const { parent } = useContext(ParentContext);
   const { update } = useContext(RenderingContext);
+  const { setTexture } = useContext(ShapeTextureContext);
 
   useEffect(() => {
-    if (texture && isSprite(parent)) {
-      const currentScale = parent.scale.clone();
-      if (isAnimatedSprite(parent)) {
-        const emptyIndex = parent.textures.indexOf(PIXI.Texture.EMPTY);
-        if (emptyIndex >= 0) {
-          parent.textures = [texture];
-        } else {
-          parent.textures = [...parent.textures, texture];
+    if (texture) {
+      if (isSprite(parent)) {
+        const currentScale = parent.scale.clone();
+        if (isAnimatedSprite(parent)) {
+          const emptyIndex = parent.textures.indexOf(PIXI.Texture.EMPTY);
+          if (emptyIndex >= 0) {
+            parent.textures = [texture];
+          } else {
+            parent.textures = [...parent.textures, texture];
+          }
         }
+        parent.texture = texture;
+        parent.scale.copyFrom(currentScale);
+        update();
+      } else {
+        setTexture(texture);
       }
-      parent.texture = texture;
-      parent.scale.copyFrom(currentScale);
-      update();
     }
-  }, [parent, texture, update]);
+  }, [parent, texture, update, setTexture]);
 };
 
 export const useFrameAnimation = (initialFrame: number, frameCount: number, fps: number, playing: boolean): number => {

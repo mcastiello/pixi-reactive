@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { ParentContext, RenderingContext } from '../contexts';
-import { useSpriteProps, useTextureUpdate } from '../hooks';
-import { useAlignedPosition } from '../hooks/propHooks';
+import { useGraphicsProps, useSpriteProps, useTextureUpdate, useAlignedPosition } from '../hooks';
 import { isAnimatedSprite, isSprite, PixiTextProps } from '../props';
 import { BlendModes, defaultTextStyle } from '../types';
 import PixiDisplayObject from './PixiDisplayObject';
@@ -20,8 +19,11 @@ const PixiText: React.FC<PixiTextProps> = (props) => {
   useSpriteProps(sprite, {
     anchorX,
     anchorY,
+    roundPixels
+  });
+
+  useGraphicsProps(sprite, {
     blendMode,
-    roundPixels,
     tint
   });
 

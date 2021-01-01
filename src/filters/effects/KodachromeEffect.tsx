@@ -15,11 +15,13 @@ const KodachromeEffect: React.FC<EffectProps> = ({ multiply = true, enabled = tr
       enabled,
       effect: EffectType.Kodachrome
     });
+  }, [id, multiply, enabled, updateEffect]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect]);
+  }, [id, removeEffect]);
 
   return null;
 };

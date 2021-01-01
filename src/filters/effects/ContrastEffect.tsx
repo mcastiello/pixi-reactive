@@ -16,11 +16,13 @@ const ContrastEffect: React.FC<ContrastEffectProps> = ({ multiply = true, enable
       effect: EffectType.Contrast,
       params: [amount]
     });
+  }, [id, multiply, enabled, updateEffect, amount]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect, amount]);
+  }, [id, removeEffect]);
 
   return null;
 };

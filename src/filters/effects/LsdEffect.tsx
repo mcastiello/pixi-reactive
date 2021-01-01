@@ -15,11 +15,13 @@ const LsdEffect: React.FC<EffectProps> = ({ multiply = true, enabled = true }) =
       enabled,
       effect: EffectType.Lsd
     });
+  }, [id, multiply, enabled, updateEffect]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect]);
+  }, [id, removeEffect]);
 
   return null;
 };

@@ -16,10 +16,13 @@ const TechnicolorEffect: React.FC<EffectProps> = ({ multiply = true, enabled = t
       effect: EffectType.Technicolor
     });
 
+  }, [id, multiply, enabled, updateEffect]);
+
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect]);
+  }, [id, removeEffect]);
 
   return null;
 };

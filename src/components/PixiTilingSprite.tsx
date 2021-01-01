@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { ParentContext } from '../contexts';
-import { useSpriteProps, useTexture, useTilingSpriteProps } from '../hooks';
-import { useAlignedPosition } from '../hooks/propHooks';
+import { useGraphicsProps, useSpriteProps, useTexture, useTilingSpriteProps, useAlignedPosition } from '../hooks';
 import { PixiTilingSpriteProps } from '../props';
 import { BlendModes } from '../types';
 import PixiDisplayObject from './PixiDisplayObject';
@@ -20,8 +19,11 @@ const PixiTilingSprite: React.FC<PixiTilingSpriteProps> = (props) => {
   useSpriteProps(sprite, {
     anchorX,
     anchorY,
+    roundPixels
+  });
+
+  useGraphicsProps(sprite, {
     blendMode,
-    roundPixels,
     tint
   });
 

@@ -1,6 +1,9 @@
 export { AnimationContext } from './AnimationContext';
 export { ParentContext, defaultParentContext } from './ParentContext';
 export { RenderingContext } from './RenderingContext';
+export { ShapeTextureContext } from './ShapeTextureContext';
+export { ShapeStyleContext } from './ShapeStyleContext';
+export { GraphicsContext } from './GraphicsContext';
 export { SpeedContext, initialSpeedState } from './SpeedContext';
 export { TextureContext } from './TextureContext';
 export { PointerContext } from './PointerContext';

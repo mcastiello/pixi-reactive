@@ -16,11 +16,13 @@ const ColorToneEffect: React.FC<ColorToneProps> = ({ multiply = true, enabled = 
       effect: EffectType.ColorTone,
       params: [desaturation, toned, lightColor, darkColor]
     });
+  }, [id, multiply, enabled, updateEffect, desaturation, toned, lightColor, darkColor]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect, desaturation, toned, lightColor, darkColor]);
+  }, [id, removeEffect]);
 
   return null;
 };

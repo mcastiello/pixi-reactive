@@ -1,4 +1,4 @@
-import { Rectangle } from './GraphicTypes';
+import { Area } from './GraphicsTypes';
 
 export enum CursorType {
   Auto = 'auto',
@@ -71,30 +71,33 @@ export enum GenericProps {
   HitArea = 'hitArea'
 }
 
-export type PropValue = boolean | string | number | Rectangle | undefined;
+export type PropValue = boolean | string | number | Area | undefined;
 export type GenericPropsMap = Map<GenericProps, PropValue>;
 
-export type GenericType = {
+export type TransformType = {
+  x?: number;
+  y?: number;
+  pivotX?: number;
+  pivotY?: number;
+  scaleX?: number;
+  scaleY?: number;
+  rotation?: number; // Rotation in radians
+  skewX?: number;
+  skewY?: number;
+}
+
+export type GenericType = TransformType & {
   alpha?: number;
   angle?: number; // Rotation in degrees
   buttonMode?: boolean;
   cursor?: CursorType;
   interactive?: boolean;
   name?: string;
-  pivotX?: number;
-  pivotY?: number;
-  rotation?: number; // Rotation in radians
-  scaleX?: number;
-  scaleY?: number;
-  skewX?: number;
-  skewY?: number;
   visible?: boolean;
-  x?: number;
-  y?: number;
   zIndex?: number;
   width?: number;
   height?: number;
   sortableChildren?: boolean;
-  filterArea?: Rectangle;
-  hitArea?: Rectangle;
+  filterArea?: Area;
+  hitArea?: Area;
 };

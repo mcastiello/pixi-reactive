@@ -1,3 +1,5 @@
+import { LineJoin } from './GraphicsTypes';
+
 export enum TextAlign {
   Left = 'left',
   Center = 'center',
@@ -7,12 +9,6 @@ export enum TextAlign {
 export enum TextGradient {
   LinearVertical,
   LinearHorizontal
-}
-
-export enum TextLineJoin {
-  Miter = 'miter',
-  Round = 'round',
-  Bevel = 'bevel'
 }
 
 export enum TextBaseline {
@@ -76,7 +72,7 @@ export type TextStyle = {
   fontWeight?: FontWeight;
   letterSpacing?: number;
   lineHeight?: number;
-  lineJoin?: TextLineJoin;
+  lineJoin?: LineJoin;
   miterLimit?: number;
   padding?: number;
   stroke?: string;
@@ -108,7 +104,7 @@ export const defaultTextStyle: TextStyle = {
   fontWeight: FontWeight.Normal,
   letterSpacing: 0,
   lineHeight: 0,
-  lineJoin: TextLineJoin.Miter,
+  lineJoin: LineJoin.Miter,
   miterLimit: 10,
   padding: 0,
   stroke: 'black',

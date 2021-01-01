@@ -15,7 +15,9 @@ const PixiTexture: React.FC<PixiTextureProps> = ({ name, src, onLoad }) => {
   }, [onLoad])
 
   useEffect(() => {
-    PIXI.Texture.fromURL(src).then(loadCallback);
+    if (src) {
+      PIXI.Texture.fromURL(src).then(loadCallback);
+    }
   }, [src, loadCallback]);
 
   useEffect(() => {

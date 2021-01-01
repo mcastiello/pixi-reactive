@@ -16,11 +16,13 @@ const PredatorEffect: React.FC<PredatorEffectProps> = ({ multiply = true, enable
       effect: EffectType.Predator,
       params: [amount]
     });
+  }, [id, multiply, enabled, updateEffect, amount]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect, amount]);
+  }, [id, removeEffect]);
 
   return null;
 };

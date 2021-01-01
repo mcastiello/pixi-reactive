@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import * as PIXI from 'pixi.js';
-import { useSpriteProps, useTexture } from '../hooks';
-import { useAlignedPosition } from '../hooks/propHooks';
+import { useSpriteProps, useTexture, useAlignedPosition, useGraphicsProps } from '../hooks';
 import { PixiSpriteProps } from '../props';
 import { BlendModes } from '../types';
 import PixiDisplayObject from './PixiDisplayObject';
@@ -15,8 +14,11 @@ const PixiSprite: React.FC<PixiSpriteProps> = (props) => {
   useSpriteProps(sprite, {
     anchorX,
     anchorY,
+    roundPixels
+  });
+
+  useGraphicsProps(sprite, {
     blendMode,
-    roundPixels,
     tint
   });
 

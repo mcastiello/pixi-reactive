@@ -45,6 +45,7 @@
         "skipWords": [
           "webpack",
           "plugins",
+          "antialias",
           "pixi",
           "rect",
           "sizer",

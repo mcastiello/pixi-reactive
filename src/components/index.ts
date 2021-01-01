@@ -5,6 +5,7 @@ export { default as PixiContainer } from './PixiContainer';
 export { default as PixiTexture } from './PixiTexture';
 export { default as PixiRenderTexture } from './PixiRenderTexture';
 export { default as PixiSprite } from './PixiSprite';
+export { default as PixiGraphics } from './PixiGraphics';
 export { default as PixiTilingSprite } from './PixiTilingSprite';
 export { default as PixiAnimatedSprite } from './PixiAnimatedSprite';
 export { default as PixiText } from './PixiText';

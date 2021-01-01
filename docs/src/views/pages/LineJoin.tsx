@@ -1,15 +1,15 @@
 import React from 'react';
 import EnumeratorList from '../EnumeratorList';
-import { TextLineJoin } from 'pixi-reactive';
+import { LineJoin } from 'pixi-reactive';
 
-const TextLineJoinDoc: React.FC = () => {
+const LineJoinDoc: React.FC = () => {
   return (
     <EnumeratorList
-      name={'TextLineJoin'}
-      enumerator={TextLineJoin}
+      name={'LineJoin'}
+      enumerator={LineJoin}
       src={'https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin'}
     />
   );
 };
 
-export default TextLineJoinDoc;
+export default LineJoinDoc;

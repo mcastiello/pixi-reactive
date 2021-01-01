@@ -24,7 +24,7 @@ const props: PropsDefinition = [
   ['leading', false, 'number', '0', 'The space between lines'],
   ['letterSpacing', false, 'number', '0', 'Amount of space added between letters'],
   ['lineHeight', false, 'number', '0', 'Height of each line'],
-  ['lineJoin', false, 'TextLineJoin', 'TextLineJoin.Miter', 'Shape to be used at the corners of the text path'],
+  ['lineJoin', false, 'LineJoin', 'LineJoin.Miter', 'Shape to be used at the corners of the text path'],
   ['miterLimit', false, 'number', '10', 'Limit of the miter shape'],
   ['padding', false, 'number', '0', 'padding of the text from the borders'],
   ['stroke', false, 'string', "'black'", 'Color used to stroke the borders of the text'],

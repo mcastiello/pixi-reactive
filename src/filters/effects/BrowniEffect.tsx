@@ -15,11 +15,13 @@ const BrowniEffect: React.FC<EffectProps> = ({ multiply = true, enabled = true }
       enabled,
       effect: EffectType.Browni
     });
+  }, [id, multiply, enabled, updateEffect]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect]);
+  }, [id, removeEffect]);
 
   return null;
 };

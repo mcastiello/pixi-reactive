@@ -16,11 +16,13 @@ const NightEffect: React.FC<NightEffectProps> = ({ multiply = true, enabled = tr
       effect: EffectType.Night,
       params: [amount]
     });
+  }, [id, multiply, enabled, updateEffect, amount]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect, amount]);
+  }, [id, removeEffect]);
 
   return null;
 };

@@ -16,11 +16,13 @@ const BrightnessEffect: React.FC<BrightnessEffectProps> = ({ multiply = true, en
       effect: EffectType.Brightness,
       params: [amount]
     });
+  }, [id, multiply, enabled, updateEffect, amount]);
 
+  useEffect(() => {
     return () => {
       removeEffect(id);
     };
-  }, [id, multiply, enabled, updateEffect, removeEffect, amount]);
+  }, [id, removeEffect]);
 
   return null;
 };

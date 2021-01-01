@@ -33,7 +33,7 @@ const StarDoc: React.FC = () => {
       <StyledIntroduction>
         It draws a star on the canvas.
       </StyledIntroduction>
-      <Block style={{ height: 300 }}>
+      <Block style={{ height: 250 }}>
         <StarExample />
       </Block>
       <Block>

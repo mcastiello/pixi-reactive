@@ -33,7 +33,7 @@ const RectangleDoc: React.FC = () => {
     <>
       <StyledTitle>Rectangle</StyledTitle>
       <StyledIntroduction>It draws a rectangle on the canvas.</StyledIntroduction>
-      <Block style={{ height: 300 }}>
+      <Block style={{ height: 250 }}>
         <RectangleExample />
       </Block>
       <Block>

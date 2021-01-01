@@ -29,7 +29,7 @@ const EllipseDoc: React.FC = () => {
     <>
       <StyledTitle>Ellipse</StyledTitle>
       <StyledIntroduction>It draws a Ellipse on the canvas.</StyledIntroduction>
-      <Block style={{ height: 300 }}>
+      <Block style={{ height: 250 }}>
         <EllipseExample />
       </Block>
       <Block>

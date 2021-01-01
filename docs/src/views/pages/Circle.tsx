@@ -30,7 +30,7 @@ const CircleDoc: React.FC = () => {
       <StyledIntroduction>
         It draws a circle on the canvas.
       </StyledIntroduction>
-      <Block style={{ height: 300 }}>
+      <Block style={{ height: 250 }}>
         <CircleExample />
       </Block>
       <Block>

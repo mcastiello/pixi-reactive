@@ -20,5 +20,6 @@ export {
   useTextureContext,
   useShapeTextureContext,
   useShapeStyleContext,
-  usePointerContext
+  usePointerContext,
+  usePointsContext
 } from './contextHooks';

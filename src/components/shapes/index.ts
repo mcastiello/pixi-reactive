@@ -5,3 +5,5 @@ export { default as Rectangle } from './Rectangle';
 export { default as Circle } from './Circle';
 export { default as Ellipse } from './Ellipse';
 export { default as Star } from './Star';
+export { default as Polygon } from './Polygon';
+export { default as Point } from './Point';

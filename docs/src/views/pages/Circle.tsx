@@ -4,8 +4,10 @@ import React from 'react';
 import CodeViewer from '../CodeViewer';
 import PropsTable, { PropsDefinition } from '../PropsTable';
 import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledComponents';
+import { shapeProps } from './Polygon';
 
 const props: PropsDefinition = [
+  ...shapeProps,
   ['x', true, 'number', 'null', 'Position on the X axis of the center of the circle'],
   ['y', true, 'number', 'null', 'Position on the Y axis of the center of the circle'],
   ['radius', true, 'number', 'null', 'Radius of the circle']
@@ -27,9 +29,7 @@ const CircleDoc: React.FC = () => {
   return (
     <>
       <StyledTitle>Circle</StyledTitle>
-      <StyledIntroduction>
-        It draws a circle on the canvas.
-      </StyledIntroduction>
+      <StyledIntroduction>It draws a circle on the canvas.</StyledIntroduction>
       <Block style={{ height: 250 }}>
         <CircleExample />
       </Block>

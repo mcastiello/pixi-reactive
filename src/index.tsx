@@ -12,7 +12,7 @@ export {
   PixiText,
   PixiTilingSprite
 } from './components';
-export { ShapeTexture, FillStyle, LineStyle, Rectangle, Circle, Ellipse, Star } from './components/shapes';
+export { ShapeTexture, FillStyle, LineStyle, Rectangle, Circle, Ellipse, Star, Point, Polygon } from './components/shapes';
 export { AnimationContext, RenderingContext, ParentContext, TextureContext, SpeedContext, PointerContext } from './contexts';
 export { BlurFilter, AlphaFilter, ColorMatrixFilter, FXAAFilter, NoiseFilter } from './filters';
 export {
@@ -43,7 +43,7 @@ export {
   FontStyle,
   FontVariant,
   FontWeight,
-  Point,
+  Coords,
   Area,
   LineCap,
   LineJoin,

@@ -47,6 +47,7 @@
           "plugins",
           "antialias",
           "pixi",
+          "coords",
           "rect",
           "sizer",
           "args",

@@ -9,7 +9,7 @@ export type { LoadResourceType, TextureContextType } from './TextureContextType'
 export type { TextStyle } from './TextStyleTypes';
 export type { EffectValue, EffectAction, EffectState, EffectContextType } from './EffectTypes';
 export type {
-  Point,
+  Coords,
   Area,
   ShapeStyleType,
   ShapeTextureType,
@@ -22,12 +22,16 @@ export type {
   EllipseType,
   RegularPolygonType,
   StarType,
-  TorusType,
   ShapeActionType,
   GraphicsState,
   DrawShapeDefinition,
   LineDefinition,
-  FillDefinition
+  FillDefinition,
+  PointsContextType,
+  PointActionType,
+  PointsState,
+  PointProps,
+  ShapeGenericType
 } from './GraphicsTypes';
 
 // Events
@@ -51,4 +55,4 @@ export {
   defaultTextStyle
 } from './TextStyleTypes';
 export { EffectType, EffectActionType } from './EffectTypes';
-export { LineJoin, LineCap, Shapes, ShapeAction } from './GraphicsTypes';
+export { LineJoin, LineCap, Shapes, ShapeAction, PointAction } from './GraphicsTypes';

@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useContext, useEffect, useReducer, useState } from 'react';
+import { SyntheticEvent, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import {
   SpeedAction,
   SpeedContextType,
@@ -13,7 +13,14 @@ import {
   LoadResourceType,
   TextureContextType,
   ShapeTextureType,
-  ShapeStyleType, LineDefinition, FillDefinition
+  ShapeStyleType,
+  LineDefinition,
+  FillDefinition,
+  PointsState,
+  PointActionType,
+  PointAction,
+  Coords,
+  PointsContextType
 } from '../types';
 import { initialSpeedState, ParentContext, AnimationContext, RenderingContext } from '../contexts';
 import * as PIXI from 'pixi.js';
@@ -419,4 +426,54 @@ export const useShapeStyleContext = (): ShapeStyleType => {
   const [fill, setFillStyle] = useState<FillDefinition | undefined>();
 
   return { line, fill, setLineStyle, setFillStyle };
+};
+
+export const usePointsContext = (): PointsContextType => {
+  const reducer = useCallback((state: PointsState, action: PointActionType): PointsState => {
+    switch (action.type) {
+      case PointAction.Remove:
+        state.pointMap.delete(action.id);
+        return {
+          pointMap: state.pointMap,
+          points: state.points.filter((pointId) => pointId !== action.id)
+        };
+      case PointAction.Add:
+        if (action.point) {
+          state.pointMap.set(action.id, action.point);
+          if (state.points.indexOf(action.id) < 0) {
+            return {
+              points: [...state.points, action.id],
+              pointMap: state.pointMap
+            };
+          } else {
+            return {
+              points: [...state.points],
+              pointMap: state.pointMap
+            };
+          }
+        } else {
+          return state;
+        }
+    }
+  }, []);
+  const [state, dispatch] = useReducer(reducer, {
+    points: [],
+    pointMap: new Map()
+  });
+
+  const points = useMemo(() => {
+    const values: PIXI.Point[] = [];
+    state.points.forEach((pointId) => {
+      const point = state.pointMap.get(pointId);
+      if (point) {
+        values.push(new PIXI.Point(point.x, point.y));
+      }
+    });
+
+    return values;
+  }, [state]);
+  const addPoint = useCallback((id: string, point: Coords) => dispatch({ type: PointAction.Add, id, point }), []);
+  const removePoint = useCallback((id: string) => dispatch({ type: PointAction.Remove, id }), []);
+
+  return { points, addPoint, removePoint };
 };

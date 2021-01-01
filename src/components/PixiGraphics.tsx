@@ -1,9 +1,9 @@
-import React, { useCallback, useContext, useEffect, useReducer, useState } from 'react';
 import * as PIXI from 'pixi.js';
+import React, { useCallback, useContext, useEffect, useReducer, useState } from 'react';
+import { GraphicsContext, RenderingContext } from '../contexts';
 import { useGraphicsProps } from '../hooks';
 import { PixiGraphicsProps } from '../props';
 import { BlendModes, DrawShapeDefinition, GraphicsState, LineCap, LineJoin, ShapeAction, ShapeActionType, Shapes } from '../types';
-import { GraphicsContext, RenderingContext } from '../contexts';
 import PixiDisplayObject from './PixiDisplayObject';
 
 const updateGraphics = (graphics: PIXI.Graphics, state: GraphicsState) => {
@@ -75,6 +75,11 @@ const updateGraphics = (graphics: PIXI.Graphics, state: GraphicsState) => {
           break;
         case Shapes.Rect:
           graphics.drawRect(definition.params[0], definition.params[1], definition.params[2], definition.params[3]);
+          break;
+        case Shapes.Polygon:
+          if (definition.points) {
+            graphics.drawPolygon(definition.points);
+          }
           break;
         case Shapes.RoundedRect:
           graphics.drawRoundedRect(

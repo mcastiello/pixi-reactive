@@ -1,5 +1,5 @@
 import { Block } from 'framework7-react';
-import { Ellipse, FillStyle, LineStyle, PixiCanvas, PixiGraphics, Rectangle, ShapeTexture, Star } from 'pixi-reactive';
+import { Ellipse, FillStyle, LineStyle, PixiCanvas, PixiGraphics, Rectangle, ShapeTexture, Star, Polygon, Point } from 'pixi-reactive';
 import React from 'react';
 import { Pages } from '../../pages';
 import CodeViewer from '../CodeViewer';
@@ -34,10 +34,16 @@ const PixiGraphicsExample: React.FC = () => {
             <ShapeTexture texture={'stars'} scaleX={0.5} scaleY={0.5} />
           </FillStyle>
         </Ellipse>
-        <Star x={480} y={95} radius={80}>
+        <Star x={100} y={280} radius={80}>
           <LineStyle color={0xffffff} width={5} />
           <FillStyle color={0xffff00} />
         </Star>
+        <Polygon>
+          <LineStyle color={0x00ff00} width={2} />
+          <Point x={200} y={200} />
+          <Point x={300} y={200} />
+          <Point x={250} y={350} />
+        </Polygon>
       </PixiGraphics>
     </PixiCanvas>
   );
@@ -51,7 +57,7 @@ const PixiGraphicsDoc: React.FC = () => {
         This components will let you draw predefined shapes of custom paths/polygons inside the canvas. Please, refer to the{' '}
         <ComponentLink page={Pages.Graphics} /> for all the supported shapes and graphics.
       </StyledIntroduction>
-      <Block style={{ height: 200 }}>
+      <Block style={{ height: 400 }}>
         <PixiGraphicsExample />
       </Block>
       <Block>

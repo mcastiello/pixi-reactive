@@ -4,8 +4,10 @@ import React from 'react';
 import CodeViewer from '../CodeViewer';
 import PropsTable, { PropsDefinition } from '../PropsTable';
 import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledComponents';
+import { shapeProps } from './Polygon';
 
 const props: PropsDefinition = [
+  ...shapeProps,
   ['x', true, 'number', 'null', 'Position on the X axis of the center of the star'],
   ['y', true, 'number', 'null', 'Position on the Y axis of the center of the star'],
   ['radius', true, 'number', 'null', 'Radius of the star'],
@@ -30,9 +32,7 @@ const StarDoc: React.FC = () => {
   return (
     <>
       <StyledTitle>Star</StyledTitle>
-      <StyledIntroduction>
-        It draws a star on the canvas.
-      </StyledIntroduction>
+      <StyledIntroduction>It draws a star on the canvas.</StyledIntroduction>
       <Block style={{ height: 250 }}>
         <StarExample />
       </Block>

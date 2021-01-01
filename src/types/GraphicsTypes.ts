@@ -8,7 +8,7 @@ export type ShapeTextureType = {
 };
 
 export type FillDefinition = FillStyleType & TextureStyleType;
-export type LineDefinition = LineStyleType & TextureStyleType
+export type LineDefinition = LineStyleType & TextureStyleType;
 
 export type ShapeStyleType = {
   fill?: FillDefinition;
@@ -61,12 +61,13 @@ export type ShapeGenericType = {
 export type ShapeType = ShapeGenericType & {
   type: Shapes;
   params: number[];
+  points?: PIXI.Point[];
 };
 
 type TextureStyleType = {
-  texture?: PIXI.Texture,
-  matrix?: PIXI.Matrix
-}
+  texture?: PIXI.Texture;
+  matrix?: PIXI.Matrix;
+};
 
 export type FillStyleType = {
   alpha?: number;
@@ -86,7 +87,7 @@ export type DrawShapeDefinition = ShapeType & {
   id: string;
   fill?: FillDefinition;
   line?: LineDefinition;
-  points?: Point[];
+  points?: PIXI.Point[];
 };
 
 export type GraphicsContextType = {
@@ -94,12 +95,12 @@ export type GraphicsContextType = {
   removeShape: (id: string) => void;
 };
 
-export type Point = {
+export type Coords = {
   x: number;
   y: number;
 };
 
-export type Area = Point & {
+export type Area = Coords & {
   width: number;
   height: number;
 };
@@ -110,7 +111,7 @@ export type RectangleType = ShapeGenericType &
   };
 
 export type CircleType = ShapeGenericType &
-  Point & {
+  Coords & {
     radius: number;
   };
 
@@ -127,10 +128,28 @@ export type StarType = CircleType & {
   rotation?: number;
 };
 
-export type TorusType = ShapeGenericType &
-  Point & {
-    innerRadius: number;
-    outerRadius: number;
-    startArc?: number;
-    endArc?: number;
-  };
+export type PointProps = Coords & {
+  id?: string;
+};
+
+export type PointsContextType = {
+  points: PIXI.Point[];
+  addPoint: (id: string, point: Coords) => void;
+  removePoint: (id: string) => void;
+};
+
+export type PointsState = {
+  points: string[];
+  pointMap: Map<string, Coords>;
+};
+
+export enum PointAction {
+  Add,
+  Remove
+}
+
+export type PointActionType = {
+  type: PointAction;
+  id: string;
+  point?: Coords;
+};

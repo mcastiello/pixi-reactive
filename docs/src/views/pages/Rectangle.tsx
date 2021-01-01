@@ -4,8 +4,10 @@ import React from 'react';
 import CodeViewer from '../CodeViewer';
 import PropsTable, { PropsDefinition } from '../PropsTable';
 import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledComponents';
+import { shapeProps } from './Polygon';
 
 const props: PropsDefinition = [
+  ...shapeProps,
   ['x', true, 'number', 'null', 'Position on the X axis of the shape'],
   ['y', true, 'number', 'null', 'Position on the Y axis of the shape'],
   ['width', true, 'number', 'null', 'Width of the shape'],

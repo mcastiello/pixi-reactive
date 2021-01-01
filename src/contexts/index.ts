@@ -8,3 +8,4 @@ export { SpeedContext, initialSpeedState } from './SpeedContext';
 export { TextureContext } from './TextureContext';
 export { PointerContext } from './PointerContext';
 export { EffectContext } from './EffectContext';
+export { PointsContext } from './PointsContext';

@@ -17,6 +17,7 @@ const props: PropsDefinition = [
   ['fps', false, 'number', '60', 'Frame rate of the currently running animation'],
   ...spriteProps
 ];
+
 const events: PropsDefinition = [
   ['onAnimationComplete', false, 'function', 'null', 'Callback executed when each animation loop is completed'],
   ...genericEvents

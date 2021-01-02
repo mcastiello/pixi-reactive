@@ -387,18 +387,22 @@ export const usePointerContext = (
   );
   const updateTouchPosition = useCallback(
     (event: TouchEvent) => {
-      const { clientX, clientY } = event.touches[0];
-      const x = clientX - offset.x;
-      const y = clientY - offset.y;
+      const touch = event.touches.length > 0 ? event.touches[0] : event.changedTouches[0];
+      if (touch) {
+        const { clientX, clientY } = touch;
+        const x = clientX - offset.x;
+        const y = clientY - offset.y;
 
-      if (x >= 0 && x < width && y >= 0 && y < height) {
-        update({ type: PointerContextActionType.StartOver });
-        triggerUpdatePosition(x, y);
-      } else {
-        update({ type: PointerContextActionType.EndOver });
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+          update({ type: PointerContextActionType.StartOver });
+          triggerUpdatePosition(x, y);
+        } else {
+          update({ type: PointerContextActionType.EndOver });
+        }
+
+        return { x, y };
       }
-
-      return { x, y };
+      return null;
     },
     [offset, width, height, triggerUpdatePosition]
   );

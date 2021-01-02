@@ -19,6 +19,7 @@ const props: PropsDefinition = [
   ['height', false, 'number', 'null', 'Height of the canvas'],
   ['retina', false, 'boolean', 'false', 'Whether to use a @2x canvas'],
   ['speed', false, 'number', '1', 'Speed at which the rendered animations will run'],
+  ['background', false, 'number', 'null', 'Set the background color of the canvas, if empty the canvas will be transparent'],
   ['textures', false, 'LoadResourceType', '[]', 'List of textures that will be loaded by the Pixi Loader']
 ];
 
@@ -28,6 +29,12 @@ export const renderEvents: PropsDefinition = [
   ['onAfterRender', false, 'function', 'null', 'Callback executed after a frame has been rendered on the canvas']
 ];
 
+const events: PropsDefinition = [
+  ...renderEvents,
+  ['onInteractionStart', false, 'function', 'null', 'Callback executed when an interaction is started (touch or mouse)'],
+  ['onInteractionMove', false, 'function', 'null', 'Callback executed when the pointer is moved'],
+  ['onInteractionEnd', false, 'function', 'null', 'Callback executed when the interaction is terminated'],
+]
 const textures = {
   galaxy: './static/assets/galaxy.png',
   stars: './static/assets/slow-stars.png',
@@ -89,7 +96,7 @@ const PixiCanvasDoc: React.FC = () => {
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />
       <StyledSectionTitle>Event Callbacks</StyledSectionTitle>
-      <PropsTable props={renderEvents} />
+      <PropsTable props={events} />
     </>
   );
 };

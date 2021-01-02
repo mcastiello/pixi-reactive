@@ -1,5 +1,18 @@
 import React from 'react';
-import { Ellipse, FillStyle, LineStyle, PixiCanvas, PixiGraphics, Rectangle, ShapeTexture, Star, Polygon, Point } from 'pixi-reactive';
+import {
+  Ellipse,
+  FillStyle,
+  LineStyle,
+  PixiCanvas,
+  PixiGraphics,
+  Rectangle,
+  ShapeTexture,
+  Star,
+  Polygon,
+  Point,
+  Holes,
+  Circle
+} from 'pixi-reactive';
 
 const textures = {
   stars: './static/assets/slow-stars.png'
@@ -27,10 +40,18 @@ const PixiGraphicsExample: React.FC = () => {
         </Star>
         <Polygon>
           <LineStyle color={0x00ff00} width={2} />
-          <Point x={200} y={200}/>
-          <Point x={300} y={200}/>
-          <Point x={250} y={350}/>
+          <Point x={200} y={200} />
+          <Point x={300} y={200} />
+          <Point x={250} y={350} />
         </Polygon>
+        <Rectangle x={100} y={400} width={150} height={150}>
+          <FillStyle color={0x00ff00} />
+          <Holes>
+            <Circle x={130} y={430} radius={25} />
+            <Circle x={175} y={475} radius={25} />
+            <Circle x={220} y={520} radius={25} />
+          </Holes>
+        </Rectangle>
       </PixiGraphics>
     </PixiCanvas>
   );

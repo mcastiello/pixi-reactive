@@ -12,3 +12,4 @@ export { default as BezierCurve } from './BezierCurve';
 export { default as QuadraticCurve } from './QuadraticCurve';
 export { default as ArcCurve } from './ArcCurve';
 export { default as Path } from './Path';
+export { default as Holes } from './Holes';

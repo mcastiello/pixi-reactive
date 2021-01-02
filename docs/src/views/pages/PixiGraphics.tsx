@@ -11,7 +11,9 @@ import {
   Polygon,
   BezierCurve,
   Path,
-  Point
+  Point,
+  Holes,
+  Circle
 } from 'pixi-reactive';
 import React from 'react';
 import { Pages } from '../../pages';
@@ -57,6 +59,14 @@ const PixiGraphicsExample: React.FC = () => {
           <Point x={300} y={200} />
           <Point x={250} y={350} />
         </Polygon>
+        <Rectangle x={100} y={400} width={150} height={150}>
+          <FillStyle color={0x00ff00} />
+          <Holes>
+            <Circle x={130} y={430} radius={25} />
+            <Circle x={175} y={475} radius={25} />
+            <Circle x={220} y={520} radius={25} />
+          </Holes>
+        </Rectangle>
       </PixiGraphics>
     </PixiCanvas>
   );
@@ -86,15 +96,16 @@ const PixiGraphicsDoc: React.FC = () => {
       <StyledTitle>PixiGraphics</StyledTitle>
       <StyledIntroduction>
         This components will let you draw predefined shapes of custom paths/polygons inside the canvas. Please, refer to the{' '}
-        <ComponentLink page={Pages.Graphics} /> for all the supported shapes and graphics.
+        <ComponentLink page={Pages.Graphics} /> for all the supported shapes and graphics. It is also possible to draw{' '}
+        <ComponentLink page={Pages.Holes} /> inside the shapes, check the example for details.
         <br />
         If you want to mix together different paths or curves, make sure that the first point of the next segment matches with the last
         point of the previous one. Also, set add a line style ONLY to the first segment. Check the second example for details.
         <br />
-        THe components that can be joined together are <ComponentLink page={Pages.Path} />, <ComponentLink page={Pages.ArcCurve} />,{' '}
+        The components that can be joined together are <ComponentLink page={Pages.Path} />, <ComponentLink page={Pages.ArcCurve} />,{' '}
         <ComponentLink page={Pages.BezierCurve} /> and <ComponentLink page={Pages.QuadraticCurve} />.
       </StyledIntroduction>
-      <Block style={{ height: 400 }}>
+      <Block style={{ height: 600 }}>
         <PixiGraphicsExample />
       </Block>
       <Block>

@@ -59,11 +59,6 @@ const Index: React.FC = () => {
         The following are a few things I'm going to add in the next few releases (in order of priority).
         <ul>
           <li>
-            <StyledCode>PixiGraphicTexture</StyledCode> - This is going to use a similar approach to the{' '}
-            <ComponentLink page={Pages.ColorMatrixFilter} />, the texture is going to work as a parent node and the children will allow you
-            to draw whatever you want.
-          </li>
-          <li>
             <StyledCode>PixiParticle</StyledCode> - This is probably going to be an external plugin, so that if you don't need it, you won't
             have it, but it's going to integrate support for{' '}
             <StyledLink href={'https://github.com/pixijs/pixi-particles'} text={'Particle Effects'} external target={'_blank'} />.

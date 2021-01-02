@@ -10,7 +10,7 @@ const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T e
 ) => {
   const { item, children, onUpdate, onAfterRender } = props;
   const { frameId } = useContext(AnimationContext);
-  const { renderId } = useContext(RenderingContext);
+  const { renderId, update } = useContext(RenderingContext);
   const element = useElement(item);
   const parentContext = useParentContext(element);
   const {
@@ -139,6 +139,12 @@ const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T e
       onAfterRender();
     }
   }, [renderId, onAfterRender]);
+
+  useEffect(() => {
+    return () => {
+      update();
+    };
+  }, [update]);
 
   return <ParentContext.Provider value={parentContext}>{children}</ParentContext.Provider>;
 };

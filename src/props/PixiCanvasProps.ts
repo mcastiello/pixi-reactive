@@ -10,6 +10,7 @@ export type PixiCanvasProps = RenderingEventType &
     height?: number;
     retina?: boolean;
     speed?: number;
+    background?: number;
     textures?: LoadResourceType;
     filterArea?: Area;
   };

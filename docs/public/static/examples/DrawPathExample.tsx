@@ -1,6 +1,6 @@
 import { Link } from 'framework7-react';
 import React, { useCallback, useState } from 'react';
-import { LineStyle, FillStyle, PixiCanvas, PixiGraphics, Path, Point, Rectangle } from 'pixi-reactive';
+import { LineStyle, PixiCanvas, PixiGraphics, Path, Point } from 'pixi-reactive';
 
 type Point = {
   x: number;
@@ -9,7 +9,6 @@ type Point = {
 
 export const DrawPathExample: React.FC = () => {
   const [drawing, setDrawing] = useState(false);
-  const [size, setSize] = useState({ width: 0, height: 0 });
   const [paths, setPaths] = useState<Point[][]>([]);
 
   const onMove = useCallback(
@@ -35,15 +34,8 @@ export const DrawPathExample: React.FC = () => {
 
   const onEnd = useCallback(() => setDrawing(false), []);
 
-  const onResize = useCallback((size) => setSize(size), []);
-
   return (
-    <PixiCanvas onInteractionStart={onStart} onInteractionMove={onMove} onInteractionEnd={onEnd} onResize={onResize}>
-      <PixiGraphics>
-        <Rectangle x={0} y={0} width={size.width} height={size.height}>
-          <FillStyle color={0xffffff} />
-        </Rectangle>
-      </PixiGraphics>
+    <PixiCanvas onInteractionStart={onStart} onInteractionMove={onMove} onInteractionEnd={onEnd} background={0xffffff}>
       {paths.map((path, pathId) => {
         return (
           <PixiGraphics key={`path-${pathId}`}>

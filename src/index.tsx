@@ -26,7 +26,8 @@ export {
   Arc,
   ArcCurve,
   BezierCurve,
-  QuadraticCurve
+  QuadraticCurve,
+  Holes
 } from './components/shapes';
 export { AnimationContext, RenderingContext, ParentContext, TextureContext, SpeedContext, PointerContext } from './contexts';
 export { BlurFilter, AlphaFilter, ColorMatrixFilter, FXAAFilter, NoiseFilter } from './filters';

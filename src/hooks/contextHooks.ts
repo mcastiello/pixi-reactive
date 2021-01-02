@@ -20,7 +20,7 @@ import {
   PointActionType,
   PointAction,
   Coords,
-  PointsContextType
+  PointsContextType, ShapeType
 } from '../types';
 import { initialSpeedState, ParentContext, AnimationContext, RenderingContext } from '../contexts';
 import * as PIXI from 'pixi.js';
@@ -96,7 +96,7 @@ export const useAnimationContext = (speed: number): AnimationContextType => {
   return context;
 };
 
-export const useRenderingContext = (canvasReference: string, frameId: number): RenderingContextType => {
+export const useRenderingContext = (canvasReference: string, frameId: number, background?: number): RenderingContextType => {
   const [canvas, setCanvas] = useState<HTMLCanvasElement | undefined>(undefined);
   const [stage] = useState<PIXI.Container>(new PIXI.Container());
   const [renderer, setRenderer] = useState<PIXI.Renderer | undefined>();
@@ -177,6 +177,15 @@ export const useRenderingContext = (canvasReference: string, frameId: number): R
   useEffect(() => {
     render();
   }, [frameId, render]);
+
+  useEffect(() => {
+    if (renderer) {
+      renderer.transparent = !!background;
+      if (background) {
+        renderer.backgroundColor = background;
+      }
+    }
+  }, [renderer, background])
 
   return {
     update,
@@ -326,8 +335,7 @@ export const usePointerContext = (
   retina: boolean,
   onInteractionStart?: (point: Coords) => void,
   onInteractionEnd?: (point: Coords) => void,
-  onInteractionMove?: (point: Coords) => void,
-  onClick?: (point: Coords) => void
+  onInteractionMove?: (point: Coords) => void
 ) => {
   const { width, height } = useContext(RenderingContext);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -424,11 +432,8 @@ export const usePointerContext = (
       if (point && onInteractionEnd) {
         onInteractionEnd(point);
       }
-      if (point && onClick) {
-        onClick(point);
-      }
     },
-    [updatePosition, onInteractionEnd, onClick]
+    [updatePosition, onInteractionEnd]
   );
 
   const pointerOver = useCallback(() => update({ type: PointerContextActionType.StartOver }), []);
@@ -452,8 +457,9 @@ export const useShapeTextureContext = (): ShapeTextureType => {
 export const useShapeStyleContext = (): ShapeStyleType => {
   const [line, setLineStyle] = useState<LineDefinition | undefined>();
   const [fill, setFillStyle] = useState<FillDefinition | undefined>();
+  const [holes, setHoles] = useState<ShapeType[] | undefined>()
 
-  return { line, fill, setLineStyle, setFillStyle };
+  return { line, fill, holes, setLineStyle, setFillStyle, setHoles };
 };
 
 export const usePointsContext = (): PointsContextType => {

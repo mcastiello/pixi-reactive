@@ -6,12 +6,12 @@ import { ShapeType } from '../../types';
 const Shape: React.FC<ShapeType> = ({ name, type, params, points, children }) => {
   const styleContext = useShapeStyleContext();
   const { drawShape, removeShape } = useContext(GraphicsContext);
-  const { fill, line } = styleContext;
+  const { fill, line, holes } = styleContext;
   const id = useId(name);
 
   useEffect(() => {
-    drawShape({ id, type, params, points, fill, line });
-  }, [id, type, params, fill, line, points, drawShape]);
+    drawShape({ id, type, params, points, fill, line, holes });
+  }, [id, type, params, fill, line, points, holes, drawShape]);
 
   useEffect(() => {
     return () => {

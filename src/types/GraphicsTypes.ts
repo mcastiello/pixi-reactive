@@ -13,8 +13,10 @@ export type LineDefinition = LineStyleType & TextureStyleType;
 export type ShapeStyleType = {
   fill?: FillDefinition;
   line?: LineDefinition;
+  holes?: ShapeType[];
   setFillStyle: (fill?: FillDefinition) => void;
   setLineStyle: (line?: LineDefinition) => void;
+  setHoles: (holes?: ShapeType[]) => void;
 };
 
 export enum LineJoin {
@@ -92,7 +94,7 @@ export type DrawShapeDefinition = ShapeType & {
   id: string;
   fill?: FillDefinition;
   line?: LineDefinition;
-  points?: PIXI.Point[];
+  holes?: ShapeType[];
 };
 
 export type GraphicsContextType = {

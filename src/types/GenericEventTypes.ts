@@ -12,7 +12,6 @@ export type InteractionEventType = {
   onInteractionStart?: (point: Coords) => void;
   onInteractionEnd?: (point: Coords) => void;
   onInteractionMove?: (point: Coords) => void;
-  onClick?: (point: Coords) => void;
 }
 
 export type GenericEventType = RenderingEventType & {

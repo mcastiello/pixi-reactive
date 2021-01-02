@@ -96,7 +96,7 @@ export const useAnimationContext = (speed: number): AnimationContextType => {
   return context;
 };
 
-export const useRenderingContext = (canvasReference: string, retina = false, frameId: number): RenderingContextType => {
+export const useRenderingContext = (canvasReference: string, frameId: number): RenderingContextType => {
   const [canvas, setCanvas] = useState<HTMLCanvasElement | undefined>(undefined);
   const [stage] = useState<PIXI.Container>(new PIXI.Container());
   const [renderer, setRenderer] = useState<PIXI.Renderer | undefined>();
@@ -119,7 +119,6 @@ export const useRenderingContext = (canvasReference: string, retina = false, fra
               height = canvas.height;
 
               renderer.resize(width, height);
-              renderer.resolution = retina ? 2 : 1;
 
               update = true;
             }
@@ -135,7 +134,7 @@ export const useRenderingContext = (canvasReference: string, retina = false, fra
           return state;
       }
     },
-    [renderer, canvas, stage, retina]
+    [renderer, canvas, stage]
   );
 
   const [state, dispatch] = useReducer(reducer, { height: 0, width: 0, renderId: 0, update: true });
@@ -157,27 +156,21 @@ export const useRenderingContext = (canvasReference: string, retina = false, fra
   useEffect(() => {
     const reference = document.getElementById(canvasReference) as HTMLCanvasElement;
 
-    if (reference) {
-      setCanvas(reference);
-    } else {
-      setCanvas(undefined);
-    }
-  }, [canvasReference]);
-
-  useEffect(() => {
-    if (canvas) {
-      setRenderer(new PIXI.Renderer({ view: canvas, transparent: true, width: canvas.width, height: canvas.height, antialias: true }));
-    }
-  }, [canvas]);
-
-  useEffect(() => {
-    const reference = document.getElementById(canvasReference);
-
     if (!reference && renderer) {
       // Force release of WebGL context
       renderer.gl.getExtension('WEBGL_lose_context')?.loseContext();
       renderer.destroy();
       setRenderer(undefined);
+    } else if (reference && !renderer) {
+      const newRenderer = new PIXI.Renderer({
+        view: reference,
+        transparent: true,
+        width: reference.width,
+        height: reference.height,
+        antialias: true
+      });
+      setCanvas(reference);
+      setRenderer(newRenderer);
     }
   }, [canvasReference, renderer, frameId]);
 

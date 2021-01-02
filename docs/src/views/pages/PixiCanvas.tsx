@@ -64,7 +64,7 @@ export const PixiCanvasExample: React.FC = () => {
   });
 
   return (
-    <PixiCanvas textures={textures} onUpdate={update}>
+    <PixiCanvas height={300} textures={textures} onUpdate={update}>
       <PixiTilingSprite texture={'galaxy'} tileX={state.galaxyTileX} />
       <PixiTilingSprite texture={'stars'} tileX={state.starsTileX} />
       <PixiSprite texture={'ship'} x={30} y={state.shipY} anchorY={0.5} />
@@ -80,7 +80,7 @@ const PixiCanvasDoc: React.FC = () => {
         The PixiCanvas is the base component that generates the canvas element, initialise the PIXI Renderer, load the textures and creates
         all the React contexts. It is also responsible of starting the animation loop and render all the elements onto the stage.
       </StyledIntroduction>
-      <Block style={{ height: 300 }}>
+      <Block>
         <PixiCanvasExample />
       </Block>
       <Block>

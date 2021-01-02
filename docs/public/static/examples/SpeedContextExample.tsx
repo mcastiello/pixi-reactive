@@ -12,6 +12,12 @@ const StyledButton = styled(Link)`
   color: white;
   padding: 0 5px;
 `;
+const StyledContainer = styled.div`
+  position: absolute;
+  bottom: -30px;
+  text-align: center;
+  width: 100%
+`;
 
 // Add the speed controller that allow us to accelerate or slow down the animation
 const SpeedController: React.FC = () => {
@@ -30,12 +36,12 @@ const SpeedController: React.FC = () => {
 
   return (
     <>
-      <div style={{ textAlign: 'center' }}>
-        <span style={{ float: 'left' }}>Speed: {speed}</span>
+      <StyledContainer>
+        <div style={{ display: 'absolute' }}>Speed: {speed}</div>
         <StyledButton iconOnly iconF7={'backward_fill'} onClick={decrease} />
         <StyledButton iconOnly iconF7={'playpause_fill'} onClick={togglePlayPause} />
         <StyledButton iconOnly iconF7={'forward_fill'} onClick={increase} />
-      </div>
+      </StyledContainer>
     </>
   );
 };

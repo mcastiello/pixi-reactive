@@ -11,7 +11,9 @@ const defaultStyle: CSSProperties = {
   left: 0,
   right: 0,
   margin: 0,
-  padding: 0
+  padding: 0,
+  width: '100%',
+  height: '100%'
 };
 
 const PixiCanvas: React.FC<PixiCanvasProps> = ({
@@ -34,9 +36,10 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   const speedContext = useSpeedContext();
   const textureContext = useTextureContext(textures);
   const animationContext = useAnimationContext(speedContext.speed);
-  const renderingContext = useRenderingContext(canvasId, retina, animationContext.frameId);
+  const renderingContext = useRenderingContext(canvasId, animationContext.frameId);
   const genericParentContext = useContext(ParentContext);
   const [containerStyle, setContainerStyle] = useState<CSSProperties>(defaultStyle);
+  const [childrenContainerStyle, setChildrenContainerStyle] = useState<CSSProperties>(defaultStyle);
 
   const { pointerContext, pointerStart, pointerEnd, updatePosition } = usePointerContext(retina);
 
@@ -60,19 +63,25 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
 
   useEffect(() => {
     const newStyle = { ...defaultStyle };
+    const newChildrenStyle = { ...defaultStyle };
 
     switch (overflow) {
       case Overflow.Horizontal:
-        newStyle.overflowY = 'hidden';
+        newChildrenStyle.overflowY = 'hidden';
         break;
       case Overflow.Vertical:
-        newStyle.overflowX = 'hidden';
+        newChildrenStyle.overflowX = 'hidden';
         break;
       case Overflow.None:
-        newStyle.overflow = 'hidden';
+        newChildrenStyle.overflow = 'hidden';
     }
 
+    newChildrenStyle.position = 'absolute';
+    newStyle.width = width || '100%';
+    newStyle.height = height || '100%';
+
     setContainerStyle(newStyle);
+    setChildrenContainerStyle(newChildrenStyle);
   }, [width, height, overflow]);
 
   useEffect(() => {
@@ -116,40 +125,41 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
             <PointerContext.Provider value={pointerContext}>
               {renderingContext.stage && (
                 <ParentContext.Provider value={parentContext}>
-                  <AutoSizer>
-                    {(size: Size) => {
-                      const multiplier = retina ? 2 : 1;
-                      const parentWidth = size.width;
-                      const parentHeight = size.height;
-                      const containerWidth = width || parentWidth;
-                      const containerHeight = height || parentHeight;
-                      const canvasWidth = containerWidth * multiplier;
-                      const canvasHeight = containerHeight * multiplier;
+                  <div
+                    className={'pixi-root'}
+                    style={containerStyle}
+                    onTouchMove={updatePosition}
+                    onTouchStart={pointerStart}
+                    onTouchEnd={pointerEnd}
+                    onTouchCancel={pointerEnd}
+                    onPointerEnter={pointerStart}
+                    onPointerOver={pointerStart}
+                    onPointerOut={pointerEnd}
+                    onPointerCancel={pointerEnd}
+                    onPointerLeave={pointerEnd}
+                    onPointerMove={updatePosition}
+                  >
+                    <AutoSizer>
+                      {({ width, height }: Size) => {
+                        const multiplier = retina ? 2 : 1;
+                        const canvasWidth = width * multiplier;
+                        const canvasHeight = height * multiplier;
 
-                      return (
-                        <div className={'pixi-root'} style={{ ...containerStyle, width: containerWidth, height: containerHeight }}>
+                        return (
                           <canvas
                             id={canvasId}
                             className={className}
                             width={canvasWidth}
                             height={canvasHeight}
-                            style={{ ...defaultStyle, width: containerWidth, height: containerHeight }}
-                            onTouchMove={updatePosition}
-                            onTouchStart={pointerStart}
-                            onTouchEnd={pointerEnd}
-                            onTouchCancel={pointerEnd}
-                            onPointerEnter={pointerStart}
-                            onPointerOver={pointerStart}
-                            onPointerOut={pointerEnd}
-                            onPointerCancel={pointerEnd}
-                            onPointerLeave={pointerEnd}
-                            onPointerMove={updatePosition}
+                            style={{ ...defaultStyle, width, height }}
                           />
-                          {children}
-                        </div>
-                      );
-                    }}
-                  </AutoSizer>
+                        );
+                      }}
+                    </AutoSizer>
+                    <div className={'pixi-children-root'} style={childrenContainerStyle}>
+                      {children}
+                    </div>
+                  </div>
                 </ParentContext.Provider>
               )}
             </PointerContext.Provider>

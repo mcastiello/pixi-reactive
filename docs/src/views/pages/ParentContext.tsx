@@ -1,4 +1,3 @@
-import Framework7 from 'framework7';
 import { Block } from 'framework7-react';
 import { PixiCanvas, PixiSprite, ParentContext } from 'pixi-reactive';
 import React, { useCallback, useContext, useReducer, useState } from 'react';
@@ -81,7 +80,7 @@ const ParentContextExample: React.FC = () => {
   }, []);
 
   return (
-    <PixiCanvas textures={textures} onUpdate={update} onResize={resize} height={260}>
+    <PixiCanvas textures={textures} onUpdate={update} onResize={resize}>
       <PixiSprite name={'Red'} texture={'red'} alignX={0.5} alignY={0.5} scaleX={state.scale} scaleY={state.scale}>
         <ParentDetails />
       </PixiSprite>
@@ -107,7 +106,7 @@ const ParentContextDoc: React.FC = () => {
         This is also the only way this library provides to access the actual <StyledCode>PIXI</StyledCode> object. You can use it to
         override the control provided by the library or to perform actions not supported.
       </StyledIntroduction>
-      <Block style={{ height: Framework7.device.desktop ? 300 : 350 }}>
+      <Block style={{ height: 300 }}>
         <ParentContextExample />
       </Block>
       <Block>

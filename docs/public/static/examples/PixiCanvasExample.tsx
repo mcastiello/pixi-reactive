@@ -46,7 +46,7 @@ const PixiCanvasExample: React.FC = () => {
   });
 
   return (
-    <PixiCanvas textures={textures} onUpdate={update}>
+    <PixiCanvas height={300} textures={textures} onUpdate={update}>
       <PixiTilingSprite texture={'galaxy'} tileX={state.galaxyTileX} />
       <PixiTilingSprite texture={'stars'} tileX={state.starsTileX} />
       <PixiSprite texture={'ship'} x={30} y={state.shipY} anchorY={0.5} />

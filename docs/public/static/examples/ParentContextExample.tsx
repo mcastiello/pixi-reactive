@@ -57,7 +57,7 @@ const ParentContextExample: React.FC = () => {
   }, []);
 
   return (
-    <PixiCanvas textures={textures} onUpdate={update} onResize={resize} height={260}>
+    <PixiCanvas textures={textures} onUpdate={update} onResize={resize}>
       <PixiSprite name={'Red'} texture={'red'} alignX={0.5} alignY={0.5} scaleX={state.scale} scaleY={state.scale}>
         <ParentDetails />
       </PixiSprite>

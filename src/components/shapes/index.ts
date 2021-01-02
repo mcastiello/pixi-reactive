@@ -7,3 +7,8 @@ export { default as Ellipse } from './Ellipse';
 export { default as Star } from './Star';
 export { default as Polygon } from './Polygon';
 export { default as Point } from './Point';
+export { default as Arc } from './Arc';
+export { default as BezierCurve } from './BezierCurve';
+export { default as QuadraticCurve } from './QuadraticCurve';
+export { default as ArcCurve } from './ArcCurve';
+export { default as Path } from './Path';

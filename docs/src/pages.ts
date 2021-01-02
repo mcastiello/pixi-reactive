@@ -22,10 +22,15 @@ export enum Pages {
   LineStyle = 'LineStyle',
   Rectangle = 'Rectangle',
   Circle = 'Circle',
+  Arc = 'Arc',
+  ArcCurve = 'ArcCurve',
+  BezierCurve = 'BezierCurve',
+  QuadraticCurve = 'QuadraticCurve',
   Ellipse = 'Ellipse',
   Star = 'Star',
   Polygon = 'Polygon',
   Point = 'Point',
+  Path = 'Path',
   AlphaFilter = 'AlphaFilter',
   BlurFilter = 'BlurFilter',
   ColorMatrixFilter = 'ColorMatrixFilter',
@@ -106,6 +111,11 @@ export const breadcrumbMap: BreadcrumbMap = new Map([
   [Pages.LineStyle, Pages.Graphics],
   [Pages.Rectangle, Pages.Graphics],
   [Pages.Circle, Pages.Graphics],
+  [Pages.Arc, Pages.Graphics],
+  [Pages.ArcCurve, Pages.Graphics],
+  [Pages.Path, Pages.Graphics],
+  [Pages.BezierCurve, Pages.Graphics],
+  [Pages.QuadraticCurve, Pages.Graphics],
   [Pages.Ellipse, Pages.Graphics],
   [Pages.Star, Pages.Graphics],
   [Pages.Polygon, Pages.Graphics],
@@ -168,7 +178,7 @@ export const getPageChildren = async (page: Pages): Promise<Pages[]> => {
     }
   });
 
-  return list;
+  return list.sort();
 };
 
 const crumbsCacheMap = new Map<Pages, Pages[]>();

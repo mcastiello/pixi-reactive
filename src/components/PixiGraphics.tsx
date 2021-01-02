@@ -7,6 +7,7 @@ import { BlendModes, DrawShapeDefinition, GraphicsState, LineCap, LineJoin, Shap
 import PixiDisplayObject from './PixiDisplayObject';
 
 const updateGraphics = (graphics: PIXI.Graphics, state: GraphicsState) => {
+  let lastPoint: PIXI.Point;
   graphics.clear();
 
   state.shapes.forEach((shapeId) => {
@@ -49,7 +50,7 @@ const updateGraphics = (graphics: PIXI.Graphics, state: GraphicsState) => {
             definition.line.native
           );
         }
-      } else {
+      } else if (!lastPoint) {
         graphics.lineStyle(0);
       }
       if (definition.fill) {
@@ -63,12 +64,60 @@ const updateGraphics = (graphics: PIXI.Graphics, state: GraphicsState) => {
         } else {
           graphics.beginFill(definition.fill.color, definition.fill.alpha);
         }
-      } else {
-        graphics.beginFill();
       }
+
       switch (definition.type) {
+        case Shapes.Path:
+          if (definition.points && definition.points.length > 1) {
+            if (!lastPoint || lastPoint.x !== definition.points[0].x || lastPoint.y !== definition.points[0].y) {
+              graphics.moveTo(definition.points[0].x, definition.points[0].y);
+            }
+            for (let i = 1; i < definition.points.length; i++) {
+              graphics.lineTo(definition.points[i].x, definition.points[i].y);
+            }
+            lastPoint = definition.points[definition.points.length - 1];
+          }
+          break;
         case Shapes.Circle:
           graphics.drawCircle(definition.params[0], definition.params[1], definition.params[2]);
+          break;
+        case Shapes.Arc:
+          graphics.arc(
+            definition.params[0],
+            definition.params[1],
+            definition.params[2],
+            definition.params[3],
+            definition.params[4],
+            !!definition.params[5]
+          );
+          break;
+        case Shapes.BezierCurve:
+          if (!lastPoint || lastPoint.x !== definition.params[0] || lastPoint.y !== definition.params[1]) {
+            graphics.moveTo(definition.params[0], definition.params[1]);
+          }
+          graphics.bezierCurveTo(
+            definition.params[4],
+            definition.params[5],
+            definition.params[6],
+            definition.params[7],
+            definition.params[2],
+            definition.params[3]
+          );
+          lastPoint = new PIXI.Point(definition.params[2], definition.params[3]);
+          break;
+        case Shapes.ArcCurve:
+          if (!lastPoint || lastPoint.x !== definition.params[0] || lastPoint.y !== definition.params[1]) {
+            graphics.moveTo(definition.params[0], definition.params[1]);
+          }
+          graphics.arcTo(definition.params[4], definition.params[5], definition.params[2], definition.params[3], definition.params[6]);
+          lastPoint = new PIXI.Point(definition.params[2], definition.params[3]);
+          break;
+        case Shapes.QuadraticCurve:
+          if (!lastPoint || lastPoint.x !== definition.params[0] || lastPoint.y !== definition.params[1]) {
+            graphics.moveTo(definition.params[0], definition.params[1]);
+          }
+          graphics.quadraticCurveTo(definition.params[4], definition.params[5], definition.params[2], definition.params[3]);
+          lastPoint = new PIXI.Point(definition.params[2], definition.params[3]);
           break;
         case Shapes.Ellipse:
           graphics.drawEllipse(definition.params[0], definition.params[1], definition.params[2], definition.params[3]);
@@ -101,7 +150,9 @@ const updateGraphics = (graphics: PIXI.Graphics, state: GraphicsState) => {
           );
           break;
       }
-      graphics.endFill();
+      if (definition.fill) {
+        graphics.endFill();
+      }
     }
   });
 };

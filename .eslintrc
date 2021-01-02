@@ -48,6 +48,7 @@
           "antialias",
           "pixi",
           "coords",
+          "bezier",
           "rect",
           "sizer",
           "args",

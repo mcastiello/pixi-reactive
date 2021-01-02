@@ -18,8 +18,8 @@ const PointDoc: React.FC = () => {
     <>
       <StyledTitle>Point</StyledTitle>
       <StyledIntroduction>
-        A <StyledCode>Point</StyledCode> can be used in different components to define a path drawn by the{' '}
-        <ComponentLink page={Pages.PixiGraphics} />.
+        A <StyledCode>Point</StyledCode> can be used in components like <ComponentLink page={Pages.Path} /> and{' '}
+        <ComponentLink page={Pages.Polygon} /> to define a path drawn by the <ComponentLink page={Pages.PixiGraphics} />.
       </StyledIntroduction>
       <Block style={{ height: 200 }}>
         <PolygonExample />

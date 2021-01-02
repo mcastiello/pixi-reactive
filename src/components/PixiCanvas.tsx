@@ -29,6 +29,10 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   onUpdate,
   onAfterRender,
   onResize,
+  onInteractionStart,
+  onInteractionEnd,
+  onInteractionMove,
+  onClick,
   children
 }) => {
   const canvasId = useId(id);
@@ -41,9 +45,15 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   const [containerStyle, setContainerStyle] = useState<CSSProperties>(defaultStyle);
   const [childrenContainerStyle, setChildrenContainerStyle] = useState<CSSProperties>(defaultStyle);
 
-  const { pointerContext, pointerStart, pointerEnd, updatePosition } = usePointerContext(retina);
-
   const { setSpeed } = speedContext;
+
+  const { pointerContext, pointerStart, pointerEnd, pointerCancel, pointerOver, updatePosition } = usePointerContext(
+    retina,
+    onInteractionStart,
+    onInteractionEnd,
+    onInteractionMove,
+    onClick
+  );
 
   const [parentContext, setParentContext] = useState<ParentContextType<PIXI.Container>>({
     ...genericParentContext,
@@ -131,12 +141,14 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
                     onTouchMove={updatePosition}
                     onTouchStart={pointerStart}
                     onTouchEnd={pointerEnd}
-                    onTouchCancel={pointerEnd}
-                    onPointerEnter={pointerStart}
-                    onPointerOver={pointerStart}
-                    onPointerOut={pointerEnd}
-                    onPointerCancel={pointerEnd}
-                    onPointerLeave={pointerEnd}
+                    onTouchCancel={pointerCancel}
+                    onPointerEnter={pointerOver}
+                    onPointerOver={pointerOver}
+                    onPointerDown={pointerStart}
+                    onPointerUp={pointerEnd}
+                    onPointerOut={pointerCancel}
+                    onPointerCancel={pointerCancel}
+                    onPointerLeave={pointerCancel}
                     onPointerMove={updatePosition}
                   >
                     <AutoSizer>

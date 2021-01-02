@@ -46,12 +46,17 @@ export type ShapeActionType = {
 };
 
 export enum Shapes {
+  Path,
   Circle,
   Ellipse,
   Polygon,
   Rect,
   RoundedRect,
-  Star
+  Star,
+  Arc,
+  ArcCurve,
+  BezierCurve,
+  QuadraticCurve
 }
 
 export type ShapeGenericType = {
@@ -113,6 +118,32 @@ export type RectangleType = ShapeGenericType &
 export type CircleType = ShapeGenericType &
   Coords & {
     radius: number;
+  };
+
+export type QuadraticCurveType = ShapeGenericType & {
+  xFrom?: number;
+  yFrom?: number;
+  xTo: number;
+  yTo: number;
+  controlX: number;
+  controlY: number;
+};
+
+export type ArcCurveType = QuadraticCurveType & {
+  radius: number
+};
+
+export type BezierCurveType = QuadraticCurveType & {
+  controlX2: number;
+  controlY2: number;
+};
+
+export type ArcType = ShapeGenericType &
+  CircleType &
+  Coords & {
+    startAngle: number;
+    endAngle: number;
+    anticlockwise?: boolean;
   };
 
 export type EllipseType = ShapeGenericType & Area;

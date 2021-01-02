@@ -1,5 +1,18 @@
 import { Block } from 'framework7-react';
-import { Ellipse, FillStyle, LineStyle, PixiCanvas, PixiGraphics, Rectangle, ShapeTexture, Star, Polygon, Point } from 'pixi-reactive';
+import {
+  Ellipse,
+  FillStyle,
+  LineStyle,
+  PixiCanvas,
+  PixiGraphics,
+  Rectangle,
+  ShapeTexture,
+  Star,
+  Polygon,
+  BezierCurve,
+  Path,
+  Point
+} from 'pixi-reactive';
 import React from 'react';
 import { Pages } from '../../pages';
 import CodeViewer from '../CodeViewer';
@@ -49,6 +62,24 @@ const PixiGraphicsExample: React.FC = () => {
   );
 };
 
+const CustomPathExample: React.FC = () => {
+  return (
+    <PixiCanvas>
+      <PixiGraphics>
+        <BezierCurve xFrom={20} yFrom={20} xTo={130} yTo={60} controlX={60} controlY={110} controlX2={130} controlY2={60}>
+          <LineStyle color={0xff0000} width={5} />
+        </BezierCurve>
+        <Path>
+          <Point x={130} y={60} />
+          <Point x={200} y={170} />
+          <Point x={210} y={40} />
+          <Point x={80} y={20} />
+        </Path>
+      </PixiGraphics>
+    </PixiCanvas>
+  );
+};
+
 const PixiGraphicsDoc: React.FC = () => {
   return (
     <>
@@ -56,12 +87,24 @@ const PixiGraphicsDoc: React.FC = () => {
       <StyledIntroduction>
         This components will let you draw predefined shapes of custom paths/polygons inside the canvas. Please, refer to the{' '}
         <ComponentLink page={Pages.Graphics} /> for all the supported shapes and graphics.
+        <br />
+        If you want to mix together different paths or curves, make sure that the first point of the next segment matches with the last
+        point of the previous one. Also, set add a line style ONLY to the first segment. Check the second example for details.
+        <br />
+        THe components that can be joined together are <ComponentLink page={Pages.Path} />, <ComponentLink page={Pages.ArcCurve} />,{' '}
+        <ComponentLink page={Pages.BezierCurve} /> and <ComponentLink page={Pages.QuadraticCurve} />.
       </StyledIntroduction>
       <Block style={{ height: 400 }}>
         <PixiGraphicsExample />
       </Block>
       <Block>
         <CodeViewer src={'./static/examples/PixiGraphicsExample.tsx'} />
+      </Block>
+      <Block style={{ height: 200 }}>
+        <CustomPathExample />
+      </Block>
+      <Block>
+        <CodeViewer src={'./static/examples/CustomPathExample.tsx'} />
       </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={props} />

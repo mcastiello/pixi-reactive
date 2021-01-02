@@ -1,6 +1,6 @@
 // Types
 export type { AnimationContextType, AnimationState, AnimationAction } from './AnimationContextTypes';
-export type { GenericEventType } from './GenericEventTypes';
+export type { GenericEventType, RenderingEventType, InteractionEventType } from './GenericEventTypes';
 export type { GenericType, TransformType, GenericPropsMap, PropValue } from './GenericTypes';
 export type { ParentContextType } from './ParentContextTypes';
 export type { RenderingContextType, RenderAction, RenderingContextState } from './RenderingContextTypes';
@@ -19,6 +19,10 @@ export type {
   GraphicsContextType,
   RectangleType,
   CircleType,
+  ArcType,
+  BezierCurveType,
+  QuadraticCurveType,
+  ArcCurveType,
   EllipseType,
   RegularPolygonType,
   StarType,

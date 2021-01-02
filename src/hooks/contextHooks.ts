@@ -322,31 +322,43 @@ const isMouseEvent = (event: Event): event is MouseEvent => {
   return !isTouchEvent(event);
 };
 
-export const usePointerContext = (retina: boolean) => {
+export const usePointerContext = (
+  retina: boolean,
+  onInteractionStart?: (point: Coords) => void,
+  onInteractionEnd?: (point: Coords) => void,
+  onInteractionMove?: (point: Coords) => void,
+  onClick?: (point: Coords) => void
+) => {
   const { width, height } = useContext(RenderingContext);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const reducer = useCallback((state: PointerContextType, action: PointerContextAction): PointerContextType => {
-    switch (action.type) {
-      case PointerContextActionType.StartOver:
-        if (!state.over) {
-          return { ...state, over: true };
-        } else {
-          return state;
-        }
-      case PointerContextActionType.EndOver:
-        if (state.over) {
-          return { ...state, over: false };
-        } else {
-          return state;
-        }
-      case PointerContextActionType.UpdatePosition:
-        if (state.over && action.x && action.y && (action.x !== state.x || action.y !== state.y)) {
-          return { x: action.x, y: action.y, over: true };
-        } else {
-          return state;
-        }
-    }
-  }, []);
+  const reducer = useCallback(
+    (state: PointerContextType, action: PointerContextAction): PointerContextType => {
+      switch (action.type) {
+        case PointerContextActionType.StartOver:
+          if (!state.over) {
+            return { ...state, over: true };
+          } else {
+            return state;
+          }
+        case PointerContextActionType.EndOver:
+          if (state.over) {
+            return { ...state, over: false };
+          } else {
+            return state;
+          }
+        case PointerContextActionType.UpdatePosition:
+          if (state.over && action.x && action.y && (action.x !== state.x || action.y !== state.y)) {
+            if (onInteractionMove) {
+              onInteractionMove({ x: action.x, y: action.y });
+            }
+            return { x: action.x, y: action.y, over: true };
+          } else {
+            return state;
+          }
+      }
+    },
+    [onInteractionMove]
+  );
   const [pointerContext, update] = useReducer(reducer, { x: 0, y: 0, over: false });
   const triggerUpdatePosition = useCallback(
     (x: number, y: number) => {
@@ -360,6 +372,8 @@ export const usePointerContext = (retina: boolean) => {
       const { offsetX: x, offsetY: y } = event;
 
       triggerUpdatePosition(x, y);
+
+      return { x, y };
     },
     [triggerUpdatePosition]
   );
@@ -375,16 +389,19 @@ export const usePointerContext = (retina: boolean) => {
       } else {
         update({ type: PointerContextActionType.EndOver });
       }
+
+      return { x, y };
     },
     [offset, width, height, triggerUpdatePosition]
   );
   const updatePosition = useCallback(
     (event: SyntheticEvent) => {
       if (isTouchEvent(event.nativeEvent)) {
-        updateTouchPosition(event.nativeEvent);
+        return updateTouchPosition(event.nativeEvent);
       } else if (isMouseEvent(event.nativeEvent)) {
-        updateMousePosition(event.nativeEvent);
+        return updateMousePosition(event.nativeEvent);
       }
+      return null;
     },
     [updateMousePosition, updateTouchPosition]
   );
@@ -392,14 +409,32 @@ export const usePointerContext = (retina: boolean) => {
     (event: SyntheticEvent) => {
       const { x, y } = (event.nativeEvent.target as HTMLCanvasElement).getBoundingClientRect();
       setOffset({ x, y });
-      update({ type: PointerContextActionType.StartOver });
-      updatePosition(event);
-    },
-    [updatePosition]
-  );
-  const pointerEnd = useCallback(() => update({ type: PointerContextActionType.EndOver }), []);
+      const point = updatePosition(event);
 
-  return { pointerContext, updatePosition, pointerStart, pointerEnd };
+      if (point && onInteractionStart) {
+        onInteractionStart(point);
+      }
+    },
+    [updatePosition, onInteractionStart]
+  );
+  const pointerEnd = useCallback(
+    (event: SyntheticEvent) => {
+      const point = updatePosition(event);
+
+      if (point && onInteractionEnd) {
+        onInteractionEnd(point);
+      }
+      if (point && onClick) {
+        onClick(point);
+      }
+    },
+    [updatePosition, onInteractionEnd, onClick]
+  );
+
+  const pointerOver = useCallback(() => update({ type: PointerContextActionType.StartOver }), []);
+  const pointerCancel = useCallback(() => update({ type: PointerContextActionType.EndOver }), []);
+
+  return { pointerContext, updatePosition, pointerStart, pointerOver, pointerEnd, pointerCancel };
 };
 
 export const useShapeTextureContext = (): ShapeTextureType => {

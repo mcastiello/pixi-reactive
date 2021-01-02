@@ -1,8 +1,9 @@
-import { LoadResourceType, Area } from '../types';
-import { RenderingEventType } from '../types/GenericEventTypes';
+import { LoadResourceType, Area, InteractionEventType } from '../types';
+import { RenderingEventType } from '../types';
 import { PixiHtmlContainerProps } from './PixiHtmlContainerProps';
 
 export type PixiCanvasProps = RenderingEventType &
+  InteractionEventType &
   PixiHtmlContainerProps & {
     className?: string;
     width?: number;

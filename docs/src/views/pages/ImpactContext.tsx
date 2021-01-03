@@ -52,10 +52,10 @@ const ImpactContextDoc: React.FC = () => {
       <StyledTitle>ImpactContext</StyledTitle>
       <StyledIntroduction>
         The <StyledCode>ImpactContext</StyledCode> is used internally to determine whether two or more elements impact with each others. In
-        order to make an object capable of detect impacts, it will require the <StyledCode>detectImpacts</StyledCode> to be set to{' '}
+        order to make an object capable of detecting impacts, it will require the <StyledCode>detectImpacts</StyledCode> to be set to{' '}
         <StyledCode>true</StyledCode>. Whenever an impact is detected, the <StyledCode>onImpact</StyledCode> callback is executed.
         <br />
-        An object can be set to detect only a certain type of impacts, to achieve that you need to set the{' '}
+        An object can be set to detect only a certain type of impacts. To achieve that you need to set the{' '}
         <StyledCode>impactClassName</StyledCode> or give the component a <StyledCode>name</StyledCode>. Once that is set, you can add a list
         of component classes or names in the <StyledCode>impactFilter</StyledCode> property.
         <br />

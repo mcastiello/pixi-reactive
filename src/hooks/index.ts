@@ -1,4 +1,14 @@
-export { useId, useElement, useFilter, useTexture, useFrames, useFrameAnimation, useTextureUpdate, useLoadedTexture } from './genericHooks';
+export {
+  useId,
+  useElement,
+  useFilter,
+  useTexture,
+  useFrames,
+  useFrameAnimation,
+  useTextureUpdate,
+  useLoadedTexture,
+  useKeyboard
+} from './genericHooks';
 
 export {
   useEvent,

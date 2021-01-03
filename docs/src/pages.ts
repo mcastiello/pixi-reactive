@@ -6,6 +6,7 @@ export enum Pages {
   Effects = 'Effects',
   Contexts = 'Contexts',
   Types = 'Types',
+  Hooks = 'Hooks',
   PixiCanvas = 'PixiCanvas',
   PixiContainer = 'PixiContainer',
   PixiSprite = 'PixiSprite',
@@ -76,7 +77,10 @@ export enum Pages {
   TextBaseline = 'TextBaseline',
   TextGradient = 'TextGradient',
   TextStyle = 'TextStyle',
-  TextWhiteLine = 'TextWhiteLine'
+  TextWhiteLine = 'TextWhiteLine',
+  Key = 'Key',
+  SpecialKeys = 'SpecialKeys',
+  UseKeyboard = 'UseKeyboard'
 }
 
 export type PageState = {
@@ -96,6 +100,7 @@ export const breadcrumbMap: BreadcrumbMap = new Map([
   [Pages.Effects, Pages.Index],
   [Pages.Contexts, Pages.Index],
   [Pages.Types, Pages.Index],
+  [Pages.Hooks, Pages.Index],
   [Pages.PixiCanvas, Pages.Components],
   [Pages.PixiContainer, Pages.Components],
   [Pages.PixiSprite, Pages.Components],
@@ -166,7 +171,10 @@ export const breadcrumbMap: BreadcrumbMap = new Map([
   [Pages.TextBaseline, Pages.Types],
   [Pages.TextGradient, Pages.Types],
   [Pages.TextStyle, Pages.Types],
-  [Pages.TextWhiteLine, Pages.Types]
+  [Pages.TextWhiteLine, Pages.Types],
+  [Pages.Key, Pages.Types],
+  [Pages.SpecialKeys, Pages.Types],
+  [Pages.UseKeyboard, Pages.Hooks]
 ]);
 
 export const getParentPage = (page: Pages): Pages | undefined => breadcrumbMap.get(page);

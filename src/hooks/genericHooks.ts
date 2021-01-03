@@ -3,7 +3,7 @@ import { useCallback, useContext, useEffect, useReducer, useState } from 'react'
 import { v4 } from 'uuid';
 import { AnimationContext, ParentContext, RenderingContext, ShapeTextureContext, TextureContext } from '../contexts';
 import { isAnimatedSprite, isSprite } from '../props';
-import { AnimationAction, AnimationActionType, AnimationState } from '../types';
+import { AnimationAction, AnimationActionType, AnimationState, Key, KeyboardAction, KeyboardActionType } from '../types';
 
 export const useId = (id?: string) => {
   const [state, setState] = useState(v4());
@@ -53,6 +53,76 @@ export const useRelativePosition = <T extends PIXI.Sprite>(item?: T) => {
   }, [anchor.x, anchor.y]);
 
   return [left, top];
+};
+
+const updateKeyboardPressList = (list: boolean[], action: KeyboardAction): boolean[] => {
+  switch (action.type) {
+    case KeyboardActionType.Reset:
+      return new Array(action.index).fill(action.value);
+    case KeyboardActionType.Set:
+      list[action.index] = action.value;
+      return [...list];
+  }
+};
+
+export const useKeyboard = (...keys: Key[]) => {
+  const [keyList, setKeyList] = useState<Key[]>([]);
+  const [keyPressList, updateKeyPressList] = useReducer(updateKeyboardPressList, []);
+
+  const reset = useCallback(() => {
+    updateKeyPressList({ type: KeyboardActionType.Reset, index: keyList.length, value: false });
+  }, [keyList]);
+
+  useEffect(() => {
+    if (JSON.stringify(keys) !== JSON.stringify(keyList)) {
+      setKeyList(keys);
+    }
+  }, [keys, keyList]);
+
+  useEffect(() => {
+    reset();
+  }, [keyList, reset]);
+
+  const onKeyUpdate = useCallback(
+    (event: KeyboardEvent, updateValue: boolean) => {
+      keyList.forEach((key, index) => {
+        if (typeof key === 'string') {
+          if (event.key === key) {
+            updateKeyPressList({ type: KeyboardActionType.Set, index, value: updateValue });
+            event.preventDefault();
+          }
+        } else {
+          const keyValid = event.key === key.key;
+          const altValid = key.alt === undefined ? true : key.alt === event.altKey;
+          const controlValid = key.control === undefined ? true : key.control === event.ctrlKey;
+          const shiftValid = key.shift === undefined ? true : key.shift === event.shiftKey;
+
+          if (keyValid && altValid && controlValid && shiftValid) {
+            updateKeyPressList({ type: KeyboardActionType.Set, index, value: updateValue });
+            event.preventDefault();
+          }
+        }
+      });
+    },
+    [keyList]
+  );
+
+  const onKeyDown = useCallback((event: KeyboardEvent) => onKeyUpdate(event, true), [onKeyUpdate]);
+  const onKeyUp = useCallback((event: KeyboardEvent) => onKeyUpdate(event, false), [onKeyUpdate]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keyup', onKeyUp);
+    window.addEventListener('blur', reset);
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('keyup', onKeyUp);
+      window.removeEventListener('blur', reset);
+    };
+  }, [onKeyDown, onKeyUp, reset]);
+
+  return keyPressList;
 };
 
 export const useFilter = <T extends PIXI.Filter>(item: T) => {

@@ -53,6 +53,10 @@ export {
   VintageEffect
 } from './filters/effects';
 export {
+  useId,
+  useKeyboard
+} from './hooks';
+export {
   BlendModes,
   CursorType,
   Events,
@@ -68,5 +72,7 @@ export {
   TextBaseline,
   TextGradient,
   TextStyle,
-  TextWhiteLine
+  TextWhiteLine,
+  Key,
+  SpecialKeys
 } from './types';

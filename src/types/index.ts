@@ -1,7 +1,7 @@
 // Types
 export type { AnimationContextType, AnimationState, AnimationAction } from './AnimationContextTypes';
 export type { GenericEventType, RenderingEventType, InteractionEventType } from './GenericEventTypes';
-export type { GenericType, TransformType, GenericPropsMap, PropValue } from './GenericTypes';
+export type { GenericType, TransformType, GenericPropsMap, PropValue, Key, KeyboardAction } from './GenericTypes';
 export type { ParentContextType } from './ParentContextTypes';
 export type { RenderingContextType, RenderAction, RenderingContextState } from './RenderingContextTypes';
 export type { SpeedContextType, SpeedState, SpeedAction } from './SpeedContextTypes';
@@ -45,7 +45,7 @@ export type { EventListener, EventsType } from './EventTypes';
 export { AnimationActionType } from './AnimationContextTypes';
 export { RenderingContextAction } from './RenderingContextTypes';
 export { SpeedContextAction } from './SpeedContextTypes';
-export { CursorType, Overflow, GenericProps } from './GenericTypes';
+export { CursorType, Overflow, GenericProps, SpecialKeys, KeyboardActionType } from './GenericTypes';
 export { Events } from './EventTypes';
 export { BlendModes, BlendModesMap } from './BlendModesTypes';
 export {

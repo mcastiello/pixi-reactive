@@ -9,7 +9,7 @@ const EnumeratorList: React.FC<{ name: string; enumerator: any; src?: string }> 
   useEffect(() => {
     const codeLines = Object.keys(enumerator)
       .filter((item) => !/^\d+$/.test(item))
-      .map((item) => `const ${item.toLowerCase()} = ${name}.${item};`);
+      .map((item) => `const ${item.toLowerCase()} = ${name}.${item}; // ${enumerator[item]}`);
     setCode(`import { ${name} } from 'pixi-reactive';\n\n${codeLines.join('\n')}`);
   }, [name, enumerator]);
 

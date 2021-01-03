@@ -83,7 +83,6 @@ The following are a few things I'm going to add in the next few releases (in ord
 - `PixiParticle` - This is probably going to be an external plugin, so that if you don't need it, you won't have it, but it's going to integrate support for [Particle Effects](https://github.com/pixijs/pixi-particles).
 - `PixiSpine` - Another external plugin, this one is going to integrate support for the [Spine Runtime](https://github.com/pixijs/pixi-spine).
 - `Tween Engine` - I'm not yet sure how to implement this one, but it's probably going to be in the form of one or more `React Hooks`.
-- `Impact Detection` - This is probably going to be either a `React Context` or a `React Hook` (or a combination of both).
 
 ## License
 

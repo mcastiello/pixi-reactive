@@ -71,10 +71,6 @@ const Index: React.FC = () => {
             <StyledCode>Tween Engine</StyledCode> - I'm not yet sure how to implement this one, but it's probably going to be in the form of
             one or more <StyledCode>React Hooks</StyledCode>.
           </li>
-          <li>
-            <StyledCode>Impact Detection</StyledCode> - This is probably going to be either a <StyledCode>React Context</StyledCode> or a{' '}
-            <StyledCode>React Hook</StyledCode> (or a combination of both).
-          </li>
         </ul>
       </StyledIntroduction>
       <StyledSectionTitle>Contacts and Issues</StyledSectionTitle>

@@ -49,6 +49,7 @@
           "pixi",
           "coords",
           "bezier",
+          "utils",
           "rect",
           "sizer",
           "args",

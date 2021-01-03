@@ -22,7 +22,7 @@ import {
   Coords,
   PointsContextType, ShapeType
 } from '../types';
-import { initialSpeedState, ParentContext, AnimationContext, RenderingContext } from '../contexts';
+import { initialSpeedState, ParentContext, AnimationContext } from '../contexts';
 import * as PIXI from 'pixi.js';
 import { PointerContextAction, PointerContextActionType, PointerContextType } from '../types/PointerContextType';
 import { useRelativePosition } from './genericHooks';
@@ -333,11 +333,12 @@ const isMouseEvent = (event: Event): event is MouseEvent => {
 
 export const usePointerContext = (
   retina: boolean,
+  width: number,
+  height: number,
   onInteractionStart?: (point: Coords) => void,
   onInteractionEnd?: (point: Coords) => void,
   onInteractionMove?: (point: Coords) => void
 ) => {
-  const { width, height } = useContext(RenderingContext);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const reducer = useCallback(
     (state: PointerContextType, action: PointerContextAction): PointerContextType => {

@@ -16,6 +16,8 @@ const defaultStyle: CSSProperties = {
   height: '100%'
 };
 
+const isDesktop = !PIXI.utils.isMobile.any;
+
 const PixiCanvas: React.FC<PixiCanvasProps> = ({
   id,
   className,
@@ -49,6 +51,8 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
 
   const { pointerContext, pointerStart, pointerEnd, pointerCancel, pointerOver, updatePosition } = usePointerContext(
     retina,
+    renderingContext.width,
+    renderingContext.height,
     onInteractionStart,
     onInteractionEnd,
     onInteractionMove
@@ -137,18 +141,18 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
                   <div
                     className={'pixi-root'}
                     style={containerStyle}
-                    onTouchMove={updatePosition}
-                    onTouchStart={pointerStart}
-                    onTouchEnd={pointerEnd}
-                    onTouchCancel={pointerCancel}
-                    onPointerEnter={pointerOver}
-                    onPointerOver={pointerOver}
-                    onPointerDown={pointerStart}
-                    onPointerUp={pointerEnd}
-                    onPointerOut={pointerCancel}
-                    onPointerCancel={pointerCancel}
-                    onPointerLeave={pointerCancel}
-                    onPointerMove={updatePosition}
+                    onTouchMove={isDesktop ? undefined : updatePosition}
+                    onTouchStart={isDesktop ? undefined : pointerStart}
+                    onTouchEnd={isDesktop ? undefined : pointerEnd}
+                    onTouchCancel={isDesktop ? undefined : pointerCancel}
+                    onPointerEnter={isDesktop ? pointerOver : undefined}
+                    onPointerOver={isDesktop ? pointerOver : undefined}
+                    onPointerDown={isDesktop ? pointerStart : undefined}
+                    onPointerUp={isDesktop ? pointerEnd : undefined}
+                    onPointerOut={isDesktop ? pointerCancel : undefined}
+                    onPointerCancel={isDesktop ? pointerCancel : undefined}
+                    onPointerLeave={isDesktop ? pointerCancel : undefined}
+                    onPointerMove={isDesktop ? updatePosition : undefined}
                   >
                     <AutoSizer>
                       {({ width, height }: Size) => {

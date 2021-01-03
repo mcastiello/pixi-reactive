@@ -1,6 +1,6 @@
 {
   "name": "pixi-reactive",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A library to help integrate PIXI into a React project",
   "author": "mcastiello",
   "license": "MIT",
@@ -8,7 +8,13 @@
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
-  "keywords": ["WebGL", "Pixi", "React", "Animation", "Game Development"],
+  "keywords": [
+    "WebGL",
+    "Pixi",
+    "React",
+    "Animation",
+    "Game Development"
+  ],
   "engines": {
     "node": ">=10"
   },
@@ -36,11 +42,11 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/jest": "^25.1.4",
     "@types/node": "^12.12.38",
     "@types/react": "^16.9.27",
     "@types/react-dom": "^16.9.7",
+    "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",

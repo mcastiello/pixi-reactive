@@ -1,5 +1,4 @@
 import { Block, Link } from 'framework7-react';
-import Framework7 from 'framework7/framework7.esm.bundle';
 import { LineStyle, PixiCanvas, PixiGraphics, Path, Point } from 'pixi-reactive';
 import React, { useCallback, useState } from 'react';
 import { Pages } from '../../pages';
@@ -92,17 +91,13 @@ const PathDoc: React.FC = () => {
       <Block>
         <CodeViewer src={'./static/examples/PathExample.tsx'} />
       </Block>
-      {Framework7.device.desktop && (
-        <>
-          <Block style={{ height: 400 }}>
-            Try to draw on the canvas below ;-)
-            <DrawPathExample />
-          </Block>
-          <Block>
-            <CodeViewer src={'./static/examples/DrawPathExample.tsx'} />
-          </Block>
-        </>
-      )}
+      <Block style={{ height: 400 }}>
+        Try to draw on the canvas below ;-)
+        <DrawPathExample />
+      </Block>
+      <Block>
+        <CodeViewer src={'./static/examples/DrawPathExample.tsx'} />
+      </Block>
       <StyledSectionTitle>Properties</StyledSectionTitle>
       <PropsTable props={shapeProps} />
     </>

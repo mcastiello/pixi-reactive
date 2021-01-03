@@ -1,4 +1,4 @@
-import { BlendModes, GenericEventType, GenericType, PropValue } from '../types';
+import { BlendModes, GenericEventType, GenericType, ImpactType, PropValue } from '../types';
 
 export type GraphicsPropsType = {
   blendMode?: BlendModes;
@@ -12,4 +12,4 @@ export enum GraphicsProps {
 
 export type GraphicsPropsMap = Map<GraphicsProps, PropValue>;
 
-export type PixiGraphicsProps = GenericType & GenericEventType & GraphicsPropsType;
+export type PixiGraphicsProps = GenericType & GenericEventType & ImpactType & GraphicsPropsType;

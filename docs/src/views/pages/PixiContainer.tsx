@@ -32,7 +32,17 @@ export const genericProps: PropsDefinition = [
   ['height', false, 'number', 'null', 'Height of the object'],
   ['sortableChildren', false, 'boolean', 'false', 'Whether the children of the element can be sorted through the `zIndex`'],
   ['filterArea', false, 'Area', 'null', 'Area over which the filters will be applied'],
-  ['hitArea', false, 'Area', 'null', 'Area of the element that will be used to test for interactions']
+  ['hitArea', false, 'Area', 'null', 'Area of the element that will be used to test for interactions'],
+  ['impactArea', false, 'Area', 'null', 'Area of the element that will be used to test for impacts'],
+  ['detectImpacts', false, 'boolean', 'false', 'Whether or not the component will detect or will be detected for impacts'],
+  ['impactClassName', false, 'string', 'null', 'Class name of the object used for comparison during impact detection'],
+  [
+    'impactFilter',
+    false,
+    'string[]',
+    '[]',
+    'List of classes and names of components that will trigger the `onImpact` callback when an impact is detected'
+  ]
 ];
 
 export const genericEvents: PropsDefinition = [
@@ -65,7 +75,8 @@ export const genericEvents: PropsDefinition = [
   ['onTouchStart', false, 'function', 'null', 'Callback executed when the `touchstart` event is triggered'],
   ['onAdded', false, 'function', 'null', 'Callback executed the object is added to a parent element or into the rendered stage'],
   ['onRemoved', false, 'function', 'null', "Callback executed the element is removed from it' parent"],
-  ['onChildAdded', false, 'function', 'null', 'Callback executed a child element is added']
+  ['onChildAdded', false, 'function', 'null', 'Callback executed a child element is added'],
+  ['onImpact', false, 'function', 'null', 'Callback executed when an impact is detected']
 ];
 
 const textures = {

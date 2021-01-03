@@ -20,7 +20,12 @@ import {
   PointActionType,
   PointAction,
   Coords,
-  PointsContextType, ShapeType
+  PointsContextType,
+  ShapeType,
+  ImpactContextType,
+  ImpactContextItem,
+  ImpactAction,
+  ImpactActionType
 } from '../types';
 import { initialSpeedState, ParentContext, AnimationContext } from '../contexts';
 import * as PIXI from 'pixi.js';
@@ -185,7 +190,7 @@ export const useRenderingContext = (canvasReference: string, frameId: number, ba
         renderer.backgroundColor = background;
       }
     }
-  }, [renderer, background])
+  }, [renderer, background]);
 
   return {
     update,
@@ -462,7 +467,7 @@ export const useShapeTextureContext = (): ShapeTextureType => {
 export const useShapeStyleContext = (): ShapeStyleType => {
   const [line, setLineStyle] = useState<LineDefinition | undefined>();
   const [fill, setFillStyle] = useState<FillDefinition | undefined>();
-  const [holes, setHoles] = useState<ShapeType[] | undefined>()
+  const [holes, setHoles] = useState<ShapeType[] | undefined>();
 
   return { line, fill, holes, setLineStyle, setFillStyle, setHoles };
 };
@@ -515,4 +520,22 @@ export const usePointsContext = (): PointsContextType => {
   const removePoint = useCallback((id: string) => dispatch({ type: PointAction.Remove, id }), []);
 
   return { points, addPoint, removePoint };
+};
+
+const impactReducer = <T extends PIXI.Container>(state: ImpactContextItem<T>[], action: ImpactActionType<T>): ImpactContextItem<T>[] => {
+  switch (action.type) {
+    case ImpactAction.Update:
+      return [...state.filter((impact) => impact.item !== action.item.item), action.item];
+    case ImpactAction.Remove:
+      return [...state.filter((impact) => impact.item !== action.item.item)];
+  }
+};
+
+export const useImpactContext = <T extends PIXI.Container>(): ImpactContextType<T> => {
+  const [items, dispatch] = useReducer(impactReducer, []);
+
+  const updateItem = useCallback((item: ImpactContextItem<T>) => dispatch({ type: ImpactAction.Update, item }), []);
+  const removeItem = useCallback((item: ImpactContextItem<T>) => dispatch({ type: ImpactAction.Remove, item }), []);
+
+  return { items: items as ImpactContextItem<T>[], updateItem, removeItem };
 };

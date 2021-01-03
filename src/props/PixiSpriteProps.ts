@@ -1,4 +1,4 @@
-import { GenericEventType, GenericType, PropValue } from '../types';
+import { GenericEventType, GenericType, ImpactType, PropValue } from '../types';
 import { GraphicsPropsType } from './PixiGraphicsProps';
 
 export const isSprite = (element: PIXI.DisplayObject): element is PIXI.Sprite => {
@@ -25,4 +25,4 @@ export enum SpriteProps {
 
 export type SpritePropsMap = Map<SpriteProps, PropValue>;
 
-export type PixiSpriteProps = GenericType & GenericEventType & GraphicsPropsType & SpritePropsType & UpdatableTextureType;
+export type PixiSpriteProps = GenericType & GenericEventType & GraphicsPropsType & ImpactType & SpritePropsType & UpdatableTextureType;

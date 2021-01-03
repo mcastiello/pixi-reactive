@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import React, { PropsWithChildren, useContext, useEffect } from 'react';
 import { AnimationContext, ParentContext, RenderingContext } from '../contexts';
-import { useDisplayObjectEvents, useId, useParentContext, useGenericProps, useElement } from '../hooks';
+import { useDisplayObjectEvents, useId, useParentContext, useGenericProps, useElement, useImpactDetection } from '../hooks';
 import { PixiDisplayObjectProps } from '../props';
 import { CursorType } from '../types';
 
@@ -9,6 +9,7 @@ const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T e
   props: PropsWithChildren<PixiDisplayObjectProps<T>>
 ) => {
   const { item, children, onUpdate, onAfterRender } = props;
+  const { impactArea, impactClassName, impactFilter, onImpact, detectImpacts = false } = props;
   const { frameId } = useContext(AnimationContext);
   const { renderId, update } = useContext(RenderingContext);
   const element = useElement(item);
@@ -127,6 +128,8 @@ const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T e
     hitArea,
     filterArea
   });
+
+  useImpactDetection(item, impactArea, impactClassName, impactFilter, detectImpacts, onImpact);
 
   useEffect(() => {
     if (typeof onUpdate === 'function') {

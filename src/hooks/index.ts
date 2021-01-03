@@ -7,7 +7,8 @@ export {
   useFrameAnimation,
   useTextureUpdate,
   useLoadedTexture,
-  useKeyboard
+  useKeyboard,
+  useImpactDetection
 } from './genericHooks';
 
 export {
@@ -31,5 +32,6 @@ export {
   useShapeTextureContext,
   useShapeStyleContext,
   usePointerContext,
-  usePointsContext
+  usePointsContext,
+  useImpactContext
 } from './contextHooks';

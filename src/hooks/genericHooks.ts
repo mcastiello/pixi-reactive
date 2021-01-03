@@ -1,9 +1,18 @@
 import * as PIXI from 'pixi.js';
-import { useCallback, useContext, useEffect, useReducer, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import { v4 } from 'uuid';
-import { AnimationContext, ParentContext, RenderingContext, ShapeTextureContext, TextureContext } from '../contexts';
+import { AnimationContext, ImpactContext, ParentContext, RenderingContext, ShapeTextureContext, TextureContext } from '../contexts';
 import { isAnimatedSprite, isSprite } from '../props';
-import { AnimationAction, AnimationActionType, AnimationState, Key, KeyboardAction, KeyboardActionType } from '../types';
+import {
+  AnimationAction,
+  AnimationActionType,
+  AnimationState,
+  Area,
+  ImpactContextItem,
+  Key,
+  KeyboardAction,
+  KeyboardActionType
+} from '../types';
 
 export const useId = (id?: string) => {
   const [state, setState] = useState(v4());
@@ -298,4 +307,129 @@ export const useFrameAnimation = (initialFrame: number, frameCount: number, fps:
   }, [frameId, elapsed, playing, dispatch]);
 
   return frame;
+};
+
+const isChildOf = <T extends PIXI.Container>(item1: T, item2: T): boolean => {
+  let checkItem = item1;
+
+  while (checkItem) {
+    if (checkItem === item2) {
+      return true;
+    }
+    checkItem = checkItem.parent as T;
+  }
+
+  return false;
+};
+
+const isPointIncluded = (x: number, y: number, area: Area): boolean =>
+  x >= area.x && x < area.x + area.width && y > area.y && y <= area.y + area.height;
+
+const isImpactArea = (area1: Area, area2: Area): boolean =>
+  isPointIncluded(area1.x, area1.y, area2) ||
+  isPointIncluded(area1.x, area1.y + area1.height, area2) ||
+  isPointIncluded(area1.x + area1.width, area1.y, area2) ||
+  isPointIncluded(area1.x + area1.width, area1.y + area1.height, area2);
+
+const isFilteredClass = (className: string, filter: string[]): boolean =>
+  filter.length === 0 || filter.map((name) => name.toLowerCase()).indexOf(className.toLowerCase()) >= 0;
+
+const isImpact = <T extends PIXI.Container>(item1: ImpactContextItem<T>, item2: ImpactContextItem<T>): boolean =>
+  item1.item !== item2.item &&
+  !isChildOf(item1.item, item2.item) &&
+  isFilteredClass(item1.className, item2.filter) &&
+  isImpactArea(item1.area, item2.area);
+
+export const useImpactDetection = <T extends PIXI.Container>(
+  item: T,
+  impactArea?: Area,
+  impactClassName?: string,
+  impactFilter?: string[],
+  detectImpacts?: boolean,
+  onImpact?: (impacts: string[]) => void
+) => {
+  const [area, setArea] = useState(impactArea);
+  const [filter, setFilter] = useState<string[]>([]);
+  const [className, setClassName] = useState('');
+  const [impactItem, setImpactItem] = useState<ImpactContextItem<T> | undefined>();
+  const { items, updateItem, removeItem } = useContext(ImpactContext);
+  const [impactsDetected, setImpactsDetected] = useState<string[]>([]);
+  const impacts = useMemo(
+    () => (impactItem ? items.filter((item) => isImpact(item, impactItem)) : []).map((item) => item.className).sort(),
+    [items, impactItem]
+  );
+
+  useEffect(() => {
+    if (detectImpacts) {
+      const impactRectangle = item.getBounds();
+      if (impactRectangle.width > 1 && impactRectangle.height > 1) {
+        const detectionArea: Area = {
+          x: impactRectangle.x + (impactArea ? impactArea.x : 0),
+          y: impactRectangle.y + (impactArea ? impactArea.y : 0),
+          width: impactArea ? impactArea.width : impactRectangle.width,
+          height: impactArea ? impactArea.height : impactRectangle.height
+        };
+
+        setArea(detectionArea);
+      }
+    }
+  }, [
+    item,
+    item.worldTransform.a,
+    item.worldTransform.b,
+    item.worldTransform.c,
+    item.worldTransform.d,
+    item.worldTransform.tx,
+    item.worldTransform.ty,
+    impactArea,
+    detectImpacts
+  ]);
+
+  useEffect(() => {
+    const list = (impactFilter || []).sort();
+
+    if (filter.join() !== list.join()) {
+      setFilter(list);
+    }
+  }, [filter, impactFilter]);
+
+  useEffect(() => {
+    setClassName(impactClassName || item.name);
+  }, [item.name, impactClassName, setClassName]);
+
+  useEffect(() => {
+    if (impacts.join() !== impactsDetected.join()) {
+      setImpactsDetected(impacts);
+    }
+  }, [impacts, impactsDetected]);
+
+  useEffect(() => {
+    if (area && detectImpacts) {
+      setImpactItem({
+        item,
+        filter,
+        className,
+        area
+      });
+    } else {
+      setImpactItem(undefined);
+    }
+  }, [item, area, filter, className, detectImpacts]);
+
+  useEffect(() => {
+    if (impactItem) {
+      updateItem(impactItem);
+    }
+    return () => {
+      if (impactItem) {
+        removeItem(impactItem);
+      }
+    };
+  }, [updateItem, removeItem, impactItem]);
+
+  useEffect(() => {
+    if (onImpact && impactsDetected.length > 0 && detectImpacts) {
+      onImpact(impactsDetected);
+    }
+  }, [onImpact, impactsDetected, detectImpacts]);
 };

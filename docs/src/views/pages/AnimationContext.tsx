@@ -54,7 +54,7 @@ const AnimationContextExample: React.FC = () => {
   );
 };
 
-const PixiTilingSpriteDoc: React.FC = () => {
+const AnimationContextDoc: React.FC = () => {
   return (
     <>
       <StyledTitle>AnimationContext</StyledTitle>
@@ -81,4 +81,4 @@ const PixiTilingSpriteDoc: React.FC = () => {
   );
 };
 
-export default PixiTilingSpriteDoc;
+export default AnimationContextDoc;

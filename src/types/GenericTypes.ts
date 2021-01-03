@@ -199,7 +199,6 @@ export type Key =
       shift?: boolean;
     };
 
-
 export enum KeyboardActionType {
   Set,
   Reset

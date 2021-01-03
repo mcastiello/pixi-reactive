@@ -8,6 +8,7 @@ export type { SpeedContextType, SpeedState, SpeedAction } from './SpeedContextTy
 export type { LoadResourceType, TextureContextType } from './TextureContextType';
 export type { TextStyle } from './TextStyleTypes';
 export type { EffectValue, EffectAction, EffectState, EffectContextType } from './EffectTypes';
+export type { ImpactContextItem, ImpactContextType, ImpactActionType, ImpactType } from './ImpactContextType';
 export type {
   Coords,
   Area,
@@ -59,4 +60,5 @@ export {
   defaultTextStyle
 } from './TextStyleTypes';
 export { EffectType, EffectActionType } from './EffectTypes';
+export { ImpactAction } from './ImpactContextType';
 export { LineJoin, LineCap, Shapes, ShapeAction, PointAction } from './GraphicsTypes';

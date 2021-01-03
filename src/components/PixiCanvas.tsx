@@ -2,8 +2,24 @@ import * as PIXI from 'pixi.js';
 import React, { CSSProperties, useContext, useEffect, useState } from 'react';
 import { PixiCanvasProps } from '../props';
 import AutoSizer, { Size } from 'react-virtualized-auto-sizer';
-import { useId, useAnimationContext, useRenderingContext, useSpeedContext, useTextureContext, usePointerContext } from '../hooks';
-import { SpeedContext, AnimationContext, RenderingContext, ParentContext, TextureContext, PointerContext } from '../contexts';
+import {
+  useId,
+  useAnimationContext,
+  useRenderingContext,
+  useSpeedContext,
+  useTextureContext,
+  usePointerContext,
+  useImpactContext
+} from '../hooks';
+import {
+  SpeedContext,
+  AnimationContext,
+  RenderingContext,
+  ParentContext,
+  TextureContext,
+  PointerContext,
+  ImpactContext
+} from '../contexts';
 import { Overflow, ParentContextType } from '../types';
 
 const defaultStyle: CSSProperties = {
@@ -39,6 +55,7 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
 }) => {
   const canvasId = useId(id);
 
+  const impactContext = useImpactContext();
   const speedContext = useSpeedContext();
   const textureContext = useTextureContext(textures);
   const animationContext = useAnimationContext(speedContext.speed);
@@ -137,45 +154,47 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
           <AnimationContext.Provider value={animationContext}>
             <PointerContext.Provider value={pointerContext}>
               {renderingContext.stage && (
-                <ParentContext.Provider value={parentContext}>
-                  <div
-                    className={'pixi-root'}
-                    style={containerStyle}
-                    onTouchMove={isDesktop ? undefined : updatePosition}
-                    onTouchStart={isDesktop ? undefined : pointerStart}
-                    onTouchEnd={isDesktop ? undefined : pointerEnd}
-                    onTouchCancel={isDesktop ? undefined : pointerCancel}
-                    onPointerEnter={isDesktop ? pointerOver : undefined}
-                    onPointerOver={isDesktop ? pointerOver : undefined}
-                    onPointerDown={isDesktop ? pointerStart : undefined}
-                    onPointerUp={isDesktop ? pointerEnd : undefined}
-                    onPointerOut={isDesktop ? pointerCancel : undefined}
-                    onPointerCancel={isDesktop ? pointerCancel : undefined}
-                    onPointerLeave={isDesktop ? pointerCancel : undefined}
-                    onPointerMove={isDesktop ? updatePosition : undefined}
-                  >
-                    <AutoSizer>
-                      {({ width, height }: Size) => {
-                        const multiplier = retina ? 2 : 1;
-                        const canvasWidth = width * multiplier;
-                        const canvasHeight = height * multiplier;
+                <ImpactContext.Provider value={impactContext}>
+                  <ParentContext.Provider value={parentContext}>
+                    <div
+                      className={'pixi-root'}
+                      style={containerStyle}
+                      onTouchMove={isDesktop ? undefined : updatePosition}
+                      onTouchStart={isDesktop ? undefined : pointerStart}
+                      onTouchEnd={isDesktop ? undefined : pointerEnd}
+                      onTouchCancel={isDesktop ? undefined : pointerCancel}
+                      onPointerEnter={isDesktop ? pointerOver : undefined}
+                      onPointerOver={isDesktop ? pointerOver : undefined}
+                      onPointerDown={isDesktop ? pointerStart : undefined}
+                      onPointerUp={isDesktop ? pointerEnd : undefined}
+                      onPointerOut={isDesktop ? pointerCancel : undefined}
+                      onPointerCancel={isDesktop ? pointerCancel : undefined}
+                      onPointerLeave={isDesktop ? pointerCancel : undefined}
+                      onPointerMove={isDesktop ? updatePosition : undefined}
+                    >
+                      <AutoSizer>
+                        {({ width, height }: Size) => {
+                          const multiplier = retina ? 2 : 1;
+                          const canvasWidth = width * multiplier;
+                          const canvasHeight = height * multiplier;
 
-                        return (
-                          <canvas
-                            id={canvasId}
-                            className={className}
-                            width={canvasWidth}
-                            height={canvasHeight}
-                            style={{ ...defaultStyle, width, height }}
-                          />
-                        );
-                      }}
-                    </AutoSizer>
-                    <div className={'pixi-children-root'} style={childrenContainerStyle}>
-                      {children}
+                          return (
+                            <canvas
+                              id={canvasId}
+                              className={className}
+                              width={canvasWidth}
+                              height={canvasHeight}
+                              style={{ ...defaultStyle, width, height }}
+                            />
+                          );
+                        }}
+                      </AutoSizer>
+                      <div className={'pixi-children-root'} style={childrenContainerStyle}>
+                        {children}
+                      </div>
                     </div>
-                  </div>
-                </ParentContext.Provider>
+                  </ParentContext.Provider>
+                </ImpactContext.Provider>
               )}
             </PointerContext.Provider>
           </AnimationContext.Provider>

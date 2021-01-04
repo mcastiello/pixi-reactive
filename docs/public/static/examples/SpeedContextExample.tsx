@@ -1,8 +1,7 @@
 import { Link } from 'framework7-react';
-import React, { useCallback, useContext, useState } from 'react';
-import { PixiCanvas, PixiTilingSprite, SpeedContext, useAnimatedProgress } from 'pixi-reactive';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { PixiCanvas, PixiSprite, PixiTilingSprite, SpeedContext, RenderingContext, useAnimatedProgress } from 'pixi-reactive';
 import styled from 'styled-components';
-import { Ship } from '../../../src/views/pages/UseAnimatedProgress';
 
 const textures = {
   galaxy: './static/assets/galaxy.png',
@@ -45,6 +44,19 @@ const SpeedController: React.FC = () => {
       </StyledContainer>
     </>
   );
+}
+
+// The ship animation is now based on the elapsed time
+const Ship: React.FC = () => {
+  const { width } = useContext(RenderingContext);
+  const [position, updatePosition] = useState(0);
+  const progress = useAnimatedProgress(10 * width, true);
+
+  useEffect(() => {
+    updatePosition((width + 300) * progress);
+  }, [progress, width]);
+
+  return <PixiSprite texture={'ship'} x={position - 150} alignY={0.5} />;
 };
 
 const SpeedContextExample: React.FC = () => {

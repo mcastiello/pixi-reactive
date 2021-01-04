@@ -162,8 +162,6 @@ export const useRenderingContext = (canvasReference: string, frameId: number, ba
     const reference = document.getElementById(canvasReference) as HTMLCanvasElement;
 
     if (!reference && renderer) {
-      // Force release of WebGL context
-      renderer.gl.getExtension('WEBGL_lose_context')?.loseContext();
       renderer.destroy();
       setRenderer(undefined);
     } else if (reference && !renderer) {

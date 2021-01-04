@@ -436,25 +436,25 @@ export const useImpactDetection = <T extends PIXI.Container>(
 
 const progressTimer = (currentTime: number, delta: number) => currentTime + delta;
 const progressFrame = (time: number, frameRate: number) => Math.floor(time / (1000 / frameRate));
-const progressTimeLine = (time: number, duration: number) => (time / duration);
+const progressTimeLine = (time: number, duration: number) => time / duration;
 
 export const useAnimatedEffect = (effect: EffectCallback, dependencies?: DependencyList, frameRate = 60): void => {
-  const { elapsed } = useContext(AnimationContext);
+  const { elapsed, frameId } = useContext(AnimationContext);
   const [time, updateTime] = useReducer(progressTimer, 0);
-  const [frameId, updateFrameId] = useState(0);
+  const [frame, updateFrameId] = useState(0);
 
-  useEffect(() => updateTime(elapsed), [elapsed]);
+  useEffect(() => updateTime(elapsed), [elapsed, frameId]);
   useEffect(() => updateFrameId(progressFrame(time, frameRate)), [time, frameRate]);
 
-  useEffect(effect, dependencies ? [...dependencies, frameId] : [frameId]);
+  useEffect(effect, dependencies ? [...dependencies, frame] : [frame]);
 };
 
-export const useAnimatedProgress = (duration: number, loop = false) : number => {
-  const { elapsed } = useContext(AnimationContext);
+export const useAnimatedProgress = (duration: number, loop = false): number => {
+  const { elapsed, frameId } = useContext(AnimationContext);
   const [time, updateTime] = useReducer(progressTimer, 0);
   const [timeLine, updateTimeLine] = useState(0);
 
-  useEffect(() => updateTime(elapsed), [elapsed]);
+  useEffect(() => updateTime(elapsed), [elapsed, frameId]);
   useEffect(() => {
     const position = progressTimeLine(time, duration);
     const value = loop ? position % 1 : Math.min(1, position);
@@ -462,7 +462,7 @@ export const useAnimatedProgress = (duration: number, loop = false) : number => 
     if (value !== timeLine) {
       updateTimeLine(value);
     }
-  }, [time, duration, loop, timeLine])
+  }, [time, duration, loop, timeLine]);
 
-  return timeLine
-}
+  return timeLine;
+};

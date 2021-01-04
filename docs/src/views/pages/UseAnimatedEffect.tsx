@@ -10,7 +10,7 @@ const textures = {
   ship: './static/assets/spaceship.png'
 };
 
-export const Ship: React.FC = () => {
+const Ship: React.FC = () => {
   const { width } = useContext(RenderingContext);
   const [position, updatePosition] = useReducer((position) => (position + 1) % (width + 300), 0);
 

@@ -1,12 +1,13 @@
 import { Block, Link } from 'framework7-react';
-import { PixiCanvas, PixiSprite, PixiTilingSprite, RenderingContext, SpeedContext, useAnimatedProgress } from 'pixi-reactive';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { PixiCanvas, PixiTilingSprite, SpeedContext } from 'pixi-reactive';
+import React, { useCallback, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Pages } from '../../pages';
 import CodeViewer from '../CodeViewer';
 import ComponentLink from '../ComponentLink';
 import PropsTable, { PropsDefinition, StyledCode } from '../PropsTable';
 import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledComponents';
+import { Ship } from './UseAnimatedProgress';
 
 const props: PropsDefinition = [
   ['speed', true, 'number', '1', 'Current speed of the animation'],
@@ -58,19 +59,6 @@ const SpeedController: React.FC = () => {
       </StyledContainer>
     </>
   );
-};
-
-// The ship animation is now based on the elapsed time
-const Ship: React.FC = () => {
-  const { width } = useContext(RenderingContext);
-  const [position, updatePosition] = useState(0);
-  const progress = useAnimatedProgress(10 * width, true);
-
-  useEffect(() => {
-    updatePosition((width + 300) * progress);
-  }, [progress, width]);
-
-  return <PixiSprite texture={'ship'} x={position - 150} alignY={0.5} />;
 };
 
 const SpeedContextExample: React.FC = () => {

@@ -8,7 +8,10 @@ export {
   useTextureUpdate,
   useLoadedTexture,
   useKeyboard,
-  useImpactDetection
+  useImpactDetection,
+  useRelativePosition,
+  useAnimatedEffect,
+  useAnimatedProgress
 } from './genericHooks';
 
 export {

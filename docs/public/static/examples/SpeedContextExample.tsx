@@ -1,7 +1,8 @@
 import { Link } from 'framework7-react';
-import React, { useCallback, useContext, useEffect, useReducer, useState } from 'react';
-import { PixiCanvas, PixiSprite, PixiTilingSprite, RenderingContext, AnimationContext, SpeedContext } from 'pixi-reactive';
+import React, { useCallback, useContext, useState } from 'react';
+import { PixiCanvas, PixiTilingSprite, SpeedContext, useAnimatedProgress } from 'pixi-reactive';
 import styled from 'styled-components';
+import { Ship } from '../../../src/views/pages/UseAnimatedProgress';
 
 const textures = {
   galaxy: './static/assets/galaxy.png',
@@ -16,7 +17,7 @@ const StyledContainer = styled.div`
   position: absolute;
   bottom: -30px;
   text-align: center;
-  width: 100%
+  width: 100%;
 `;
 
 // Add the speed controller that allow us to accelerate or slow down the animation
@@ -44,22 +45,6 @@ const SpeedController: React.FC = () => {
       </StyledContainer>
     </>
   );
-};
-
-// The ship animation is now based on the elapsed time
-const Ship: React.FC = () => {
-  const { width } = useContext(RenderingContext);
-  const { elapsed } = useContext(AnimationContext);
-  const positionReducer = useCallback((position, delta) => (position + delta) % (width + 300), [width]);
-  const [position, updatePosition] = useReducer(positionReducer, 0);
-
-  useEffect(() => {
-    const frameDuration = 1000 / 60;
-    const delta = Math.round((elapsed / frameDuration) * 10) / 10;
-    updatePosition(delta);
-  }, [elapsed]);
-
-  return <PixiSprite texture={'ship'} x={position - 150} alignY={0.5} />;
 };
 
 const SpeedContextExample: React.FC = () => {

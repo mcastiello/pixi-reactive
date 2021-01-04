@@ -54,7 +54,9 @@ export {
 } from './filters/effects';
 export {
   useId,
-  useKeyboard
+  useKeyboard,
+  useAnimatedEffect,
+  useAnimatedProgress
 } from './hooks';
 export {
   BlendModes,

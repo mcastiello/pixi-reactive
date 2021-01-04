@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import { ParentContext, RenderingContext } from '../contexts';
-import { useTexture } from '../hooks';
-import { useRelativePosition } from '../hooks/genericHooks';
+import { useTexture, useRelativePosition } from '../hooks';
 import { PixiMaskProps } from '../props';
 
 const PixiMask: React.FC<PixiMaskProps> = ({ texture, enabled = true, children }) => {

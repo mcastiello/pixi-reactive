@@ -81,7 +81,9 @@ export enum Pages {
   TextWhiteLine = 'TextWhiteLine',
   Key = 'Key',
   SpecialKeys = 'SpecialKeys',
-  UseKeyboard = 'UseKeyboard'
+  UseKeyboard = 'UseKeyboard',
+  UseAnimatedEffect = 'UseAnimatedEffect',
+  UseAnimatedProgress = 'UseAnimatedProgress'
 }
 
 export type PageState = {
@@ -176,7 +178,9 @@ export const breadcrumbMap: BreadcrumbMap = new Map([
   [Pages.TextWhiteLine, Pages.Types],
   [Pages.Key, Pages.Types],
   [Pages.SpecialKeys, Pages.Types],
-  [Pages.UseKeyboard, Pages.Hooks]
+  [Pages.UseKeyboard, Pages.Hooks],
+  [Pages.UseAnimatedEffect, Pages.Hooks],
+  [Pages.UseAnimatedProgress, Pages.Hooks]
 ]);
 
 export const getParentPage = (page: Pages): Pages | undefined => breadcrumbMap.get(page);

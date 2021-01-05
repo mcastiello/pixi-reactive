@@ -8318,6 +8318,18 @@ pirates@^4.0.1:
   dependencies:
     node-modules-regexp "^1.0.0"
 
+pixi-particles@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/pixi-particles/-/pixi-particles-4.3.0.tgz#bd27f54c3af480e0cab5ea50573bb06200137a5e"
+  integrity sha512-3G66vSFMbp+LnD3P6SYIxOo3f1X3yxkPbP1Tr2o+o18ZkkT6mePpCvsPUrM8s+xCW7oK816/wDYZXMtKzJ61CQ==
+
+pixi-reactive-particles@^0.1.0-rc:
+  version "0.1.0-rc"
+  resolved "https://registry.yarnpkg.com/pixi-reactive-particles/-/pixi-reactive-particles-0.1.0-rc.tgz#e9df71f2acd8c34ad91a6dd31fa5b7d648054d20"
+  integrity sha512-NmaZI1KEuvjJW9JgTyS1gOs36L6euByO/C4E5Cd6no8RtdPzdBckxmQUDQgXs5/EUQTqIjdHPhIMf5pl3qVRUg==
+  dependencies:
+    pixi-particles "^4.3.0"
+
 "pixi-reactive@link:..":
   version "0.0.0"
   uid ""

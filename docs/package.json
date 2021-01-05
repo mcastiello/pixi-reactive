@@ -26,6 +26,7 @@
     "framework7-icons": "^3.0.1",
     "framework7-react": "^5.7.2",
     "pixi-reactive": "link:..",
+    "pixi-reactive-particles": "^0.1.0-rc",
     "pixi.js": "link:../node_modules/pixi.js",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",

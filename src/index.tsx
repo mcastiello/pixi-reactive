@@ -10,7 +10,8 @@ export {
   PixiSprite,
   PixiGraphics,
   PixiText,
-  PixiTilingSprite
+  PixiTilingSprite,
+  PixiDisplayObject
 } from './components';
 export {
   Path,
@@ -29,7 +30,15 @@ export {
   QuadraticCurve,
   Holes
 } from './components/shapes';
-export { AnimationContext, RenderingContext, ParentContext, TextureContext, SpeedContext, PointerContext } from './contexts';
+export {
+  AnimationContext,
+  RenderingContext,
+  ParentContext,
+  TextureContext,
+  SpeedContext,
+  PointerContext,
+  ShapeTextureContext
+} from './contexts';
 export { BlurFilter, AlphaFilter, ColorMatrixFilter, FXAAFilter, NoiseFilter } from './filters';
 export {
   BlackAndWhiteEffect,
@@ -52,12 +61,8 @@ export {
   ToBGREffect,
   VintageEffect
 } from './filters/effects';
-export {
-  useId,
-  useKeyboard,
-  useAnimatedEffect,
-  useAnimatedProgress
-} from './hooks';
+export { useId, useElement, useKeyboard, useAnimatedEffect, useAnimatedProgress } from './hooks';
+export { PixiContainerProps } from './props';
 export {
   BlendModes,
   CursorType,

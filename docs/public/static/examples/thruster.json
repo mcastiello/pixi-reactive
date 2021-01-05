@@ -1,0 +1,81 @@
+{
+  "alpha": {
+    "list": [
+      {
+        "value": 0.62,
+        "time": 0
+      },
+      {
+        "value": 0.1,
+        "time": 1
+      }
+    ],
+    "isStepped": false
+  },
+  "scale": {
+    "list": [
+      {
+        "value": 0.25,
+        "time": 0
+      },
+      {
+        "value": 0.25,
+        "time": 1
+      }
+    ],
+    "isStepped": false
+  },
+  "color": {
+    "list": [
+      {
+        "value": "fff191",
+        "time": 0
+      },
+      {
+        "value": "ff622c",
+        "time": 1
+      }
+    ],
+    "isStepped": false
+  },
+  "speed": {
+    "list": [
+      {
+        "value": 500,
+        "time": 0
+      },
+      {
+        "value": 500,
+        "time": 1
+      }
+    ],
+    "isStepped": false
+  },
+  "startRotation": {
+    "min": 175,
+    "max": 185
+  },
+  "rotationSpeed": {
+    "min": 50,
+    "max": 50
+  },
+  "lifetime": {
+    "min": 0.05,
+    "max": 0.15
+  },
+  "blendMode": "normal",
+  "frequency": 0.001,
+  "emitterLifetime": 0,
+  "maxParticles": 500,
+  "pos": {
+    "x": 15,
+    "y": 0
+  },
+  "addAtBack": false,
+  "spawnType": "circle",
+  "spawnCircle": {
+    "x": 0,
+    "y": 0,
+    "r": 8
+  }
+}

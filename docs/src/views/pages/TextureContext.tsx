@@ -32,12 +32,19 @@ const TextureContextDoc: React.FC = () => {
         The resulting <StyledCode>TextureContext</StyledCode> will be the following
         <CodeViewer>
           {'{\n' +
-            '  galaxy: PIXI.Texture,\n' +
-            '  ship: PIXI.Texture,\n' +
-            '  blue: PIXI.Texture,\n' +
-            '  green: PIXI.Texture,\n' +
-            '  red: PIXI.Texture,\n' +
-            "  colors: ['blue', 'green', 'red'],\n" +
+            '  textures: {\n' +
+            '    galaxy: PIXI.Texture,\n' +
+            '    ship: PIXI.Texture,\n' +
+            '    blue: PIXI.Texture,\n' +
+            '    green: PIXI.Texture,\n' +
+            '    red: PIXI.Texture,\n' +
+            "    colors: ['blue', 'green', 'red']\n" +
+            '  }\n' +
+            '  resources: {\n' +
+            '    galaxy: PIXI.LoaderResource,\n' +
+            '    ship: PIXI.LoaderResource,\n' +
+            '    colors: PIXI.LoaderResource\n' +
+            '  }\n' +
             '}'}
         </CodeViewer>
       </Block>

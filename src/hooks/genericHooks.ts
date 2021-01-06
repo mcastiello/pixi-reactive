@@ -160,7 +160,7 @@ export const useFilter = <T extends PIXI.Filter>(item: T) => {
 };
 
 export const useLoadedTexture = (textureName?: string) => {
-  const context = useContext(TextureContext);
+  const { textures: context } = useContext(TextureContext);
   const [texture, setTexture] = useState<PIXI.Texture | undefined>(
     typeof textureName === 'string' && context[textureName] instanceof PIXI.Texture ? (context[textureName] as PIXI.Texture) : undefined
   );
@@ -193,7 +193,7 @@ export const useTexture = <T extends PIXI.Sprite>(sprite: T, textureName?: strin
 };
 
 export const useFrames = <T extends PIXI.AnimatedSprite>(sprite: T, frames?: string[] | string): number => {
-  const context = useContext(TextureContext);
+  const { textures: context } = useContext(TextureContext);
   const { update } = useContext(RenderingContext);
   const [textures, setTextures] = useState<PIXI.Texture[]>([]);
   const [count, setCount] = useState(0);

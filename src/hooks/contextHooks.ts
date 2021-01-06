@@ -30,6 +30,7 @@ import {
 import { initialSpeedState, ParentContext, AnimationContext } from '../contexts';
 import * as PIXI from 'pixi.js';
 import { PointerContextAction, PointerContextActionType, PointerContextType } from '../types/PointerContextType';
+import { ResourceDataType, TextureDataType } from '../types/TextureContextType';
 import { useRelativePosition } from './genericHooks';
 
 const MAX_HISTORY_SIZE = 120;
@@ -260,37 +261,42 @@ const cleanName = (name: string) => name.replace(/(?:(\.\w+?$)|(_image$))/, '');
 
 const textureLoaded = new Map<string, string>();
 
-let loadedResources: TextureContextType = {};
+let loadedResources: TextureContextType = { textures: {}, resources: {} };
 
 export const useTextureContext = (resources: LoadResourceType) => {
   const [loader] = useState(new PIXI.Loader());
   const reducer = useCallback((state: TextureContextType, action: TextureContextType): TextureContextType => {
-    loadedResources = { ...loadedResources, ...state, ...action };
+    loadedResources = {
+      textures: { ...loadedResources.textures, ...state.textures, ...action.textures },
+      resources: { ...loadedResources.resources, ...state.resources, ...action.resources }
+    };
     return loadedResources;
   }, []);
   const [context, dispatch] = useReducer(reducer, loadedResources);
 
   const callback = useCallback(
     (loader: PIXI.Loader, resource: PIXI.LoaderResource) => {
-      const resources: TextureContextType = {};
+      const textureResource: TextureDataType = {};
+      const loaderResource: ResourceDataType = {};
       const cleanedName = cleanName(resource.name);
 
       if (resource.texture && !loadedResources[cleanedName]) {
-        resources[cleanedName] = resource.texture;
+        textureResource[cleanedName] = resource.texture;
       } else if (resource.textures) {
         const frames: string[] = [];
         Object.keys(resource.textures).forEach((name) => {
           const texture = resource.textures ? resource.textures[name] : undefined;
           if (texture) {
             const resourceName = cleanName(name);
-            resources[resourceName] = texture;
+            textureResource[resourceName] = texture;
             frames.push(resourceName);
           }
         });
-        resources[cleanedName] = frames;
+        textureResource[cleanedName] = frames;
       }
+      loaderResource[cleanedName] = resource;
 
-      dispatch(resources);
+      dispatch({ textures: textureResource, resources: loaderResource });
 
       return loader;
     },

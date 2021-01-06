@@ -8323,16 +8323,28 @@ pixi-particles@^4.3.0:
   resolved "https://registry.yarnpkg.com/pixi-particles/-/pixi-particles-4.3.0.tgz#bd27f54c3af480e0cab5ea50573bb06200137a5e"
   integrity sha512-3G66vSFMbp+LnD3P6SYIxOo3f1X3yxkPbP1Tr2o+o18ZkkT6mePpCvsPUrM8s+xCW7oK816/wDYZXMtKzJ61CQ==
 
-pixi-reactive-particles@^0.1.0-rc:
-  version "0.1.0-rc"
-  resolved "https://registry.yarnpkg.com/pixi-reactive-particles/-/pixi-reactive-particles-0.1.0-rc.tgz#e9df71f2acd8c34ad91a6dd31fa5b7d648054d20"
-  integrity sha512-NmaZI1KEuvjJW9JgTyS1gOs36L6euByO/C4E5Cd6no8RtdPzdBckxmQUDQgXs5/EUQTqIjdHPhIMf5pl3qVRUg==
+pixi-reactive-particles@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/pixi-reactive-particles/-/pixi-reactive-particles-0.1.1.tgz#4e041ffe494b353bfec72c9a5646972da5f8d83f"
+  integrity sha512-t3R1mWFrCYBbosqmCHOwCWQ75OUzAYDEvjkdwFx7zrPqVKXe5J69W63tHWCOZYipWQ6iz/3ibU3H1bIO5xNVbQ==
   dependencies:
     pixi-particles "^4.3.0"
+
+pixi-reactive-spine@^0.1.0-rc1:
+  version "0.1.0-rc7"
+  resolved "https://registry.yarnpkg.com/pixi-reactive-spine/-/pixi-reactive-spine-0.1.0-rc7.tgz#01fec9d39a964ed73dceb42d5065292bd2c9b9da"
+  integrity sha512-nVya31CdKUXne73aXBnIUwMGsbz3PQ8Zro1XcyIP5LBVMnXjHCb482Va9h1N7YXLFQIa8hbr6YB7J4JSola6BQ==
+  dependencies:
+    pixi-spine "^2.1.11"
 
 "pixi-reactive@link:..":
   version "0.0.0"
   uid ""
+
+pixi-spine@^2.1.11:
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/pixi-spine/-/pixi-spine-2.1.11.tgz#a11f76d357fceadbc19013a6a4ef4a3acb3d763e"
+  integrity sha512-/h9Dp32XiH1cUF55Soj9W/dBSLZAGOnmPxzNftR3/5E5orl+nn3WLhuQ5jeyn3z6JCi4RUk1G8HkwrNuSmqJDw==
 
 "pixi.js@link:../node_modules/pixi.js":
   version "0.0.0"

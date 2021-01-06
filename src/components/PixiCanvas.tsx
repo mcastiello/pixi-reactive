@@ -51,6 +51,8 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   onInteractionStart,
   onInteractionEnd,
   onInteractionMove,
+  onAllTexturesLoaded,
+  onLoadProgress,
   children
 }) => {
   const canvasId = useId(id);
@@ -146,6 +148,28 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   useEffect(() => {
     setSpeed(speed);
   }, [speed, setSpeed]);
+
+  useEffect(() => {
+    if (onAllTexturesLoaded) {
+      PIXI.Loader.shared.onComplete.add(onAllTexturesLoaded);
+    }
+    return () => {
+      if (onAllTexturesLoaded) {
+        PIXI.Loader.shared.onComplete.detach(onAllTexturesLoaded);
+      }
+    };
+  }, [onAllTexturesLoaded]);
+
+  useEffect(() => {
+    if (onLoadProgress) {
+      PIXI.Loader.shared.onProgress.add(onLoadProgress);
+    }
+    return () => {
+      if (onLoadProgress) {
+        PIXI.Loader.shared.onProgress.detach(onLoadProgress);
+      }
+    };
+  }, [onLoadProgress]);
 
   return (
     <TextureContext.Provider value={textureContext}>

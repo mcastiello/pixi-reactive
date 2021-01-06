@@ -34,6 +34,8 @@ const events: PropsDefinition = [
   ['onInteractionStart', false, 'function', 'null', 'Callback executed when an interaction is started (touch or mouse)'],
   ['onInteractionMove', false, 'function', 'null', 'Callback executed when the pointer is moved'],
   ['onInteractionEnd', false, 'function', 'null', 'Callback executed when the interaction is terminated'],
+  ['onLoadProgress', false, 'function', 'null', 'Callback executed when the Texture Loader progress in the download process'],
+  ['onAllTexturesLoaded', false, 'function', 'null', 'Callback executed when all the textures are loaded'],
 ]
 const textures = {
   galaxy: './static/assets/galaxy.png',

@@ -264,7 +264,6 @@ const textureLoaded = new Map<string, string>();
 let loadedResources: TextureContextType = { textures: {}, resources: {} };
 
 export const useTextureContext = (resources: LoadResourceType) => {
-  const [loader] = useState(new PIXI.Loader());
   const reducer = useCallback((state: TextureContextType, action: TextureContextType): TextureContextType => {
     loadedResources = {
       textures: { ...loadedResources.textures, ...state.textures, ...action.textures },
@@ -304,18 +303,18 @@ export const useTextureContext = (resources: LoadResourceType) => {
   );
 
   useEffect(() => {
-    loader.onLoad.add(callback);
+    PIXI.Loader.shared.onLoad.add(callback);
     return () => {
-      loader.onLoad.detach(callback);
+      PIXI.Loader.shared.onLoad.detach(callback);
     };
-  }, [loader, callback]);
+  }, [callback]);
 
   useEffect(() => {
     let count = 0;
     Object.keys(resources).forEach((key) => {
       const existingResource = textureLoaded.get(key);
       if (!existingResource) {
-        loader.add(key, resources[key]);
+        PIXI.Loader.shared.add(key, resources[key]);
         textureLoaded.set(key, resources[key]);
         count++;
       } else if (existingResource !== resources[key]) {
@@ -326,9 +325,9 @@ export const useTextureContext = (resources: LoadResourceType) => {
       }
     });
     if (count) {
-      loader.load();
+      PIXI.Loader.shared.load();
     }
-  }, [resources, loader]);
+  }, [resources]);
 
   return context;
 };

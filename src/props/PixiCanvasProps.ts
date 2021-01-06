@@ -13,4 +13,6 @@ export type PixiCanvasProps = RenderingEventType &
     background?: number;
     textures?: LoadResourceType;
     filterArea?: Area;
+    onAllTexturesLoaded?: (...params: any[]) => any;
+    onLoadProgress?: (...params: any[]) => any;
   };

@@ -1,21 +1,26 @@
 import React from 'react';
-import { usePointsContext } from '../../hooks';
-import { PointsContext } from '../../contexts';
+import { usePointsContext, usePropsContext } from '../../hooks';
+import { PointsContext, PropsContext } from '../../contexts';
 import { ShapeGenericType, Shapes } from '../../types';
 import Shape from './Shape';
 
 const noParams: number[] = [];
 
-const Polygon: React.FC<ShapeGenericType> = ({ name, children }) => {
+const Polygon: React.FC<ShapeGenericType> = ({ children, ...props }) => {
+  const propsContext = usePropsContext<ShapeGenericType>(props);
+  const { properties } = propsContext;
+  const { name } = properties;
   const pointsContext = usePointsContext();
   const { points } = pointsContext;
 
   return (
-    <PointsContext.Provider value={pointsContext}>
-      <Shape name={name} type={Shapes.Polygon} params={noParams} points={points}>
-        {children}
-      </Shape>
-    </PointsContext.Provider>
+    <PropsContext.Provider value={propsContext}>
+      <PointsContext.Provider value={pointsContext}>
+        <Shape name={name} type={Shapes.Polygon} params={noParams} points={points}>
+          {children}
+        </Shape>
+      </PointsContext.Provider>
+    </PropsContext.Provider>
   );
 };
 

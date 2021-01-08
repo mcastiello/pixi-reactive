@@ -10,3 +10,4 @@ export { PointerContext } from './PointerContext';
 export { EffectContext } from './EffectContext';
 export { PointsContext } from './PointsContext';
 export { ImpactContext } from './ImpactContext';
+export { PropsContext } from './PropsContext';

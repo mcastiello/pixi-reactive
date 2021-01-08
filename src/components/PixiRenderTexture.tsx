@@ -1,12 +1,15 @@
 import * as PIXI from 'pixi.js';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { defaultParentContext, ParentContext, RenderingContext } from '../contexts';
-import { useId, useTextureUpdate } from '../hooks';
+import { defaultParentContext, ParentContext, PropsContext, RenderingContext } from '../contexts';
+import { useId, usePropsContext, useTextureUpdate } from '../hooks';
 import { PixiRenderTextureProps } from '../props';
 import { Overflow } from '../types';
 import PixiHtmlContainer from './PixiHtmlContainer';
 
-const PixiRenderTexture: React.FC<PixiRenderTextureProps> = ({ name, width, height, children }) => {
+const PixiRenderTexture: React.FC<PixiRenderTextureProps> = ({ children, ...props }) => {
+  const propsContext = usePropsContext<PixiRenderTextureProps>(props);
+  const { properties } = propsContext;
+  const { name, width, height } = properties;
   const parentRenderContext = useContext(RenderingContext);
   const textureId = useId(name);
   const [stage] = useState(new PIXI.Container());
@@ -51,7 +54,9 @@ const PixiRenderTexture: React.FC<PixiRenderTextureProps> = ({ name, width, heig
           getTexture
         }}
       >
-        <ParentContext.Provider value={parentContext}>{children}</ParentContext.Provider>
+        <ParentContext.Provider value={parentContext}>
+          <PropsContext.Provider value={propsContext}>{children}</PropsContext.Provider>
+        </ParentContext.Provider>
       </RenderingContext.Provider>
     </PixiHtmlContainer>
   );

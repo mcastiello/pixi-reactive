@@ -1,10 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
-import { EffectContext } from '../../contexts';
-import { ContrastEffectProps } from '../../props';
+import { EffectContext, PropsContext } from '../../contexts';
+import { usePropsContext } from '../../hooks';
+import { AmountValueEffect, ContrastEffectProps } from '../../props';
 import { EffectType } from '../../types';
 
-const ContrastEffect: React.FC<ContrastEffectProps> = ({ multiply = true, enabled = true, amount = 0.5 }) => {
+const ContrastEffect: React.FC<ContrastEffectProps> = ({ children, ...props }) => {
+  const propsContext = usePropsContext<AmountValueEffect>(props);
+  const { properties } = propsContext;
+  const { multiply = true, enabled = true, amount = 0.5 } = properties;
   const [id] = useState(v4());
   const { updateEffect, removeEffect } = useContext(EffectContext);
 
@@ -24,7 +28,7 @@ const ContrastEffect: React.FC<ContrastEffectProps> = ({ multiply = true, enable
     };
   }, [id, removeEffect]);
 
-  return null;
+  return <PropsContext.Provider value={propsContext}>{children}</PropsContext.Provider>;
 };
 
 export default ContrastEffect;

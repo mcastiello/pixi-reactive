@@ -3,11 +3,11 @@ export type EffectProps = {
   enabled?: boolean;
 };
 
-type AmountValueEffect = {
+export type AmountValueEffect = EffectProps & {
   amount?: number;
 };
 
-export type BrightnessEffectProps = EffectProps & AmountValueEffect;
+export type BrightnessEffectProps = AmountValueEffect;
 
 export type ColorToneProps = EffectProps & {
   desaturation: number;
@@ -16,16 +16,16 @@ export type ColorToneProps = EffectProps & {
   darkColor: number;
 };
 
-export type ContrastEffectProps = EffectProps & AmountValueEffect;
+export type ContrastEffectProps = AmountValueEffect;
 
-export type GreyScaleEffectProps = EffectProps & AmountValueEffect;
+export type GreyScaleEffectProps = AmountValueEffect;
 
 export type HueEffectProps = EffectProps & {
   rotation?: number;
 };
 
-export type NightEffectProps = EffectProps & AmountValueEffect;
+export type NightEffectProps = AmountValueEffect;
 
-export type PredatorEffectProps = EffectProps & AmountValueEffect;
+export type PredatorEffectProps = AmountValueEffect;
 
-export type SaturateEffectProps = EffectProps & AmountValueEffect;
+export type SaturateEffectProps = AmountValueEffect;

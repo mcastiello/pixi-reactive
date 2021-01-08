@@ -1,14 +1,16 @@
 // Types
 export type { AnimationContextType, AnimationState, AnimationAction } from './AnimationContextTypes';
-export type { GenericEventType, RenderingEventType, InteractionEventType } from './GenericEventTypes';
+export type { GenericHtmlEventType, GenericEventType, RenderingEventType } from './GenericEventTypes';
 export type { GenericType, TransformType, GenericPropsMap, PropValue, Key, KeyboardAction } from './GenericTypes';
 export type { ParentContextType } from './ParentContextTypes';
 export type { RenderingContextType, RenderAction, RenderingContextState } from './RenderingContextTypes';
 export type { SpeedContextType, SpeedState, SpeedAction } from './SpeedContextTypes';
-export type { LoadResourceType, TextureContextType } from './TextureContextType';
+export type { LoadResourceType, TextureContextType, ResourceDataType } from './TextureContextType';
 export type { TextStyle } from './TextStyleTypes';
 export type { EffectValue, EffectAction, EffectState, EffectContextType } from './EffectTypes';
 export type { ImpactContextItem, ImpactContextType, ImpactActionType, ImpactType } from './ImpactContextType';
+export type { PixiProps, PixiPropUpdates, PropsContextType } from './PropsContextType';
+export type { PointerContextType } from './PointerContextType';
 export type {
   Coords,
   Area,

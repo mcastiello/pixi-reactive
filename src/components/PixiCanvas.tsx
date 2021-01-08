@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import React, { CSSProperties, useContext, useEffect, useState } from 'react';
+import React, { CSSProperties, useCallback, useContext, useEffect, useState } from 'react';
 import { PixiCanvasProps } from '../props';
 import AutoSizer, { Size } from 'react-virtualized-auto-sizer';
 import {
@@ -48,11 +48,24 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   onUpdate,
   onAfterRender,
   onResize,
-  onInteractionStart,
-  onInteractionEnd,
-  onInteractionMove,
   onAllTexturesLoaded,
   onLoadProgress,
+  onInteractionUpdate,
+  onMouseDown,
+  onMouseMove,
+  onMouseOut,
+  onMouseOver,
+  onMouseUp,
+  onPointerCancel,
+  onPointerDown,
+  onPointerMove,
+  onPointerOut,
+  onPointerOver,
+  onPointerUp,
+  onTouchCancel,
+  onTouchEnd,
+  onTouchMove,
+  onTouchStart,
   children
 }) => {
   const canvasId = useId(id);
@@ -71,10 +84,7 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   const { pointerContext, pointerStart, pointerEnd, pointerCancel, pointerOver, updatePosition } = usePointerContext(
     retina,
     renderingContext.width,
-    renderingContext.height,
-    onInteractionStart,
-    onInteractionEnd,
-    onInteractionMove
+    renderingContext.height
   );
 
   const [parentContext, setParentContext] = useState<ParentContextType<PIXI.Container>>({
@@ -150,26 +160,104 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
   }, [speed, setSpeed]);
 
   useEffect(() => {
-    if (onAllTexturesLoaded) {
-      PIXI.Loader.shared.onComplete.add(onAllTexturesLoaded);
+    if (onInteractionUpdate) {
+      onInteractionUpdate(pointerContext);
     }
-    return () => {
-      if (onAllTexturesLoaded) {
-        PIXI.Loader.shared.onComplete.detach(onAllTexturesLoaded);
-      }
-    };
-  }, [onAllTexturesLoaded]);
+  }, [pointerContext, onInteractionUpdate]);
+
+  const allTextureLoaderHandler = useCallback((...args) => onAllTexturesLoaded && onAllTexturesLoaded(args[1]), [onAllTexturesLoaded]);
 
   useEffect(() => {
-    if (onLoadProgress) {
-      PIXI.Loader.shared.onProgress.add(onLoadProgress);
-    }
+    PIXI.Loader.shared.onComplete.add(allTextureLoaderHandler);
     return () => {
-      if (onLoadProgress) {
-        PIXI.Loader.shared.onProgress.detach(onLoadProgress);
-      }
+      PIXI.Loader.shared.onComplete.detach(allTextureLoaderHandler);
     };
-  }, [onLoadProgress]);
+  }, [allTextureLoaderHandler]);
+
+  const loadProgressHandler = useCallback((loader: PIXI.Loader) => onLoadProgress && onLoadProgress(loader.progress), [onLoadProgress]);
+
+  useEffect(() => {
+    PIXI.Loader.shared.onProgress.add(loadProgressHandler);
+    return () => {
+      PIXI.Loader.shared.onProgress.detach(loadProgressHandler);
+    };
+  }, [loadProgressHandler]);
+
+  const onMouseMoveHandler = useCallback((...args) => onMouseMove && onMouseMove(...args), [onMouseMove]);
+  const onMouseDownHandler = useCallback((...args) => onMouseDown && onMouseDown(...args), [onMouseDown]);
+  const onMouseOutHandler = useCallback((...args) => onMouseOut && onMouseOut(...args), [onMouseOut]);
+  const onMouseOverHandler = useCallback((...args) => onMouseOver && onMouseOver(...args), [onMouseOver]);
+  const onMouseUpHandler = useCallback((...args) => onMouseUp && onMouseUp(...args), [onMouseUp]);
+  const onPointerCancelHandler = useCallback(
+    (...args) => {
+      onPointerCancel && onPointerCancel(...args);
+      isDesktop && pointerCancel();
+    },
+    [onPointerCancel, pointerCancel]
+  );
+  const onPointerDownHandler = useCallback(
+    (...args) => {
+      onPointerDown && onPointerDown(...args);
+      isDesktop && pointerStart(args[0]);
+    },
+    [onPointerDown, pointerStart]
+  );
+  const onPointerMoveHandler = useCallback(
+    (...args) => {
+      onPointerMove && onPointerMove(...args);
+      isDesktop && updatePosition(args[0]);
+    },
+    [onPointerMove, updatePosition]
+  );
+  const onPointerOutHandler = useCallback(
+    (...args) => {
+      onPointerOut && onPointerOut(...args);
+      isDesktop && pointerCancel();
+    },
+    [onPointerOut, pointerCancel]
+  );
+  const onPointerOverHandler = useCallback(
+    (...args) => {
+      onPointerOver && onPointerOver(...args);
+      isDesktop && pointerOver();
+    },
+    [onPointerOver, pointerOver]
+  );
+  const onPointerUpHandler = useCallback(
+    (...args) => {
+      onPointerUp && onPointerUp(...args);
+      isDesktop && pointerEnd(args[0]);
+    },
+    [onPointerUp, pointerEnd]
+  );
+  const onTouchCancelHandler = useCallback(
+    (...args) => {
+      onTouchCancel && onTouchCancel(...args);
+      !isDesktop && pointerCancel();
+    },
+    [onTouchCancel, pointerCancel]
+  );
+  const onTouchEndHandler = useCallback(
+    (...args) => {
+      onTouchEnd && onTouchEnd(...args);
+      !isDesktop && pointerEnd(args[0]);
+    },
+    [onTouchEnd, pointerEnd]
+  );
+  const onTouchMoveHandler = useCallback(
+    (...args) => {
+      onTouchMove && onTouchMove(...args);
+      !isDesktop && updatePosition(args[0]);
+    },
+    [updatePosition, onTouchMove]
+  );
+  const onTouchStartHandler = useCallback(
+    (...args) => {
+      onTouchStart && onTouchStart(...args);
+      !isDesktop && pointerStart(args[0]);
+    },
+    [onTouchStart, pointerStart]
+  );
 
   return (
     <TextureContext.Provider value={textureContext}>
@@ -183,18 +271,21 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
                     <div
                       className={'pixi-root'}
                       style={containerStyle}
-                      onTouchMove={isDesktop ? undefined : updatePosition}
-                      onTouchStart={isDesktop ? undefined : pointerStart}
-                      onTouchEnd={isDesktop ? undefined : pointerEnd}
-                      onTouchCancel={isDesktop ? undefined : pointerCancel}
-                      onPointerEnter={isDesktop ? pointerOver : undefined}
-                      onPointerOver={isDesktop ? pointerOver : undefined}
-                      onPointerDown={isDesktop ? pointerStart : undefined}
-                      onPointerUp={isDesktop ? pointerEnd : undefined}
-                      onPointerOut={isDesktop ? pointerCancel : undefined}
-                      onPointerCancel={isDesktop ? pointerCancel : undefined}
-                      onPointerLeave={isDesktop ? pointerCancel : undefined}
-                      onPointerMove={isDesktop ? updatePosition : undefined}
+                      onTouchMove={onTouchMoveHandler}
+                      onTouchStart={onTouchStartHandler}
+                      onTouchEnd={onTouchEndHandler}
+                      onTouchCancel={onTouchCancelHandler}
+                      onPointerCancel={onPointerCancelHandler}
+                      onPointerDown={onPointerDownHandler}
+                      onPointerMove={onPointerMoveHandler}
+                      onPointerOut={onPointerOutHandler}
+                      onPointerOver={onPointerOverHandler}
+                      onPointerUp={onPointerUpHandler}
+                      onMouseMove={onMouseMoveHandler}
+                      onMouseDown={onMouseDownHandler}
+                      onMouseOut={onMouseOutHandler}
+                      onMouseOver={onMouseOverHandler}
+                      onMouseUp={onMouseUpHandler}
                     >
                       <AutoSizer>
                         {({ width, height }: Size) => {

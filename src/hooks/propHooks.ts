@@ -15,38 +15,28 @@ import {
   TilingSpritePropsMap,
   TilingSpritePropsType
 } from '../props';
-import {
-  BlendModes,
-  BlendModesMap,
-  Events,
-  GenericEventType,
-  GenericProps,
-  GenericPropsMap,
-  GenericType,
-  PropValue,
-  Area
-} from '../types';
+import { BlendModes, BlendModesMap, Events, GenericEventType, GenericProps, GenericPropsMap, GenericType, Area } from '../types';
+import { PixiPropsValue } from '../types/PropsContextType';
 
-const propsToMap = <S extends { [K in T]?: PropValue }, T extends keyof S>(props: S) => {
-  const map = new Map<T, PropValue>();
+const propsToMap = <S extends { [K in string]?: PixiPropsValue }>(props: S) => {
+  const map = new Map<string, PixiPropsValue>();
 
   Object.keys(props).forEach((key: string) => {
-    const prop = key as T;
-    map.set(prop, props[prop] as PropValue);
+    map.set(key, props[key] as PixiPropsValue);
   });
 
   return map;
 };
 
-const getMapUpdate = <S extends { [K in T]?: PropValue }, T extends keyof S>(state: Map<T, PropValue>, props: S) => {
+const getMapUpdate = <S extends { [K in string]?: PixiPropsValue }>(state: Map<string, PixiPropsValue>, props: S) => {
   const propMap = propsToMap(props);
-  const updatedMap = new Map<T, PropValue>();
+  const updatedMap = new Map<string, PixiPropsValue>();
 
   state.forEach((value, key) => {
-    const newValue = propMap.get(key) as PropValue;
+    const newValue = propMap.get(key) as PixiPropsValue;
     if (value !== newValue) {
       state.set(key, newValue);
-      updatedMap.set(key as T, newValue);
+      updatedMap.set(key, newValue);
     }
   });
 
@@ -245,8 +235,8 @@ const updateFilterProps = <T extends PIXI.Filter>(item: T, updatedProperties?: F
   });
 };
 
-const useUpdatedProps = <S extends { [K in T]?: PropValue }, T extends keyof S>(props: S) => {
-  const [state, setState] = useState<Map<T, PropValue>>(propsToMap(props));
+export const useUpdatedProps = <S extends { [K in string]?: PixiPropsValue }>(props: S) => {
+  const [state, setState] = useState<Map<string, PixiPropsValue>>(propsToMap(props));
   const [updatedProperties, setUpdatedProperties] = useState(state);
 
   useEffect(() => {

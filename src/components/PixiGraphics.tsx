@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import React, { useCallback, useContext, useEffect, useReducer, useState } from 'react';
-import { GraphicsContext, RenderingContext } from '../contexts';
-import { useGraphicsProps } from '../hooks';
+import { GraphicsContext, PropsContext, RenderingContext } from '../contexts';
+import { useGraphicsProps, usePropsContext } from '../hooks';
 import { PixiGraphicsProps } from '../props';
 import {
   BlendModes,
@@ -186,9 +186,11 @@ const updateGraphics = (graphics: PIXI.Graphics, state: GraphicsState) => {
   });
 };
 
-const PixiGraphics: React.FC<PixiGraphicsProps> = (props) => {
+const PixiGraphics: React.FC<PixiGraphicsProps> = ({ children, ...props }) => {
+  const propsContext = usePropsContext<PixiGraphicsProps>(props);
+  const { properties } = propsContext;
   const [graphics] = useState(new PIXI.Graphics());
-  const { blendMode = BlendModes.Normal, tint = 0xffffff } = props;
+  const { blendMode = BlendModes.Normal, tint = 0xffffff } = properties;
   const { update } = useContext(RenderingContext);
 
   const reducer = useCallback((state: GraphicsState, action: ShapeActionType): GraphicsState => {
@@ -237,7 +239,11 @@ const PixiGraphics: React.FC<PixiGraphicsProps> = (props) => {
 
   return (
     <GraphicsContext.Provider value={{ drawShape, removeShape }}>
-      <PixiDisplayObject item={graphics} {...props} />
+      <PropsContext.Provider value={propsContext}>
+        <PixiDisplayObject item={graphics} {...properties}>
+          {children}
+        </PixiDisplayObject>
+      </PropsContext.Provider>
     </GraphicsContext.Provider>
   );
 };

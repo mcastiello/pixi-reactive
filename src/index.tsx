@@ -37,7 +37,8 @@ export {
   TextureContext,
   SpeedContext,
   PointerContext,
-  ShapeTextureContext
+  ShapeTextureContext,
+  PropsContext
 } from './contexts';
 export { BlurFilter, AlphaFilter, ColorMatrixFilter, FXAAFilter, NoiseFilter } from './filters';
 export {
@@ -81,5 +82,6 @@ export {
   TextStyle,
   TextWhiteLine,
   Key,
-  SpecialKeys
+  SpecialKeys,
+  PointerContextType
 } from './types';

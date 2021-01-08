@@ -23,7 +23,8 @@ export {
   useFilterProps,
   useGraphicsProps,
   useAlignedPosition,
-  useTransformMatrix
+  useTransformMatrix,
+  useUpdatedProps
 } from './propHooks';
 
 export {
@@ -36,5 +37,6 @@ export {
   useShapeStyleContext,
   usePointerContext,
   usePointsContext,
-  useImpactContext
+  useImpactContext,
+  usePropsContext
 } from './contextHooks';

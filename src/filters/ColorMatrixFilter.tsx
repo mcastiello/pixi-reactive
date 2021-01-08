@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js';
 import React, { useCallback, useContext, useEffect, useReducer } from 'react';
-import { useFilter, useFilterProps } from '../hooks';
+import { useFilter, useFilterProps, usePropsContext } from '../hooks';
 import { AlphaFilterProps } from '../props';
-import { EffectContext, RenderingContext } from '../contexts';
+import { EffectContext, PropsContext, RenderingContext } from '../contexts';
 import PixiFilter from './PixiFilter';
 import { EffectAction, EffectActionType, EffectState, EffectType, EffectValue } from '../types';
 
@@ -79,10 +79,12 @@ const updateColorMatrix = (filter: PIXI.filters.ColorMatrixFilter, state: Effect
   });
 };
 
-const ColorMatrixFilter: React.FC<AlphaFilterProps> = (props) => {
+const ColorMatrixFilter: React.FC<AlphaFilterProps> = ({ children, ...props }) => {
+  const propsContext = usePropsContext<AlphaFilterProps>(props);
+  const { properties } = propsContext;
   const filter = useFilter(new PIXI.filters.ColorMatrixFilter());
   const { update } = useContext(RenderingContext);
-  const { alpha = 1, children } = props;
+  const { alpha = 1 } = properties;
 
   const reducer = useCallback((state: EffectState, action: EffectAction): EffectState => {
     const { id } = action.value;
@@ -148,9 +150,11 @@ const ColorMatrixFilter: React.FC<AlphaFilterProps> = (props) => {
   }, [filter, state, update]);
 
   return (
-    <PixiFilter item={filter} {...props}>
-      <EffectContext.Provider value={{ updateEffect, removeEffect }}>{children}</EffectContext.Provider>
-    </PixiFilter>
+    <PropsContext.Provider value={propsContext}>
+      <PixiFilter item={filter} {...properties}>
+        <EffectContext.Provider value={{ updateEffect, removeEffect }}>{children}</EffectContext.Provider>
+      </PixiFilter>
+    </PropsContext.Provider>
   );
 };
 

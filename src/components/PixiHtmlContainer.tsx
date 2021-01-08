@@ -1,10 +1,14 @@
 import React, { CSSProperties, useContext, useEffect, useState } from 'react';
-import { ParentContext } from '../contexts';
-import { PixiHtmlContainerProps } from '../props/PixiHtmlContainerProps';
+import { ParentContext, PropsContext } from '../contexts';
+import { usePropsContext } from '../hooks';
+import { PixiHtmlContainerProps } from '../props';
 import { Overflow } from '../types';
 
-const PixiHtmlContainer: React.FC<PixiHtmlContainerProps> = ({ id, overflow = Overflow.All, children }) => {
+const PixiHtmlContainer: React.FC<PixiHtmlContainerProps> = ({ children, ...props }) => {
+  const propsContext = usePropsContext<PixiHtmlContainerProps>(props);
+  const { properties } = propsContext;
   const { left, top, transform, width, height, parent } = useContext(ParentContext);
+  const { id, overflow = Overflow.All } = properties;
   const [style, setStyle] = useState<CSSProperties>({});
   const [active, setActive] = useState(false);
 
@@ -39,13 +43,11 @@ const PixiHtmlContainer: React.FC<PixiHtmlContainerProps> = ({ id, overflow = Ov
     setActive(!!transform && !!parent.parent && width > 1 && height > 1);
   }, [transform, width, height, parent.parent]);
 
-  return (
-    active ? (
-      <div id={id} className={parent.name} style={style}>
-        {children}
-      </div>
-    ) : null
-  );
+  return active ? (
+    <div id={id} className={parent.name} style={style}>
+      <PropsContext.Provider value={propsContext}>{children}</PropsContext.Provider>
+    </div>
+  ) : null;
 };
 
 export default PixiHtmlContainer;

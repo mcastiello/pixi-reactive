@@ -2,6 +2,7 @@ export type { PixiCanvasProps } from './PixiCanvasProps';
 export type { PixiDisplayObjectProps } from './PixiDisplayObjectProps';
 export type { PixiContainerProps } from './PixiContainerProps';
 export type { PixiTextureProps } from './PixiTextureProps';
+export type { PixiHtmlContainerProps } from './PixiHtmlContainerProps';
 export type { PixiSpriteProps, SpritePropsType, SpritePropsMap, UpdatableTextureType } from './PixiSpriteProps';
 export type { PixiGraphicsProps, GraphicsPropsType, GraphicsPropsMap } from './PixiGraphicsProps';
 export type { PixiTilingSpriteProps, TilingSpritePropsMap, TilingSpritePropsType } from './PixiTilingSpriteProps';
@@ -19,6 +20,7 @@ export type {
   NoiseFilterProps
 } from './PixiFilterProps';
 export type {
+  AmountValueEffect,
   EffectProps,
   BrightnessEffectProps,
   ColorToneProps,

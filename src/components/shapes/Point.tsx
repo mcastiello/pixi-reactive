@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { PointsContext } from '../../contexts';
-import { useId } from '../../hooks';
+import { PointsContext, PropsContext } from '../../contexts';
+import { useId, usePropsContext } from '../../hooks';
 import { Coords, PointProps } from '../../types';
 
-const Point: React.FC<PointProps> = ({ id, x, y }) => {
+const Point: React.FC<PointProps> = ({ children, ...props }) => {
+  const propsContext = usePropsContext<PointProps>(props);
+  const { properties } = propsContext;
+  const { id, x, y } = properties;
   const pointId = useId(id);
   const { addPoint, removePoint } = useContext(PointsContext);
   const [point, setPoint] = useState<Coords>({ x, y });
@@ -22,7 +25,7 @@ const Point: React.FC<PointProps> = ({ id, x, y }) => {
     };
   }, [pointId, removePoint]);
 
-  return null;
+  return <PropsContext.Provider value={propsContext}>{children}</PropsContext.Provider>;
 };
 
 export default Point;

@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { PropsContext } from '../../contexts';
+import { usePropsContext } from '../../hooks';
 import { ArcType, Shapes } from '../../types';
 import Shape from './Shape';
 
-const Arc: React.FC<ArcType> = ({ name, x, y, radius, startAngle, endAngle, anticlockwise = false, children }) => {
+const Arc: React.FC<ArcType> = ({ children, ...props }) => {
+  const propsContext = usePropsContext<ArcType>(props);
+  const { properties } = propsContext;
+  const { name, x, y, radius, startAngle, endAngle, anticlockwise = false } = properties;
   const [params, setParams] = useState([x, y, radius, startAngle, endAngle, anticlockwise ? 1 : 0]);
 
   useEffect(() => {
@@ -10,9 +15,11 @@ const Arc: React.FC<ArcType> = ({ name, x, y, radius, startAngle, endAngle, anti
   }, [x, y, radius, startAngle, endAngle, anticlockwise]);
 
   return (
-    <Shape name={name} type={Shapes.Arc} params={params}>
-      {children}
-    </Shape>
+    <PropsContext.Provider value={propsContext}>
+      <Shape name={name} type={Shapes.Arc} params={params}>
+        {children}
+      </Shape>
+    </PropsContext.Provider>
   );
 };
 

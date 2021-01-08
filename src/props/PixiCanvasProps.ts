@@ -1,9 +1,8 @@
-import { LoadResourceType, Area, InteractionEventType } from '../types';
-import { RenderingEventType } from '../types';
+import { LoadResourceType, Area, GenericHtmlEventType, RenderingEventType, PointerContextType, ResourceDataType } from '../types';
 import { PixiHtmlContainerProps } from './PixiHtmlContainerProps';
 
 export type PixiCanvasProps = RenderingEventType &
-  InteractionEventType &
+  GenericHtmlEventType &
   PixiHtmlContainerProps & {
     className?: string;
     width?: number;
@@ -13,6 +12,7 @@ export type PixiCanvasProps = RenderingEventType &
     background?: number;
     textures?: LoadResourceType;
     filterArea?: Area;
-    onAllTexturesLoaded?: (...params: any[]) => any;
-    onLoadProgress?: (...params: any[]) => any;
+    onAllTexturesLoaded?: (resources: ResourceDataType) => void;
+    onLoadProgress?: (progress: number) => void;
+    onInteractionUpdate?: (props: PointerContextType) => void;
   };

@@ -1,41 +1,57 @@
 import { Link } from 'framework7-react';
-import React, { useCallback, useState } from 'react';
-import { LineStyle, PixiCanvas, PixiGraphics, Path, Point } from 'pixi-reactive';
+import React, { useCallback, useReducer } from 'react';
+import { LineStyle, PixiCanvas, PixiGraphics, Path, Point, PointerContextType, Coords } from 'pixi-reactive';
 
-type Point = {
-  x: number;
-  y: number;
+type DrawingState = {
+  drawing: boolean;
+  paths: Coords[][];
+};
+enum DrawingActionType {
+  Update,
+  Clear
+}
+type DrawingAction = {
+  type: DrawingActionType;
+  context?: PointerContextType;
+};
+
+const reducer = (state: DrawingState, action: DrawingAction): DrawingState => {
+  if (action.type === DrawingActionType.Update && action.context) {
+    const { x, y, over, selected } = action.context;
+
+    if (state.drawing && (!over || !selected)) { // Pointer has been released
+      state.drawing = false;
+    } else if (!state.drawing && over && selected) { // Pointer has started drawing, new path created
+      const newPath = [{ x, y }];
+      state.paths = [...state.paths, newPath];
+      state.drawing = true;
+    } else if (state.drawing && state.paths.length > 0 && over && selected) { // Pointer is drawing
+      const currentPath = [...state.paths[state.paths.length - 1], { x, y }];
+      state.paths.length = state.paths.length - 1;
+      state.paths = [...state.paths, currentPath];
+    } else { // State is unchanged
+      return state;
+    }
+    return {
+      ...state
+    };
+  } else if (action.type === DrawingActionType.Clear) {
+    return {
+      paths: [],
+      drawing: false
+    };
+  }
+  return state;
 };
 
 export const DrawPathExample: React.FC = () => {
-  const [drawing, setDrawing] = useState(false);
-  const [paths, setPaths] = useState<Point[][]>([]);
+  const [{ paths }, update] = useReducer(reducer, { drawing: false, paths: [] });
 
-  const onMove = useCallback(
-    (point: Point) => {
-      if (drawing && paths.length > 0) {
-        const currentPath = [...paths[paths.length - 1], point];
-        paths.length = paths.length - 1;
-
-        setPaths([...paths, currentPath]);
-      }
-    },
-    [drawing, paths]
-  );
-
-  const onStart = useCallback(
-    (point: Point) => {
-      const newPath = [point];
-      setPaths([...paths, newPath]);
-      setDrawing(true);
-    },
-    [paths]
-  );
-
-  const onEnd = useCallback(() => setDrawing(false), []);
+  const clear = useCallback(() => update({ type: DrawingActionType.Clear }), []);
+  const draw = useCallback((context: PointerContextType) => update({ type: DrawingActionType.Update, context }), []);
 
   return (
-    <PixiCanvas onInteractionStart={onStart} onInteractionMove={onMove} onInteractionEnd={onEnd} background={0xffffff}>
+    <PixiCanvas onInteractionUpdate={draw} background={0xffffff}>
       {paths.map((path, pathId) => {
         return (
           <PixiGraphics key={`path-${pathId}`}>
@@ -48,7 +64,7 @@ export const DrawPathExample: React.FC = () => {
           </PixiGraphics>
         );
       })}
-      <Link iconOnly iconF7={'clear'} color={'black'} onClick={() => setPaths([])} />
+      <Link iconOnly iconF7={'clear'} color={'black'} onClick={clear} />
     </PixiCanvas>
   );
 };

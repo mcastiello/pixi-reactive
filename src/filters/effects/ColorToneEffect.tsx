@@ -1,10 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
-import { EffectContext } from '../../contexts';
+import { EffectContext, PropsContext } from '../../contexts';
+import { usePropsContext } from '../../hooks';
 import { ColorToneProps } from '../../props';
 import { EffectType } from '../../types';
 
-const ColorToneEffect: React.FC<ColorToneProps> = ({ multiply = true, enabled = true, desaturation, toned, lightColor, darkColor }) => {
+const ColorToneEffect: React.FC<ColorToneProps> = ({ children, ...props }) => {
+  const propsContext = usePropsContext<ColorToneProps>(props);
+  const { properties } = propsContext;
+  const { multiply = true, enabled = true, desaturation, toned, lightColor, darkColor } = properties;
   const [id] = useState(v4());
   const { updateEffect, removeEffect } = useContext(EffectContext);
 
@@ -24,7 +28,7 @@ const ColorToneEffect: React.FC<ColorToneProps> = ({ multiply = true, enabled = 
     };
   }, [id, removeEffect]);
 
-  return null;
+  return <PropsContext.Provider value={propsContext}>{children}</PropsContext.Provider>;
 };
 
 export default ColorToneEffect;

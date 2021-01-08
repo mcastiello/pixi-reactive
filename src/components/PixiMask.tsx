@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
-import { ParentContext, RenderingContext } from '../contexts';
-import { useTexture, useRelativePosition } from '../hooks';
+import { ParentContext, PropsContext, RenderingContext } from '../contexts';
+import { useTexture, useRelativePosition, usePropsContext } from '../hooks';
 import { PixiMaskProps } from '../props';
 
-const PixiMask: React.FC<PixiMaskProps> = ({ texture, enabled = true, children }) => {
+const PixiMask: React.FC<PixiMaskProps> = ({ children, ...props }) => {
   const [sprite] = useState(new PIXI.Sprite());
+  const propsContext = usePropsContext<PixiMaskProps>(props);
   const parentContext = useContext(ParentContext);
   const { update } = useContext(RenderingContext);
+  const { properties } = propsContext;
+  const { texture, enabled = true } = properties;
   const { parent } = parentContext;
   const [left, top] = useRelativePosition((parent as unknown) as PIXI.Sprite | undefined);
 
@@ -31,7 +34,11 @@ const PixiMask: React.FC<PixiMaskProps> = ({ texture, enabled = true, children }
     sprite.anchor.set(-left, -top);
   }, [sprite, left, top]);
 
-  return <ParentContext.Provider value={{ ...parentContext, parent: sprite }}>{children}</ParentContext.Provider>;
+  return (
+    <ParentContext.Provider value={{ ...parentContext, parent: sprite }}>
+      <PropsContext.Provider value={propsContext}>{children}</PropsContext.Provider>
+    </ParentContext.Provider>
+  );
 };
 
 export default PixiMask;

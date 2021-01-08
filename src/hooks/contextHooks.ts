@@ -25,7 +25,9 @@ import {
   ImpactContextType,
   ImpactContextItem,
   ImpactAction,
-  ImpactActionType
+  ImpactActionType,
+  PixiProps,
+  PropsContextType
 } from '../types';
 import { initialSpeedState, ParentContext, AnimationContext } from '../contexts';
 import * as PIXI from 'pixi.js';
@@ -339,44 +341,43 @@ const isMouseEvent = (event: Event): event is MouseEvent => {
   return !isTouchEvent(event);
 };
 
-export const usePointerContext = (
-  retina: boolean,
-  width: number,
-  height: number,
-  onInteractionStart?: (point: Coords) => void,
-  onInteractionEnd?: (point: Coords) => void,
-  onInteractionMove?: (point: Coords) => void
-) => {
+export const usePointerContext = (retina: boolean, width: number, height: number) => {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const reducer = useCallback(
-    (state: PointerContextType, action: PointerContextAction): PointerContextType => {
-      switch (action.type) {
-        case PointerContextActionType.StartOver:
-          if (!state.over) {
-            return { ...state, over: true };
-          } else {
-            return state;
-          }
-        case PointerContextActionType.EndOver:
-          if (state.over) {
-            return { ...state, over: false };
-          } else {
-            return state;
-          }
-        case PointerContextActionType.UpdatePosition:
-          if (state.over && action.x && action.y && (action.x !== state.x || action.y !== state.y)) {
-            if (onInteractionMove) {
-              onInteractionMove({ x: action.x, y: action.y });
-            }
-            return { x: action.x, y: action.y, over: true };
-          } else {
-            return state;
-          }
-      }
-    },
-    [onInteractionMove]
-  );
-  const [pointerContext, update] = useReducer(reducer, { x: 0, y: 0, over: false });
+  const reducer = useCallback((state: PointerContextType, action: PointerContextAction): PointerContextType => {
+    switch (action.type) {
+      case PointerContextActionType.StartOver:
+        if (!state.over) {
+          return { ...state, over: true };
+        } else {
+          return state;
+        }
+      case PointerContextActionType.EndOver:
+        if (state.over) {
+          return { ...state, over: false };
+        } else {
+          return state;
+        }
+      case PointerContextActionType.StartInteraction:
+        if (!state.selected) {
+          return { ...state, selected: true };
+        } else {
+          return state;
+        }
+      case PointerContextActionType.EndInteraction:
+        if (state.selected) {
+          return { ...state, selected: false };
+        } else {
+          return state;
+        }
+      case PointerContextActionType.UpdatePosition:
+        if (state.over && action.x && action.y && (action.x !== state.x || action.y !== state.y)) {
+          return { ...state, x: action.x, y: action.y, over: true };
+        } else {
+          return state;
+        }
+    }
+  }, []);
+  const [pointerContext, update] = useReducer(reducer, { x: 0, y: 0, over: false, selected: false });
   const triggerUpdatePosition = useCallback(
     (x: number, y: number) => {
       const multiplier = retina ? 2 : 1;
@@ -430,23 +431,19 @@ export const usePointerContext = (
     (event: SyntheticEvent) => {
       const { x, y } = (event.nativeEvent.target as HTMLCanvasElement).getBoundingClientRect();
       setOffset({ x, y });
-      const point = updatePosition(event);
+      updatePosition(event);
 
-      if (point && onInteractionStart) {
-        onInteractionStart(point);
-      }
+      update({ type: PointerContextActionType.StartInteraction });
     },
-    [updatePosition, onInteractionStart]
+    [updatePosition]
   );
   const pointerEnd = useCallback(
     (event: SyntheticEvent) => {
-      const point = updatePosition(event);
+      updatePosition(event);
 
-      if (point && onInteractionEnd) {
-        onInteractionEnd(point);
-      }
+      update({ type: PointerContextActionType.EndInteraction });
     },
-    [updatePosition, onInteractionEnd]
+    [updatePosition]
   );
 
   const pointerOver = useCallback(() => update({ type: PointerContextActionType.StartOver }), []);
@@ -541,4 +538,13 @@ export const useImpactContext = <T extends PIXI.Container>(): ImpactContextType<
   const removeItem = useCallback((item: ImpactContextItem<T>) => dispatch({ type: ImpactAction.Remove, item }), []);
 
   return { items: items as ImpactContextItem<T>[], updateItem, removeItem };
+};
+
+export const usePropsContext = <T extends PixiProps>(props: T): PropsContextType<T> => {
+  const [properties, setUpdatedProperties] = useState({});
+  const updateProperties = useCallback((updateProperties: T) => {
+    setUpdatedProperties(updateProperties);
+  }, []);
+
+  return { properties: { ...props, ...properties } as T, updateProperties };
 };

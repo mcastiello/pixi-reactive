@@ -10,7 +10,8 @@ import { StyledIntroduction, StyledSectionTitle, StyledTitle } from '../StyledCo
 const props: PropsDefinition = [
   ['x', true, 'number', '0', 'Relative pointer position from the left border of the canvas'],
   ['y', true, 'number', '0', 'Relative pointer position from the top border of the canvas'],
-  ['over', true, 'boolean', 'false', 'Whether the pointer/touch is over the canvas']
+  ['over', true, 'boolean', 'false', 'Whether the pointer/touch is over the canvas'],
+  ['selected', true, 'boolean', 'false', 'Whether the pointer/touch has been pressed down on the canvas']
 ];
 
 const textures = {
@@ -50,7 +51,8 @@ const PointerContextDoc: React.FC = () => {
       <StyledIntroduction>
         This context will provide you with the <StyledCode>x</StyledCode> and <StyledCode>y</StyledCode> coordinates of the pointer relative
         to the <ComponentLink page={Pages.PixiCanvas} />. The <StyledCode>over</StyledCode> flag will tell you if the pointer is over the
-        canvas or if a touch action has started over the canvas.
+        canvas or if a touch action has started over the canvas, while the <StyledCode>over</StyledCode> flag will be updated whenever an
+        interaction (click/touch) start or finish.
         <br />
         Try to move the mouse or touch and drag over the canvas below:
       </StyledIntroduction>

@@ -62,10 +62,6 @@ const Index: React.FC = () => {
             <StyledCode>PixiSpine</StyledCode> - Another external plugin, this one is going to integrate support for the{' '}
             <StyledLink href={'https://github.com/pixijs/pixi-spine'} text={'Spine Runtime'} external target={'_blank'} />.
           </li>
-          <li>
-            <StyledCode>Tween Engine</StyledCode> - I'm not yet sure how to implement this one, but it's probably going to be in the form of
-            one or more <StyledCode>React Hooks</StyledCode>.
-          </li>
         </ul>
       </StyledIntroduction>
       <StyledSectionTitle>Contacts and Issues</StyledSectionTitle>

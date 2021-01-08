@@ -81,7 +81,6 @@ For more detailed information, please refer to the [Online Documentation](https:
 ## Coming Next
 The following are a few things I'm going to add in the next few releases (in order of priority).
 - `PixiSpine` - Another external plugin, this one is going to integrate support for the [Spine Runtime](https://github.com/pixijs/pixi-spine).
-- `Tween Engine` - I'm not yet sure how to implement this one, but it's probably going to be in the form of one or more `React Hooks`.
 
 ## License
 

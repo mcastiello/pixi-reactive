@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react';
+import { Reducer, SyntheticEvent, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import {
   SpeedAction,
   SpeedContextType,
@@ -541,10 +541,10 @@ export const useImpactContext = <T extends PIXI.Container>(): ImpactContextType<
 };
 
 export const usePropsContext = <T extends PixiProps>(props: T): PropsContextType<T> => {
-  const [properties, setUpdatedProperties] = useState({});
-  const updateProperties = useCallback((updateProperties: T) => {
-    setUpdatedProperties(updateProperties);
-  }, []);
+  const [properties, updateProperties] = useReducer<Reducer<T, T>>(
+    (previousState: T, newState: T) => ({ ...previousState, ...newState }),
+    {} as T
+  );
 
   return { properties: { ...props, ...properties } as T, updateProperties };
 };

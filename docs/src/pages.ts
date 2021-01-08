@@ -20,6 +20,7 @@ export enum Pages {
   PixiHtmlContainer = 'PixiHtmlContainer',
   PixiParticles = 'PixiParticles',
   PixiSpine = 'PixiSpine',
+  PixiTween = 'PixiTween',
   ShapeTexture = 'ShapeTexture',
   FillStyle = 'FillStyle',
   LineStyle = 'LineStyle',
@@ -66,6 +67,7 @@ export enum Pages {
   SpeedContext = 'SpeedContext',
   TextureContext = 'TextureContext',
   ImpactContext = 'ImpactContext',
+  TweenContext = 'TweenContext',
   BlendModes = 'BlendModes',
   CursorType = 'CursorType',
   FontStyle = 'FontStyle',
@@ -81,11 +83,15 @@ export enum Pages {
   TextGradient = 'TextGradient',
   TextStyle = 'TextStyle',
   TextWhiteLine = 'TextWhiteLine',
+  Easing = 'Easing',
+  TweenState = 'TweenState',
+  TweenDirection = 'TweenDirection',
   Key = 'Key',
   SpecialKeys = 'SpecialKeys',
   UseKeyboard = 'UseKeyboard',
   UseAnimatedEffect = 'UseAnimatedEffect',
-  UseAnimatedProgress = 'UseAnimatedProgress'
+  UseAnimatedProgress = 'UseAnimatedProgress',
+  UseTweenAnimation = 'UseTweenAnimation'
 }
 
 export type PageState = {
@@ -118,6 +124,7 @@ export const breadcrumbMap: BreadcrumbMap = new Map([
   [Pages.PixiRenderTexture, Pages.Components],
   [Pages.PixiHtmlContainer, Pages.Components],
   [Pages.PixiParticles, Pages.Components],
+  [Pages.PixiTween, Pages.Components],
   //[Pages.PixiSpine, Pages.Components],
   [Pages.ShapeTexture, Pages.Graphics],
   [Pages.FillStyle, Pages.Graphics],
@@ -165,6 +172,7 @@ export const breadcrumbMap: BreadcrumbMap = new Map([
   [Pages.SpeedContext, Pages.Contexts],
   [Pages.TextureContext, Pages.Contexts],
   [Pages.ImpactContext, Pages.Contexts],
+  [Pages.TweenContext, Pages.Contexts],
   [Pages.BlendModes, Pages.Types],
   [Pages.CursorType, Pages.Types],
   [Pages.FontStyle, Pages.Types],
@@ -182,9 +190,13 @@ export const breadcrumbMap: BreadcrumbMap = new Map([
   [Pages.TextWhiteLine, Pages.Types],
   [Pages.Key, Pages.Types],
   [Pages.SpecialKeys, Pages.Types],
+  [Pages.TweenDirection, Pages.Types],
+  [Pages.Easing, Pages.Types],
+  [Pages.TweenState, Pages.Types],
   [Pages.UseKeyboard, Pages.Hooks],
   [Pages.UseAnimatedEffect, Pages.Hooks],
-  [Pages.UseAnimatedProgress, Pages.Hooks]
+  [Pages.UseAnimatedProgress, Pages.Hooks],
+  [Pages.UseTweenAnimation, Pages.Hooks]
 ]);
 
 export const getParentPage = (page: Pages): Pages | undefined => breadcrumbMap.get(page);

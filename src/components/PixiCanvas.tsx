@@ -169,18 +169,12 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
 
   useEffect(() => {
     PIXI.Loader.shared.onComplete.add(allTextureLoaderHandler);
-    return () => {
-      PIXI.Loader.shared.onComplete.detach(allTextureLoaderHandler);
-    };
   }, [allTextureLoaderHandler]);
 
   const loadProgressHandler = useCallback((loader: PIXI.Loader) => onLoadProgress && onLoadProgress(loader.progress), [onLoadProgress]);
 
   useEffect(() => {
     PIXI.Loader.shared.onProgress.add(loadProgressHandler);
-    return () => {
-      PIXI.Loader.shared.onProgress.detach(loadProgressHandler);
-    };
   }, [loadProgressHandler]);
 
   const onMouseMoveHandler = useCallback((...args) => onMouseMove && onMouseMove(...args), [onMouseMove]);

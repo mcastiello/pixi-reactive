@@ -62,7 +62,7 @@ export {
   ToBGREffect,
   VintageEffect
 } from './filters/effects';
-export { useId, useElement, useKeyboard, useAnimatedEffect, useAnimatedProgress } from './hooks';
+export { useId, useElement, useKeyboard, useAnimatedEffect, useAnimatedProgress, usePropsContext } from './hooks';
 export { PixiContainerProps } from './props';
 export {
   BlendModes,

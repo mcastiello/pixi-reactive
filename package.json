@@ -27,6 +27,7 @@
     "react": "^17.0.1"
   },
   "dependencies": {
+    "eslint-plugin-flowtype": "^5.2.0",
     "react-virtualized-auto-sizer": "^1.0.2",
     "uuid": "^8.3.1"
   },

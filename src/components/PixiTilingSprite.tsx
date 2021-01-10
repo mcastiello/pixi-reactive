@@ -10,8 +10,8 @@ const PixiTilingSprite: React.FC<PixiTilingSpriteProps> = ({ children, ...props 
   const propsContext = usePropsContext<PixiTilingSpriteProps>(props);
   const { properties } = propsContext;
   const { width, height } = useContext(ParentContext);
-  const [tileWidth, setTileWidth] = useState(properties.width || width);
-  const [tileHeight, setTileHeight] = useState(properties.height || height);
+  const [tileWidth, setTileWidth] = useState(typeof properties.width === 'number' ? properties.width : width);
+  const [tileHeight, setTileHeight] = useState(typeof properties.height === 'number' ? properties.height : height);
   const [sprite] = useState(new PIXI.TilingSprite(PIXI.Texture.EMPTY, tileWidth, tileHeight));
   const { anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = properties;
   const { clampMargin = 0.5, tileX = 0, tileY = 0, tileScaleX = 1, tileScaleY = 1, uvRespectAnchor = false } = properties;

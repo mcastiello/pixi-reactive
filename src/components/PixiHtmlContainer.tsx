@@ -4,6 +4,10 @@ import { usePropsContext } from '../hooks';
 import { PixiHtmlContainerProps } from '../props';
 import { Overflow } from '../types';
 
+const childStyle: CSSProperties = {
+  pointerEvents: 'auto'
+}
+
 const PixiHtmlContainer: React.FC<PixiHtmlContainerProps> = ({ children, ...props }) => {
   const propsContext = usePropsContext<PixiHtmlContainerProps>(props);
   const { properties } = propsContext;
@@ -45,7 +49,7 @@ const PixiHtmlContainer: React.FC<PixiHtmlContainerProps> = ({ children, ...prop
 
   return active ? (
     <div id={id} className={parent.name} style={style}>
-      <PropsContext.Provider value={propsContext}>{children}</PropsContext.Provider>
+      <PropsContext.Provider value={propsContext}><div style={childStyle}>{children}</div></PropsContext.Provider>
     </div>
   ) : null;
 };

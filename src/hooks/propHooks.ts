@@ -57,7 +57,9 @@ const updateGenericProps = <T extends PIXI.Container>(item: T, updatedProperties
         item.buttonMode = value as boolean;
         break;
       case GenericProps.Cursor:
-        item.cursor = value as string;
+        if (typeof value === 'string') {
+          item.cursor = value as string;
+        }
         break;
       case GenericProps.Height:
         item.height = (value as number) || item.height;

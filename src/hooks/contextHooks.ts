@@ -305,9 +305,9 @@ export const useTextureContext = (resources: LoadResourceType) => {
   );
 
   useEffect(() => {
-    PIXI.Loader.shared.onLoad.add(callback);
+    const signal = PIXI.Loader.shared.onLoad.add(callback);
     return () => {
-      PIXI.Loader.shared.onLoad.detach(callback);
+      PIXI.Loader.shared.onLoad.detach(signal);
     };
   }, [callback]);
 

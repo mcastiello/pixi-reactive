@@ -1,0 +1,3 @@
+.pixi-children-root > div * {
+  pointer-events: auto;
+}

@@ -3,7 +3,6 @@ import React, { PropsWithChildren, useContext, useEffect } from 'react';
 import { AnimationContext, ParentContext, RenderingContext } from '../contexts';
 import { useDisplayObjectEvents, useId, useParentContext, useGenericProps, useElement, useImpactDetection } from '../hooks';
 import { PixiDisplayObjectProps } from '../props';
-import { CursorType } from '../types';
 
 const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T extends PIXI.Container>(
   props: PropsWithChildren<PixiDisplayObjectProps<T>>
@@ -18,7 +17,7 @@ const PixiDisplayObject: React.FC<PixiDisplayObjectProps<PIXI.Container>> = <T e
     alpha = 1,
     angle = 0,
     buttonMode = false,
-    cursor = CursorType.None,
+    cursor,
     interactive = false,
     name,
     rotation = 0,

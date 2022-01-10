@@ -1,3 +1,4 @@
+import './styles.css';
 export {
   PixiHtmlContainer,
   PixiTexture,

@@ -119,6 +119,7 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
     }
 
     newChildrenStyle.position = 'absolute';
+    newChildrenStyle.pointerEvents = 'none';
     newStyle.width = width || '100%';
     newStyle.height = height || '100%';
 

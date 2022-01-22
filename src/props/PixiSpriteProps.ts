@@ -6,7 +6,7 @@ export const isSprite = (element: PIXI.DisplayObject): element is PIXI.Sprite =>
 };
 
 export type UpdatableTextureType = {
-  texture?: string;
+  texture?: string | PIXI.Texture;
 };
 
 export type SpritePropsType = {

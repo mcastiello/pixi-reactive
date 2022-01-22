@@ -12,7 +12,7 @@ const PixiSprite: React.FC<PixiSpriteProps> = ({ children, ...props }) => {
   const [sprite] = useState(new PIXI.Sprite());
   const { anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = properties;
 
-  useTexture(sprite, props.texture);
+  useTexture(sprite, properties.texture, properties.width, properties.height);
 
   useSpriteProps(sprite, {
     anchorX,
@@ -29,7 +29,7 @@ const PixiSprite: React.FC<PixiSpriteProps> = ({ children, ...props }) => {
 
   return (
     <PropsContext.Provider value={propsContext}>
-      <PixiDisplayObject item={sprite} {...properties} x={undefined} y={undefined}>
+      <PixiDisplayObject item={sprite} {...properties} x={undefined} y={undefined} width={undefined} height={undefined}>
         {children}
       </PixiDisplayObject>
     </PropsContext.Provider>

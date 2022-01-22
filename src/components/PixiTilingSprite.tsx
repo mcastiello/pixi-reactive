@@ -16,7 +16,7 @@ const PixiTilingSprite: React.FC<PixiTilingSpriteProps> = ({ children, ...props 
   const { anchorX = 0, anchorY = 0, blendMode = BlendModes.Normal, roundPixels = false, tint = 0xffffff } = properties;
   const { clampMargin = 0.5, tileX = 0, tileY = 0, tileScaleX = 1, tileScaleY = 1, uvRespectAnchor = false } = properties;
 
-  useTexture(sprite, properties.texture);
+  useTexture(sprite, properties.texture, tileWidth, tileHeight);
 
   useSpriteProps(sprite, {
     anchorX,
@@ -50,7 +50,7 @@ const PixiTilingSprite: React.FC<PixiTilingSpriteProps> = ({ children, ...props 
 
   return (
     <PropsContext.Provider value={propsContext}>
-      <PixiDisplayObject item={sprite} {...properties} width={tileWidth} height={tileHeight} x={undefined} y={undefined}>
+      <PixiDisplayObject item={sprite} {...properties} width={undefined} height={undefined} x={undefined} y={undefined}>
         {children}
       </PixiDisplayObject>
     </PropsContext.Provider>

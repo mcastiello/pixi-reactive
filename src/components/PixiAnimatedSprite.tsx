@@ -16,7 +16,7 @@ const PixiAnimatedSprite: React.FC<PixiAnimatedSpriteProps> = ({ children, ...pr
   const [frameId, setFrameId] = useState(currentFrame);
   const [initialFrame, setInitialFrame] = useState(0);
 
-  useTexture(sprite, properties.texture);
+  useTexture(sprite, properties.texture, properties.width, properties.height);
 
   const frameCount = useFrames(sprite, properties.frames);
   const frame = useFrameAnimation(initialFrame, frameCount, fps, playing);
@@ -66,7 +66,7 @@ const PixiAnimatedSprite: React.FC<PixiAnimatedSpriteProps> = ({ children, ...pr
 
   return (
     <PropsContext.Provider value={propsContext}>
-      <PixiDisplayObject item={sprite} {...properties} x={undefined} y={undefined}>
+      <PixiDisplayObject item={sprite} {...properties} x={undefined} y={undefined} width={undefined} height={undefined}>
         {children}
       </PixiDisplayObject>
     </PropsContext.Provider>

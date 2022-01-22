@@ -7,5 +7,5 @@ export type PixiPropUpdates = Map<string, PixiPropsValue>;
 
 export type PropsContextType<T extends PixiProps> = {
   properties: T;
-  updateProperties: (props: PixiProps) => void;
+  updateProperties: (props: Partial<T>) => void;
 };

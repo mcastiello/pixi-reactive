@@ -1,8 +1,16 @@
 import * as PIXI from 'pixi.js';
 import { DependencyList, EffectCallback, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import { v4 } from 'uuid';
-import { AnimationContext, ImpactContext, ParentContext, RenderingContext, ShapeTextureContext, TextureContext } from '../contexts';
-import { isAnimatedSprite, isSprite } from '../props';
+import {
+  AnimationContext,
+  ImpactContext,
+  ParentContext,
+  PropsContext,
+  RenderingContext,
+  ShapeTextureContext,
+  TextureContext
+} from '../contexts';
+import { isAnimatedSprite, isSprite, PixiAnimatedSpriteProps, PixiSpriteProps } from '../props';
 import {
   AnimationAction,
   AnimationActionType,
@@ -11,7 +19,8 @@ import {
   ImpactContextItem,
   Key,
   KeyboardAction,
-  KeyboardActionType
+  KeyboardActionType,
+  PropsContextType
 } from '../types';
 
 export const useId = (id?: string) => {
@@ -159,42 +168,64 @@ export const useFilter = <T extends PIXI.Filter>(item: T) => {
   return element;
 };
 
-export const useLoadedTexture = (textureName?: string) => {
+export const useLoadedTexture = (textureValue?: string | PIXI.Texture) => {
   const { textures: context } = useContext(TextureContext);
   const [texture, setTexture] = useState<PIXI.Texture | undefined>(
-    typeof textureName === 'string' && context[textureName] instanceof PIXI.Texture ? (context[textureName] as PIXI.Texture) : undefined
+    typeof textureValue === 'string' && context[textureValue] instanceof PIXI.Texture
+      ? (context[textureValue] as PIXI.Texture)
+      : textureValue instanceof PIXI.Texture
+      ? textureValue
+      : undefined
   );
 
   useEffect(() => {
-    if (typeof textureName === 'string' && context[textureName] instanceof PIXI.Texture) {
-      const loadedTexture = context[textureName] as PIXI.Texture;
+    if (typeof textureValue === 'string' && context[textureValue] instanceof PIXI.Texture) {
+      const loadedTexture = context[textureValue] as PIXI.Texture;
 
       if (loadedTexture && loadedTexture !== texture) {
         setTexture(loadedTexture);
       }
+    } else if (textureValue instanceof PIXI.Texture && textureValue !== texture) {
+      setTexture(textureValue);
     }
-  }, [texture, context, textureName]);
+  }, [texture, context, textureValue]);
 
   return texture;
 };
 
-export const useTexture = <T extends PIXI.Sprite>(sprite: T, textureName?: string) => {
+const applyTexture = <T extends PIXI.Sprite>(sprite: T, texture: PIXI.Texture, width?: number, height?: number): void => {
+  const currentScale = sprite.scale.clone();
+  sprite.texture = texture;
+  sprite.scale.copyFrom(currentScale);
+  if (width) {
+    sprite.width = width;
+  }
+  if (height) {
+    sprite.height = height;
+  }
+};
+
+export const useTexture = <T extends PIXI.Sprite>(sprite: T, textureValue?: string | PIXI.Texture, width?: number, height?: number) => {
   const { update } = useContext(RenderingContext);
-  const texture = useLoadedTexture(textureName);
+  const texture = useLoadedTexture(textureValue);
 
   useEffect(() => {
     if (texture) {
-      const currentScale = sprite.scale.clone();
-      sprite.texture = texture;
-      sprite.scale.copyFrom(currentScale);
+      applyTexture(sprite, texture, width, height);
       update();
     }
-  }, [texture, sprite, update]);
+  }, [texture, sprite, update, width, height]);
 };
 
-export const useFrames = <T extends PIXI.AnimatedSprite>(sprite: T, frames?: string[] | string): number => {
+export const useFrames = <T extends PIXI.AnimatedSprite>(
+  sprite: T,
+  frames?: string[] | string,
+  width?: number,
+  height?: number
+): number => {
   const { textures: context } = useContext(TextureContext);
   const { update } = useContext(RenderingContext);
+  const { updateProperties } = useContext(PropsContext) as PropsContextType<PixiAnimatedSpriteProps>;
   const [textures, setTextures] = useState<PIXI.Texture[]>([]);
   const [count, setCount] = useState(0);
 
@@ -222,13 +253,11 @@ export const useFrames = <T extends PIXI.AnimatedSprite>(sprite: T, frames?: str
 
   useEffect(() => {
     if (textures && textures.length > 0) {
-      const currentScale = sprite.scale.clone();
       sprite.textures = textures;
-      sprite.texture = textures[0];
-      sprite.scale.copyFrom(currentScale);
+      updateProperties({ texture: textures[0] });
       update();
     }
-  }, [textures, sprite, update]);
+  }, [textures, sprite, update, width, height]);
 
   useEffect(() => {
     setCount(sprite.textures.length);
@@ -241,11 +270,12 @@ export const useTextureUpdate = (texture?: PIXI.Texture) => {
   const { parent } = useContext(ParentContext);
   const { update } = useContext(RenderingContext);
   const { setTexture } = useContext(ShapeTextureContext);
+  const { updateProperties } = useContext(PropsContext) as PropsContextType<PixiSpriteProps>;
 
   useEffect(() => {
     if (texture) {
+      let currentTexture: PIXI.Texture = texture;
       if (isSprite(parent)) {
-        const currentScale = parent.scale.clone();
         if (isAnimatedSprite(parent)) {
           const emptyIndex = parent.textures.indexOf(PIXI.Texture.EMPTY);
           if (emptyIndex >= 0) {
@@ -253,9 +283,9 @@ export const useTextureUpdate = (texture?: PIXI.Texture) => {
           } else {
             parent.textures = [...parent.textures, texture];
           }
+          currentTexture = parent.textures[0];
         }
-        parent.texture = texture;
-        parent.scale.copyFrom(currentScale);
+        updateProperties({ texture: currentTexture });
         update();
       } else {
         setTexture(texture);

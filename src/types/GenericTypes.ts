@@ -71,7 +71,7 @@ export enum GenericProps {
   HitArea = 'hitArea'
 }
 
-export type PropValue = boolean | string | string[] | number | Area | undefined;
+export type PropValue = boolean | string | string[] | number | Area | undefined | PIXI.Texture;
 export type GenericPropsMap = Map<GenericProps, PropValue>;
 
 export type TransformType = {

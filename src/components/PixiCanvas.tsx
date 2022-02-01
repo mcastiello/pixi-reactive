@@ -32,8 +32,6 @@ const defaultStyle: CSSProperties = {
   height: '100%'
 };
 
-const isDesktop = !PIXI.utils.isMobile.any;
-
 const PixiCanvas: React.FC<PixiCanvasProps> = ({
   id,
   className,
@@ -178,82 +176,6 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
     PIXI.Loader.shared.onProgress.add(loadProgressHandler);
   }, [loadProgressHandler]);
 
-  const onMouseMoveHandler = useCallback((...args) => onMouseMove && onMouseMove(...args), [onMouseMove]);
-  const onMouseDownHandler = useCallback((...args) => onMouseDown && onMouseDown(...args), [onMouseDown]);
-  const onMouseOutHandler = useCallback((...args) => onMouseOut && onMouseOut(...args), [onMouseOut]);
-  const onMouseOverHandler = useCallback((...args) => onMouseOver && onMouseOver(...args), [onMouseOver]);
-  const onMouseUpHandler = useCallback((...args) => onMouseUp && onMouseUp(...args), [onMouseUp]);
-  const onPointerCancelHandler = useCallback(
-    (...args) => {
-      onPointerCancel && onPointerCancel(...args);
-      isDesktop && pointerCancel();
-    },
-    [onPointerCancel, pointerCancel]
-  );
-  const onPointerDownHandler = useCallback(
-    (...args) => {
-      onPointerDown && onPointerDown(...args);
-      isDesktop && pointerStart(args[0]);
-    },
-    [onPointerDown, pointerStart]
-  );
-  const onPointerMoveHandler = useCallback(
-    (...args) => {
-      onPointerMove && onPointerMove(...args);
-      isDesktop && updatePosition(args[0]);
-    },
-    [onPointerMove, updatePosition]
-  );
-  const onPointerOutHandler = useCallback(
-    (...args) => {
-      onPointerOut && onPointerOut(...args);
-      isDesktop && pointerCancel();
-    },
-    [onPointerOut, pointerCancel]
-  );
-  const onPointerOverHandler = useCallback(
-    (...args) => {
-      onPointerOver && onPointerOver(...args);
-      isDesktop && pointerOver();
-    },
-    [onPointerOver, pointerOver]
-  );
-  const onPointerUpHandler = useCallback(
-    (...args) => {
-      onPointerUp && onPointerUp(...args);
-      isDesktop && pointerEnd(args[0]);
-    },
-    [onPointerUp, pointerEnd]
-  );
-  const onTouchCancelHandler = useCallback(
-    (...args) => {
-      onTouchCancel && onTouchCancel(...args);
-      !isDesktop && pointerCancel();
-    },
-    [onTouchCancel, pointerCancel]
-  );
-  const onTouchEndHandler = useCallback(
-    (...args) => {
-      onTouchEnd && onTouchEnd(...args);
-      !isDesktop && pointerEnd(args[0]);
-    },
-    [onTouchEnd, pointerEnd]
-  );
-  const onTouchMoveHandler = useCallback(
-    (...args) => {
-      onTouchMove && onTouchMove(...args);
-      !isDesktop && updatePosition(args[0]);
-    },
-    [updatePosition, onTouchMove]
-  );
-  const onTouchStartHandler = useCallback(
-    (...args) => {
-      onTouchStart && onTouchStart(...args);
-      !isDesktop && pointerStart(args[0]);
-    },
-    [onTouchStart, pointerStart]
-  );
-
   return (
     <TextureContext.Provider value={textureContext}>
       <SpeedContext.Provider value={speedContext}>
@@ -266,21 +188,31 @@ const PixiCanvas: React.FC<PixiCanvasProps> = ({
                     <div
                       className={'pixi-root'}
                       style={containerStyle}
-                      onTouchMove={onTouchMoveHandler}
-                      onTouchStart={onTouchStartHandler}
-                      onTouchEnd={onTouchEndHandler}
-                      onTouchCancel={onTouchCancelHandler}
-                      onPointerCancel={onPointerCancelHandler}
-                      onPointerDown={onPointerDownHandler}
-                      onPointerMove={onPointerMoveHandler}
-                      onPointerOut={onPointerOutHandler}
-                      onPointerOver={onPointerOverHandler}
-                      onPointerUp={onPointerUpHandler}
-                      onMouseMove={onMouseMoveHandler}
-                      onMouseDown={onMouseDownHandler}
-                      onMouseOut={onMouseOutHandler}
-                      onMouseOver={onMouseOverHandler}
-                      onMouseUp={onMouseUpHandler}
+                      onTouchMove={onTouchMove}
+                      onTouchStart={onTouchStart}
+                      onTouchEnd={onTouchEnd}
+                      onTouchCancel={onTouchCancel}
+                      onPointerCancel={onPointerCancel}
+                      onPointerDown={onPointerDown}
+                      onPointerMove={onPointerMove}
+                      onPointerOut={onPointerOut}
+                      onPointerOver={onPointerOver}
+                      onPointerUp={onPointerUp}
+                      onTouchMoveCapture={updatePosition}
+                      onTouchStartCapture={pointerStart}
+                      onTouchEndCapture={pointerEnd}
+                      onTouchCancelCapture={pointerCancel}
+                      onPointerCancelCapture={pointerCancel}
+                      onPointerDownCapture={pointerStart}
+                      onPointerMoveCapture={updatePosition}
+                      onPointerOutCapture={pointerCancel}
+                      onPointerOverCapture={pointerOver}
+                      onPointerUpCapture={pointerEnd}
+                      onMouseMove={onMouseMove}
+                      onMouseDown={onMouseDown}
+                      onMouseOut={onMouseOut}
+                      onMouseOver={onMouseOver}
+                      onMouseUp={onMouseUp}
                     >
                       <AutoSizer>
                         {({ width, height }: Size) => {

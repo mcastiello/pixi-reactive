@@ -387,11 +387,23 @@ export const usePointerContext = (retina: boolean, width: number, height: number
   );
   const updateMousePosition = useCallback(
     (event: MouseEvent) => {
-      const { offsetX: x, offsetY: y } = event;
+      let offsetX = 0;
+      let offsetY = 0;
+      const { offsetX: x, offsetY: y, target, currentTarget } = event;
+      if (target && currentTarget && target !== currentTarget) {
+        const source = (target as HTMLElement).getBoundingClientRect();
+        const container = (currentTarget as HTMLElement).getBoundingClientRect();
 
-      triggerUpdatePosition(x, y);
+        offsetX = source.x - container.x;
+        offsetY = source.y - container.y;
+      }
 
-      return { x, y };
+      triggerUpdatePosition(x + offsetX, y + offsetY);
+
+      return {
+        x: x + offsetX,
+        y: y + offsetY
+      };
     },
     [triggerUpdatePosition]
   );
